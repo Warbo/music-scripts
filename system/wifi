@@ -1,8 +1,0 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p iw
-
-# Clear NixOS's DNS cache
-sudo systemctl restart nscd
-
-# Can prevent the system freezing
-sudo iw dev wlp2s0 set power_save off

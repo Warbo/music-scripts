@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-sudo rm -f /dev/null
-sudo mknod -m 666 /dev/null c 1 3
