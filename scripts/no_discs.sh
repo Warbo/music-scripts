@@ -32,8 +32,8 @@ do
                     mkdir -p "$NODISC"
                     for TRACK in "$NAME"/*
                     do
-                        TRACKESC=$(echo "$PWD/$TRACK"    | sed -e "s/'/'\\\\''/g")
-                        NODISCESC=$(echo "$PWD/$NODISC/" | sed -e "s/'/'\\\\''/g")
+                         TRACKESC=$(echo "$PWD/$TRACK"   | esc.sh)
+                        NODISCESC=$(echo "$PWD/$NODISC/" | esc.sh)
                         echo "mv -v '$TRACKESC' '$NODISCESC'"
                     done
                     popd > /dev/null

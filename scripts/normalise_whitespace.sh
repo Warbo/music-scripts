@@ -4,17 +4,13 @@
 # to dupes. Includes 'double  spaces', ' initial spaces' and
 # 'spaces before .extensions'
 
-function esc {
-    sed -e "s@'@'\\\\''@g"
-}
-
 while read -r NAME
 do
     DIR=$(dirname "$NAME")
     FILE=$(basename "$NAME")
     NORMAL=$(echo "$FILE" | sed -e 's/   */ /g')
-    SRC=$(echo "$DIR/$FILE"   | esc)
-    DST=$(echo "$DIR/$NORMAL" | esc)
+    SRC=$(echo "$DIR/$FILE"   | esc.sh)
+    DST=$(echo "$DIR/$NORMAL" | esc.sh)
     if [[ -e "$DIR/$NORMAL" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
@@ -27,8 +23,8 @@ do
     DIR=$(dirname "$NAME")
     FILE=$(basename "$NAME")
     NORMAL=$(echo "$FILE" | sed -e 's/^  *//g')
-    SRC=$(echo "$DIR/$FILE"   | esc)
-    DST=$(echo "$DIR/$NORMAL" | esc)
+    SRC=$(echo "$DIR/$FILE"   | esc.sh)
+    DST=$(echo "$DIR/$NORMAL" | esc.sh)
     if [[ -e "$DIR/$NORMAL" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
@@ -41,8 +37,8 @@ do
     DIR=$(dirname "$NAME")
     FILE=$(basename "$NAME")
     NORMAL=$(echo "$FILE" | sed -e 's/  *\.\([^\.]*\)$/\.\1/g')
-    SRC=$(echo "$DIR/$FILE"   | esc)
-    DST=$(echo "$DIR/$NORMAL" | esc)
+    SRC=$(echo "$DIR/$FILE"   | esc.sh)
+    DST=$(echo "$DIR/$NORMAL" | esc.sh)
     [[ "x$FILE" = "x$NORMAL" ]] && continue
     if [[ -e "$DST" ]]
     then

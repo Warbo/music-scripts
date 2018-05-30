@@ -2,10 +2,6 @@
 
 BASE=$(dirname "$(readlink -f "$0")")
 
-function esc {
-    sed -e "s/'/'\\\\''/g"
-}
-
 for INIT in Music/Commercial/*
 do
     [[ -d "$INIT" ]] || {
@@ -20,8 +16,8 @@ do
         }
         while read -r PAIR
         do
-             FIRST=$(echo "$PAIR" | cut -f1 | esc)
-            SECOND=$(echo "$PAIR" | cut -f2 | esc)
+             FIRST=$(echo "$PAIR" | cut -f1 | esc.sh)
+            SECOND=$(echo "$PAIR" | cut -f2 | esc.sh)
 
             echo "mv '$FIRST'/* '$SECOND'/"
         done < <(find "$ARTIST" -type d | "$BASE/list_dupe_guesses.sh")

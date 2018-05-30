@@ -73,9 +73,9 @@ do
                     continue
                 fi
 
-                ALBUM_NAME_ESC=$(echo "$ALBUM" | sed -e "s/'/'\\\\''/g")
+                ALBUM_NAME_ESC=$(echo "$ALBUM" | esc.sh)
                 ALBUM_NOSLASH=$(echo "$ALBUM"  | sed -e "s@/@_@g")
-                ALBUM_ESC=$(echo "$ARTIST_DIR/$ALBUM_NOSLASH" | sed -e "s/'/'\\\\''/g")
+                ALBUM_ESC=$(echo "$ARTIST_DIR/$ALBUM_NOSLASH" | esc.sh)
 
                 FOUND=0
                 while read -r D
@@ -93,7 +93,7 @@ do
                         continue
                     fi
 
-                    D_ESC=$(echo "$D" | sed -e "s/'/'\\\\''/g")
+                    D_ESC=$(echo "$D" | esc.sh)
 
                     if echo "$ALBUM_STRIP" | grep -F -- "$D_STRIP" > /dev/null
                     then

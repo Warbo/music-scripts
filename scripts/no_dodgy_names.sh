@@ -2,10 +2,6 @@
 
 set -e
 
-function esc {
-    sed -e "s@'@'\\\\''@g"
-}
-
 printf 'Checking stdin for files with dodgy names' 1>&2
 while read -r NAME
 do
@@ -15,18 +11,19 @@ do
             PARENT=$(dirname "$NAME")
             for ENTRY in "$DIR"/*
             do
-                 SRC=$(echo "$ENTRY"  | esc)
-                DEST=$(echo "$PARENT" | esc)
+                 SRC=$(echo "$ENTRY"  | esc.sh)
+                DEST=$(echo "$PARENT" | esc.sh)
                 echo "mv '$SRC' '$DEST'"
             done
-            ESCAPED=$(echo "$NAME" | esc)
+            ESCAPED=$(echo "$NAME" | esc.sh)
             echo "rmdir '$ESCAPED'"
             ;;
 
         *magnatune.com*)
-             SRC=$(echo "$NAME" | esc)
+             SRC=$(echo "$NAME" | esc.sh)
             DEST=$(echo "$NAME" |
-                   sed -e 's@ (PREVIEW_ buy it at www.magnatune.com)@@g' | esc)
+                   sed -e 's@ (PREVIEW_ buy it at www.magnatune.com)@@g' |
+                   esc.sh)
             echo "mv -v '$SRC' '$DEST'"
             ;;
 
@@ -35,7 +32,7 @@ do
             echo -e "\nName '$NAME' looks like a dupe" 1>&2
             OTHER=$(basename "$NAME" | cut -d '_' -f 2-)
               DIR=$(dirname "$NAME")
-              ESC=$(echo "$NAME" | esc)
+              ESC=$(echo "$NAME" | esc.sh)
               if [[ -e "$DIR/$OTHER" ]]
               then
                   echo "rm -v '$ESC'"
