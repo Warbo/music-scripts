@@ -45,21 +45,10 @@ with rec {
   inherit (nixPkgs) attrsToDirs fail haskellPackages makeWrapper newScope
                     runCommand withDeps;
 
-  # Let scripts depend on each other by adding 'bin' to the argument set
-  scripts = mapAttrs' (f: _: rec {
-                        name  = removeSuffix ".nix" f;
-                        value = nixPkgs.newScope (nixPkgs // bin)
-                                                 (./scripts + "/${f}")
-                                                 {};
-                      })
-                      (readDir ./scripts);
-
   cmds = foldl (rest: dir: rest // mapAttrs (f: _: dir + "/${f}")
                                             (readDir dir))
                {}
-               [ ./system ./web ./git ./development ./testing ./docs ];
-
-  bin = cmds // scripts;
+               [ ./scripts ];
 
   check = mapAttrs (name: script: runCommand "check-${name}"
                      {
@@ -95,12 +84,12 @@ with rec {
                        fi
                        mkdir "$out"
                      '')
-                   bin;
+                   cmds;
 
   pkg = withDeps (attrValues check)
                  (runCommand "warbo-utilities"
                    {
-                     bin         = attrsToDirs bin;
+                     bin         = attrsToDirs cmds;
                      buildInputs = [ makeWrapper ];
                    }
                    ''
@@ -119,4 +108,4 @@ with rec {
 
 if packageOnly
    then pkg
-   else { inherit scripts pkg nixPkgs; }
+   else { inherit cmds pkg nixPkgs; }
