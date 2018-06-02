@@ -74,7 +74,7 @@ do
                 fi
 
                 ALBUM_NAME_ESC=$(echo "$ALBUM" | esc.sh)
-                ALBUM_NOSLASH=$(echo "$ALBUM"  | sed -e "s@/@_@g")
+                ALBUM_NOSLASH="${ALBUM//\//_}"
                 ALBUM_ESC=$(echo "$ARTIST_DIR/$ALBUM_NOSLASH" | esc.sh)
 
                 FOUND=0

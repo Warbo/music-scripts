@@ -100,13 +100,14 @@ do
             then
                 echo "'$F_ESC' should be renamed to .opus"
                 echo "mv '$F_ESC' '$OPUS_ESC'"
-            else if file "$F.oga" | grep -i vorbis > /dev/null
-                 then
-                     echo "'$F_ESC' should be renamed to .ogg"
-                     echo "mv '$F_ESC' '$OGG_ESC'"
-                 else
-                     echo "Unknown codec in '$F_ESC'"
-                 fi
+            else
+                if file "$F.oga" | grep -i vorbis > /dev/null
+                then
+                    echo "'$F_ESC' should be renamed to .ogg"
+                    echo "mv '$F_ESC' '$OGG_ESC'"
+                else
+                    echo "Unknown codec in '$F_ESC'"
+                fi
             fi
         done < <(withExtIn "oga" "$ARTIST")
 
