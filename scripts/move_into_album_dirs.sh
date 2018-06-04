@@ -55,8 +55,6 @@ function processDir {
         D=$(dirname "$(readlink -f "$F")")
         same "$D" "$TOP/$INIT/$ARTIST/$ALBUM" || {
             EF=$(echo "$F"                        | esc)
-            EA=$(echo "$ARTIST"                   | esc)
-            EB=$(echo "$ALBUM"                    | esc)
             EP=$(echo "$TOP/$INIT/$ARTIST/$ALBUM" | esc)
 
             echo "File '$F' has album '$ALBUM'; move with command:"

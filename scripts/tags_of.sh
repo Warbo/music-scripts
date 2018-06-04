@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
 DIR=$(dirname  "$1")
 F=$(basename "$1")
 

@@ -20,7 +20,6 @@ do
     fi
 
     DIR=$(dirname "$FILE")
-    ESC=$(echo "$NAME" | sed -e 's/"/\"/g')
 
     ARTIST=$(basename "$1")
 
