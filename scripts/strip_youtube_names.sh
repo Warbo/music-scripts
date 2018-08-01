@@ -4,6 +4,7 @@ BASE=$(dirname "$(readlink -f "$0")")
 
 while read -r F
 do
+    # shellcheck disable=SC2001
     STRIPPED=$(echo "$F" | sed -e 's/-[^ ()]*\.\(....*\)/.\1/g')
 
            F_ESC=$(echo "$F"        | "$BASE/esc.sh")

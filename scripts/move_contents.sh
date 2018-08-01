@@ -30,7 +30,7 @@ function move_if_no_conflict {
                 shopt -s nullglob
                 for INNER in "$SOURCE/$THEPATH"/*
                 do
-                    RELATIVE=$(echo "$INNER" | sed -e 's@^[^/]*/@@')
+                    RELATIVE="${INNER#*/}"
                     move_if_no_conflict "$INITIAL" "$SOURCE" "$RELATIVE"
                 done
             else
@@ -56,7 +56,7 @@ function move_contents {
             shopt -s nullglob
             for DIR in "$COLLECTION/$INIT"*
             do
-                RELATIVE=$(echo "$DIR" | sed -e 's@^[^/]*/@@')
+                RELATIVE="${DIR#*/}"
                 move_if_no_conflict "$INIT" "$COLLECTION" "$RELATIVE"
             done
         done

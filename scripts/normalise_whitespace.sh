@@ -8,7 +8,10 @@ while read -r NAME
 do
     DIR=$(dirname "$NAME")
     FILE=$(basename "$NAME")
+
+    # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/   */ /g')
+
     SRC=$(echo "$DIR/$FILE"   | esc.sh)
     DST=$(echo "$DIR/$NORMAL" | esc.sh)
     if [[ -e "$DIR/$NORMAL" ]]
@@ -22,7 +25,10 @@ while read -r NAME
 do
     DIR=$(dirname "$NAME")
     FILE=$(basename "$NAME")
+
+    # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/^  *//g')
+
     SRC=$(echo "$DIR/$FILE"   | esc.sh)
     DST=$(echo "$DIR/$NORMAL" | esc.sh)
     if [[ -e "$DIR/$NORMAL" ]]
@@ -36,7 +42,10 @@ while read -r NAME
 do
     DIR=$(dirname "$NAME")
     FILE=$(basename "$NAME")
+
+    # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/  *\.\([^\.]*\)$/\.\1/g')
+
     SRC=$(echo "$DIR/$FILE"   | esc.sh)
     DST=$(echo "$DIR/$NORMAL" | esc.sh)
     [[ "x$FILE" = "x$NORMAL" ]] && continue
