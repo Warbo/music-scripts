@@ -12,7 +12,7 @@ do
     F_ESC=$(echo "$F" | "$BASE/esc.sh")
 
     echo "Looking for artist tag in '$F'" 1>&2
-    ARTIST=$("$BASE/get_tag.sh" artist "$F")
+    ARTIST=$(get_tag artist "$F")
 
     [[ -n "$ARTIST" ]] || {
         echo "No artist tag for '$F', skipping" 1>&2
@@ -34,7 +34,7 @@ do
     }
 
     echo "Looking for album tag in '$F'" 1>&2
-    ALBUM=$("$BASE/get_tag.sh" album "$F")
+    ALBUM=$(get_tag album "$F")
 
     if [[ -n "$ALBUM" ]]
     then
