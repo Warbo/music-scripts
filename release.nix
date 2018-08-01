@@ -1,1 +1,1 @@
-{ inherit (import ./.) cmds music-scripts; }
+{ inherit (import ./.) music-cmds music-scripts; }

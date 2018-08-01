@@ -8,7 +8,7 @@ with {
                   else "${./scripts}/${f}";
 };
 {
-  cmds = mapAttrs' (f: _: {
+  music-cmds = mapAttrs' (f: _: {
                      name  = removeSuffix ".nix" f;
                      value = process f;
                    })
@@ -49,13 +49,13 @@ with {
         fi
         mkdir "$out"
       '')
-    self.cmds;
+    self.music-cmds;
 
   music-scripts = self.withDeps
     (attrValues self.check)
     (self.runCommand "music-scripts"
       {
-        bin         = self.attrsToDirs' "commands" self.cmds;
+        bin         = self.attrsToDirs' "commands" self.music-cmds;
         buildInputs = [ self.makeWrapper ];
       }
       ''
