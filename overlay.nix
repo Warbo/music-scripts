@@ -2,11 +2,17 @@ self: super:
 
 with builtins;
 with self.lib;
+with {
+  process = f: if hasSuffix ".nix" f
+                  then self.callPackage (./scripts + "/${f}") {}
+                  else "${./scripts}/${f}";
+};
 {
-  cmds = foldl (rest: dir: rest // mapAttrs (f: _: dir + "/${f}")
-                                            (readDir dir))
-               {}
-               [ ./scripts ];
+  cmds = mapAttrs' (f: _: {
+                     name  = removeSuffix ".nix" f;
+                     value = process f;
+                   })
+                   (readDir ./scripts);
 
   check = mapAttrs
     (name: script: self.runCommand "check-${name}"
