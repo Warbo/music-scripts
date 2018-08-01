@@ -69,7 +69,7 @@ do
                         echo "Found multiple matches for '$ALBUM_DIR/$NUM - $TRACK'" 1>&2
                         echo "$FILES" | grep '^.' 1>&2
                     fi
-                done < <("$BASE/tracks_from.sh" < "$TRACK_FILE")
+                done < <(tracks_from < "$TRACK_FILE")
             done < <("$BASE/album_names_from.sh" < "$ALBUM_CACHE")
         fi
     done
