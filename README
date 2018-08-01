@@ -10,7 +10,7 @@ missing.
 ## check_artist_names.sh
 
 For each artist directory in Music/Commercial/*, invoke
-`check_on_metalarchive.sh`. If that fails, invoke `check_on_lastfm.sh`. If both
+`check_on_metalarchive`. If that fails, invoke `check_on_lastfm.sh`. If both
 fail, report the artist as not being found.
 
 ## check_on_lastfm.sh

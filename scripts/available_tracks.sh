@@ -70,7 +70,7 @@ do
                         echo "$FILES" | grep '^.' 1>&2
                     fi
                 done < <(tracks_from < "$TRACK_FILE")
-            done < <("$BASE/album_names_from.sh" < "$ALBUM_CACHE")
+            done < <(album_names_from < "$ALBUM_CACHE")
         fi
     done
 done
