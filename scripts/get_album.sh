@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-BASE=$(dirname "$(readlink -f "$0")")
-
 [[ -d Music/Commercial ]] || {
     echo "Can't find Music/Commercial; check working directory" 1>&2
     exit 1
@@ -39,9 +37,9 @@ then
     # Note: the best audio format may be a video format; we can sort these after
     ts youtube-dl -i -x "$URL"
     echo "Download is queued" 1>&2
-    ts "$BASE/tag_album_dir.sh" "$(readlink -f .)"
+    ts tag_album_dir "$(readlink -f .)"
 else
     echo "ts not found, fetching directly..." 1>&2
     youtube-dl -i -x "$URL"
-    "$BASE/tag_album_dir.sh" "$(readlink -f .)"
+    tag_album_dir "$(readlink -f .)"
 fi

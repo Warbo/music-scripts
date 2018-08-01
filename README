@@ -82,7 +82,7 @@ in Music/Free (e.g. those from OCRemix, Newgrounds, etc.)
 
 Given an artist name, an album name and a YouTube playlist URL, creates the
 appropriate directory (if needed) and extracts the audio from the playlist
-tracks using `youtube-dl`. `tag_album_dir.sh` is invoked afterwards.
+tracks using `youtube-dl`. `tag_album_dir` is invoked afterwards.
 
 Uses TaskSpooler to queue up download and tagging processes, if available.
 
@@ -139,7 +139,7 @@ Remove characters from the argument which aren't letters and make the result
 lowercase. This increases the chance of spotting duplicates, e.g. if they have
 different capitalisation or punctuation.
 
-## tag_album_dir.sh
+## tag_album_dir
 
 Given a directory path ending in "FOO/BAR", will use `fmmpeg` to set all of the
 "Artist" tags of the contents to "FOO" and all of the "Album" tags to "BAR".
