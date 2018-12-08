@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
 function withExtIn() {
     # Looks for files in $2 which end in extension $1; returns the paths but
     # strips off the extension (so we can stick a new one on)
@@ -47,7 +45,7 @@ done
 # More thorough checks, for each file and directory
 for I in Music/Commercial/*
 do
-    I_ESC=$(echo "$I" | "$BASE/esc.sh")
+    I_ESC=$(echo "$I" | esc.sh)
     [[ -d "$I" ]] || {
         echo "'$I_ESC' isn't a directory"
         continue
@@ -55,7 +53,7 @@ do
 
     for ARTIST in "$I"/*
     do
-        ARTIST_ESC=$(echo "$ARTIST" | "$BASE/esc.sh")
+        ARTIST_ESC=$(echo "$ARTIST" | esc.sh)
         [[ -d "$ARTIST" ]] || {
             echo "'$ARTIST_ESC' isn't a directory"
             continue
@@ -63,7 +61,7 @@ do
 
         for ALBUM in "$ARTIST"/*
         do
-            ALBUM_ESC=$(echo "$ALBUM" | "$BASE/esc.sh")
+            ALBUM_ESC=$(echo "$ALBUM" | esc.sh)
             [[ -d "$ALBUM" ]] || {
                 echo "'$ALBUM_ESC' isn't a directory"
                 continue
@@ -71,7 +69,7 @@ do
 
             for TRACK in "$ALBUM"/*
             do
-                TRACK_ESC=$(echo "$TRACK" | "$BASE/esc.sh")
+                TRACK_ESC=$(echo "$TRACK" | esc.sh)
                 [[ -f "$TRACK" ]] || {
                     echo "'$TRACK_ESC' isn't a file"
                     continue
@@ -81,7 +79,7 @@ do
 
         while read -r F
         do
-            F_ESC=$(echo "$F" | "$BASE/esc.sh")
+            F_ESC=$(echo "$F" | esc.sh)
             echo "'$F_ESC' should probably be (losslessly) converted to ogg"
         done < <(find "$ARTIST" -iname "*.mka")
 
@@ -92,9 +90,9 @@ do
                 continue
             }
 
-               F_ESC=$(echo "$F.oga"  | "$BASE/esc.sh")
-            OPUS_ESC=$(echo "$F.opus" | "$BASE/esc.sh")
-             OGG_ESC=$(echo "$F.ogg"  | "$BASE/esc.sh")
+               F_ESC=$(echo "$F.oga"  | esc.sh)
+            OPUS_ESC=$(echo "$F.opus" | esc.sh)
+             OGG_ESC=$(echo "$F.ogg"  | esc.sh)
 
             if file "$F.oga" | grep -i opus > /dev/null
             then
@@ -117,8 +115,8 @@ do
                 echo "Couldn't find '$F.wav'; rename to lowercase?" 1>&2
                 continue
             }
-               F_ESC=$(echo "$F.wav"  | "$BASE/esc.sh")
-            OPUS_ESC=$(echo "$F.opus" | "$BASE/esc.sh")
+               F_ESC=$(echo "$F.wav"  | esc.sh)
+            OPUS_ESC=$(echo "$F.opus" | esc.sh)
 
             if file "$F.wav" | grep "WAVE audio" > /dev/null
             then
@@ -136,7 +134,7 @@ do
         do
             while read -r F
             do
-                F_ESC=$(echo "$F.$EXT" | "$BASE/esc.sh")
+                F_ESC=$(echo "$F.$EXT" | esc.sh)
                 echo "Found possible video file '$F_ESC'"
             done < <(withExtIn "$EXT" "$ARTIST")
         done
