@@ -61,6 +61,7 @@ def scramble(l):
 
 if not process_stdin():
     msg('Empty stdin, working through artists randomly\n')
+    run(['dodgy_artist_paths.sh'])
     for initial in scramble(listdir(root)):
         for artist in scramble(listdir(root + '/' + initial)):
             process_artist(root + '/' + initial + '/' + artist)
