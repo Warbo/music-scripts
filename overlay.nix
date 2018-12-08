@@ -6,13 +6,6 @@ with {
   process = f: if hasSuffix ".nix" f
                   then self.callPackage (./scripts + "/${f}") {}
                   else "${./scripts}/${f}";
-};
-{
-  music-cmds = mapAttrs' (f: _: {
-                     name  = removeSuffix ".nix" f;
-                     value = process f;
-                   })
-                   (readDir ./scripts);
 
   check = mapAttrs
     (name: script: self.runCommand "check-${name}"
@@ -51,8 +44,16 @@ with {
       '')
     self.music-cmds;
 
+};
+{
+  music-cmds = mapAttrs' (f: _: {
+                     name  = removeSuffix ".nix" f;
+                     value = process f;
+                   })
+                   (readDir ./scripts);
+
   music-scripts = self.withDeps
-    (attrValues self.check)
+    (attrValues check)
     (self.runCommand "music-scripts"
       {
         bin         = self.attrsToDirs' "commands" self.music-cmds;
