@@ -44,12 +44,12 @@ function tagsFor {
     # Artist
     ART_ESC=$(echo "$1" | esc)
 
-    echo -e "TPE1\t$1\t--artist='$ART_ESC'"
+    echo -e "TPE1\\t$1\\t--artist='$ART_ESC'"
     #echo -e "TPE2\t$1"
 
     # Album
     ALB_ESC=$(echo "$2" | esc)
-    echo -e "TALB\t$2\t--album='$ALB_ESC'"
+    echo -e "TALB\\t$2\\t--album='$ALB_ESC'"
 }
 
 function checkMp3s {

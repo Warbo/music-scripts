@@ -53,11 +53,11 @@ do
                         if echo "$F_BASE" | grep -F "$TRACK" > /dev/null
                         then
                             FOUND=$(( FOUND + 1 ))
-                            FILES=$(echo -e "$FILES\n$F")
+                            FILES=$(echo -e "$FILES\\n$F")
                         elif echo "$TRACK" | grep -F "$F_BASE" > /dev/null
                         then
                             FOUND=$(( FOUND + 1 ))
-                            FILES=$(echo -e "$FILES\n$F")
+                            FILES=$(echo -e "$FILES\\n$F")
                         fi
                     done
 

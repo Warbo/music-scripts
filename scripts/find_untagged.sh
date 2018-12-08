@@ -2,7 +2,7 @@
 BASE=$(dirname "$(readlink -f "$0")")
 
 function hasSuffix() {
-    if echo "$2" | grep -i "\.$1"'$' > /dev/null
+    if echo "$2" | grep -i "\\.$1"'$' > /dev/null
     then
         return 0
     else
@@ -25,7 +25,7 @@ do
             continue
         fi
         printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | "$BASE/esc.sh")"
-        echo "$TAGS" 1>2
+        echo "$TAGS" 1>&2
     else
         echo "Don't know format of '$FILE'" 1>&2
     fi

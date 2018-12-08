@@ -18,7 +18,7 @@ function free_dirs {
 function free_out_of_commercial {
     # Move directories which should be in Free out of Commercial
     # (Mostly to appease Jo)
-    pushd Music/Commercial > /dev/null
+    pushd Music/Commercial > /dev/null || return
     mkdir -p ../Free
     while read -r DIR
     do
@@ -26,7 +26,7 @@ function free_out_of_commercial {
         mkdir -p ../Free/"$PARENT"
         echo "mv -v '$PWD/$DIR' '$PWD/../Free/$DIR'"
     done < <(free_dirs)
-    popd > /dev/null
+    popd > /dev/null || return
 }
 
 free_out_of_commercial

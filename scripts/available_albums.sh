@@ -56,7 +56,7 @@ do
                 [[ -d "$D" ]] || continue
 
                 # Otherwise, D seems worth fuzzy-matching
-                DIRS=$(echo -e "$DIRS\n$D" | grep '^.')
+                DIRS=$(echo -e "$DIRS\\n$D" | grep '^.')
             done
 
             # For each unseen album, look for fuzzy matches

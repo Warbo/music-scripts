@@ -28,7 +28,7 @@ do
                 if [[ "x${NOLOWER} (disc ${DISC})" = "x$LOWER" ]]
                 then
                     DIR=$(dirname "$ALBUM")
-                    pushd "$DIR" > /dev/null
+                    pushd "$DIR" > /dev/null || exit 1
                     mkdir -p "$NODISC"
                     for TRACK in "$NAME"/*
                     do
@@ -36,7 +36,7 @@ do
                         NODISCESC=$(echo "$PWD/$NODISC/" | esc.sh)
                         echo "mv -v '$TRACKESC' '$NODISCESC'"
                     done
-                    popd > /dev/null
+                    popd > /dev/null || exit 1
                 fi
             done
         done

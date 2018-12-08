@@ -29,7 +29,7 @@ do
 
         *tmp_*)
             [[ -f "$NAME" ]] || continue
-            echo -e "\nName '$NAME' looks like a dupe" 1>&2
+            echo -e "\\nName '$NAME' looks like a dupe" 1>&2
             OTHER=$(basename "$NAME" | cut -d '_' -f 2-)
               DIR=$(dirname "$NAME")
               ESC=$(echo "$NAME" | esc.sh)
@@ -37,7 +37,8 @@ do
               then
                   echo "rm -v '$ESC'"
               else
-                  echo -e "\nNo equivalent '$OTHER' found in '$DIR' though" 1>&2
+                  echo 1>&2
+                  echo "No equivalent '$OTHER' found in '$DIR' though" 1>&2
               fi
               ;;
     esac

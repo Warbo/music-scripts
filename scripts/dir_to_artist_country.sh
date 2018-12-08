@@ -84,4 +84,4 @@ else
 fi
 CNT=$(codeToCountry "$COUNTRY")
 
-echo -e "$BANDNAME\t$CNT"
+echo -e "$BANDNAME\\t$CNT"
