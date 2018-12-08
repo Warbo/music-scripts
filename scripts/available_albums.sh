@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-command -v xidel > /dev/null || {
-    echo "xidel not found" 1>&2
-    exit 1
-}
-
-BASE=$(dirname "$(readlink -f "$0")")
+## Always call via available_albums.nix to ensure we have dependencies
 
 for INIT_DIR in Music/Commercial/*
 do
@@ -16,7 +11,7 @@ do
     do
         [[ -d "$ARTIST_DIR" ]] || continue
         DIR_NAME=$(basename "$ARTIST_DIR")
-        NAME_COUNTRY=$("$BASE/dir_to_artist_country.sh" "$DIR_NAME")
+        NAME_COUNTRY=$(dir_to_artist_country.sh "$DIR_NAME")
 
         NAME=$(echo "$NAME_COUNTRY" | cut -f1)
          CNT=$(echo "$NAME_COUNTRY" | cut -f2)
@@ -64,7 +59,7 @@ do
             do
                 [[ -n "$ALBUM" ]] || continue
 
-                ALBUM_STRIP=$("$BASE/strip_name.sh" "$ALBUM")
+                ALBUM_STRIP=$(strip_name.sh "$ALBUM")
 
                 CHARS=$(echo -n "$ALBUM_STRIP" | wc -c)
                 if [[ "$CHARS" -lt 4 ]]
@@ -83,7 +78,7 @@ do
                     [[ -n "$D" ]] || continue
 
                     D_BASE=$(basename "$D")
-                    D_STRIP=$("$BASE/strip_name.sh" "$D_BASE")
+                    D_STRIP=$(strip_name.sh "$D_BASE")
 
                     CHARS=$(echo -n "$D_STRIP" | wc -c)
 
