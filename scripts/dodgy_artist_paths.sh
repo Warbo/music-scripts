@@ -35,14 +35,14 @@ then
     BADNUM=1
     for ARTIST in "$1"/*
     do
-        check "$ARTIST"
+        checkArtist "$ARTIST"
     done
 else
     BADDIR='Music/Commercial/'
     BADNUM=2
     for ARTIST in Music/Commercial/*/*
     do
-        check "$ARTIST"
+        checkArtist "$ARTIST"
     done
 fi
 
