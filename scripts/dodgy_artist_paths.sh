@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
 
-for ARTIST in Music/Commercial/*/*
-do
-    NAME=$(basename "$ARTIST")
+function checkArtist() {
+    NAME=$(basename "$1")
 
     if echo "$NAME" | grep '^.\.\(.\.\)*.$' > /dev/null
     then
-        echo "'$NAME' should probably end in a '.'"
+        echo "'$1' should probably end in a '.'"
     fi
 
     if echo "$NAME" | grep ', The' > /dev/null
     then
-        echo "'$NAME' should probably be 'The ...'"
+        echo "'$1' should probably be 'The ...'"
     fi
-done
+}
 
-find Music/Commercial/ -maxdepth 2 | while read -r P
-do
-    NAME=$(basename "$P")
+function findBad() {
+    NAME=$(basename "$1")
     for ARTIST in Blue\ Oyster\ Cult  \
                       Blue\ Oeyster\ Cult \
                       Motvrhead           \
@@ -29,4 +27,26 @@ do
             echo "Found badly named '$NAME' directory"
         fi
     done
+}
+
+if [[ -n "$1" ]]
+then
+    BADDIR="$1"
+    BADNUM=1
+    for ARTIST in "$1"/*
+    do
+        check "$ARTIST"
+    done
+else
+    BADDIR='Music/Commercial/'
+    BADNUM=2
+    for ARTIST in Music/Commercial/*/*
+    do
+        check "$ARTIST"
+    done
+fi
+
+find "$BADDIR" -maxdepth "$BADNUM" | while read -r P
+do
+    findBad "$P"
 done
