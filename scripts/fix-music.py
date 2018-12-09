@@ -33,7 +33,15 @@ if not isdir(root):
 msg = stderr.write
 
 def process_artist(path):
-    run(['delete_crap.sh', path])
+    init = path.split('/')[-2]
+    # Simple checks, which don't need any file or Web info
+    run(['delete_crap.sh',      path])
+
+    # Get info from the Web, if available; these should cache themselves
+    run(['check_on_metalarchive', path, init])
+
+    # Run calls to action
+    run(['available_albums.sh', path])
     return
 
 def stdin_gen():
