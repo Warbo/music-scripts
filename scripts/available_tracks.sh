@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-command -v xidel > /dev/null || {
-    echo "xidel not found" 1>&2
-    exit 1
-}
-
-BASE=$(dirname "$(readlink -f "$0")")
-
 for INIT_DIR in Music/Commercial/*
 do
     [[ -d "$INIT_DIR" ]] || continue
@@ -16,7 +9,7 @@ do
     do
         [[ -d "$ARTIST_DIR" ]] || continue
         DIR_NAME=$(basename "$ARTIST_DIR")
-        NAME_COUNTRY=$("$BASE/dir_to_artist_country.sh" "$DIR_NAME")
+        NAME_COUNTRY=$(dir_to_artist_country.sh "$DIR_NAME")
 
         NAME=$(echo "$NAME_COUNTRY" | cut -f1)
          CNT=$(echo "$NAME_COUNTRY" | cut -f2)
