@@ -28,7 +28,7 @@ wrap {
             else
                 echo "Getting tracks from '$ALBUM_URL'" 1>&2
                 sleep 1
-                curl "$ALBUM_URL" > "$TRACK_FILE" ||
+                curl -L "$ALBUM_URL" > "$TRACK_FILE" ||
                     echo "Error fetching '$ALBUM_URL'" 1>&2
             fi
         done < <(xidel -q - -e '//td/a[@class="album"]/@href' < "$1" | \
@@ -51,7 +51,7 @@ wrap {
             BAND_ID=$(echo "$BAND_URL" | grep -o '[0-9]*$')
 
             DISC_URL="http://www.metal-archives.com/band/discography/id/$BAND_ID/tab/all"
-            curl "$DISC_URL" > "$ALBUM_CACHE" || {
+            curl -L "$DISC_URL" > "$ALBUM_CACHE" || {
                 echo "Error fetching '$DISC_URL'" 1>&2
                 return 1
             }
@@ -68,9 +68,10 @@ wrap {
         else
             echo "Searching for '$1' on metal-archives.com" 1>&2
             sleep 1
-            curl --get --data-urlencode "field=name"      \
-                 --data-urlencode "query=$1" \
-                 "http://www.metal-archives.com/search/ajax-band-search/" > "$CACHED"
+            curl -L --get --data-urlencode "field=name"                      \
+                    --data-urlencode "query=$1"                              \
+                    "http://www.metal-archives.com/search/ajax-band-search/" \
+                    > "$CACHED"
         fi
         [[ -f "$CACHED" ]] || {
             echo "Error: Couldn't find metal-archives data for '$1'" 1>&2
@@ -80,7 +81,8 @@ wrap {
     }
 
     function haveMetalArchive {
-        NAME_CNT=$(dir_to_artist_country.sh "$1")
+        NAME=$(basename "$1")
+        NAME_CNT=$(dir_to_artist_country.sh "$NAME")
         BANDNAME=$(echo "$NAME_CNT" | cut -f1)
         CNT=$(echo "$NAME_CNT" | cut -f2)
 
@@ -129,10 +131,15 @@ wrap {
         return 1
     }
 
-    [[ -n "$INIT" ]] || {
-        echo "No INIT set, aborting" 1>&2
+    if [[ -z "$INIT" ]]
+    then
+      if [[ -z "$2" ]]
+      then
+        echo "No INIT set (or second arg given), aborting" 1>&2
         exit 1
-    }
+      fi
+      INIT="$2"
+    fi
 
     CACHE_DIR="$PWD/.artist_name_cache"
     mkdir -p "$CACHE_DIR"
