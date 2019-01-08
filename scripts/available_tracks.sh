@@ -2,6 +2,7 @@
 
 function process_artist() {
     ARTIST_DIR="$1"
+    INIT="$2"
     [[ -d "$ARTIST_DIR" ]] || return
     DIR_NAME=$(basename "$ARTIST_DIR")
     NAME_COUNTRY=$(dir_to_artist_country.sh "$DIR_NAME")
@@ -9,7 +10,7 @@ function process_artist() {
 
     NAME=$(echo "$NAME_COUNTRY" | cut -f1)
      CNT=$(echo "$NAME_COUNTRY" | cut -f2)
-     unset NAME_COUNTRY
+    unset NAME_COUNTRY
 
     ALBUM_CACHE=".artist_name_cache/$INIT/${NAME}_${CNT}.albums"
     TRACK_DIR=".artist_name_cache/$INIT/${NAME}_${CNT}.tracks"
@@ -64,13 +65,23 @@ function process_artist() {
     fi
 }
 
-for INIT_DIR in Music/Commercial/*
-do
-    [[ -d "$INIT_DIR" ]] || continue
-    INIT=$(basename "$INIT_DIR")
-
-    for ARTIST_DIR in "$INIT_DIR"/*
+if [[ -n "$1" ]]
+then
+    INIT="$2"
+    [[ -n "$INIT" ]] || {
+        echo "Need initial as second arg" 1>&2
+        exit 1
+    }
+    process_artist "$1" "$2"
+else
+    for INIT_DIR in Music/Commercial/*
     do
-        process_artist "$ARTIST_DIR"
+        [[ -d "$INIT_DIR" ]] || continue
+        INIT=$(basename "$INIT_DIR")
+
+        for ARTIST_DIR in "$INIT_DIR"/*
+        do
+            process_artist "$ARTIST_DIR" "$INIT"
+        done
     done
-done
+fi
