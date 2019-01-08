@@ -14,13 +14,19 @@ do
         echo "Found crap you might want to delete" 1>&2
     fi
     echo "$P"
-done < <(find "$DIR" -iname "*.db"      \
-                 -or -iname "*.jpg"     \
-                 -or -iname "*.jpeg"    \
-                 -or -iname "*.png"     \
-                 -or -iname "*.url"     \
-                 -or -iname "*.txt"     \
-                 -or -iname "*.ini"     \
-                 -or -iname "*.onetoc2" \
+done < <(find "$DIR"  -name '.DS_Store' \
+                 -or -iname "*.db"      \
+                 -or -iname "*.gif"     \
                  -or -iname "*.htm"     \
-                 -or -iname "*.html")
+                 -or -iname "*.html"    \
+                 -or -iname "*.ini"     \
+                 -or -iname "*.jpeg"    \
+                 -or -iname "*.jpg"     \
+                 -or -iname "*.m3u"     \
+                 -or -iname "*.nfo"     \
+                 -or -iname "*.onetoc2" \
+                 -or -iname "*.png"     \
+                 -or -iname "*.sfv"     \
+                 -or -iname "*.tif"     \
+                 -or -iname "*.txt"     \
+                 -or -iname "*.url")
