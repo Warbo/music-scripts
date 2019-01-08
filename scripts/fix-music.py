@@ -20,8 +20,8 @@ checks, with as much caching as possible.
 '''
 
 from random     import shuffle
-from os         import listdir
-from os.path    import isdir, isfile
+from os         import listdir, walk
+from os.path    import isdir, isfile, join
 from subprocess import run
 from sys        import __stdin__, stderr, stdin
 
@@ -41,7 +41,12 @@ def process_artist(path):
     run(['check_on_metalarchive', path, init])
 
     # Run calls to action
-    run(['available_albums.sh', path])
+    run(['available_albums.sh', path      ])
+    run(['available_tracks',    path, init])
+
+    # Get info from file contents
+    run(['gather_acoustids', path])  # AcoustID is robust against encoding
+
     return
 
 def stdin_gen():
