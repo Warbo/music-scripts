@@ -1,15 +1,12 @@
 { fetchgit ? (import <nixpkgs> { config = {}; overlays = []; }).fetchgit }:
 
-{
-  nix-helpers = fetchgit {
-    url    = http://chriswarbo.net/git/nix-helpers.git;
-    rev    = "148bd5e";
-    sha256 = "0wywgdmv4gllarayhwf9p41pzrkvgs32shqrycv2yjkwz321w8wl";
-  };
+rec {
+  inherit (import "${warbo-packages}/helpers.nix" { inherit fetchgit; })
+    nix-helpers;
 
   warbo-packages = fetchgit {
     url    = http://chriswarbo.net/git/warbo-packages.git;
-    rev    = "e988092";
-    sha256 = "082ibmy2q9zvrm85bncm10v29rm53k25dwlgmqgmldfppprxcwja";
+    rev    = "23b258c";
+    sha256 = "0555ccayajyk08y1hfk0myib47y69hqpbgs8ac2wvml67jlscxif";
   };
 }
