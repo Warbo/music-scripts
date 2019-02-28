@@ -32,14 +32,15 @@ DIR="Music/Commercial/$INIT/$ARTIST/$ALBUM"
 mkdir -p "$DIR"
 pushd "$DIR" > /dev/null
 
+# Prefer opus, then vorbis, then whatever youtube-dl thinks is best
+FORMATS="251/171/bestaudio/best"
 if command -v "ts" > /dev/null 2>/dev/null
 then
-    # Note: the best audio format may be a video format; we can sort these after
-    ts youtube-dl -i -x "$URL"
+    ts youtube-dl -i -f "$FORMATS" -x "$URL"
     echo "Download is queued" 1>&2
     ts tag_album_dir "$(readlink -f .)"
 else
     echo "ts not found, fetching directly..." 1>&2
-    youtube-dl -i -x "$URL"
+    youtube-dl -i -f "$FORMATS" -x "$URL"
     tag_album_dir "$(readlink -f .)"
 fi
