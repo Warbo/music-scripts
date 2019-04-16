@@ -3,7 +3,7 @@ from os      import listdir
 from os.path import exists
 from sys     import stderr, stdout
 
-msg  = stderr.write
+msg  = lambda m: (stderr.write(m), stderr.flush())
 ids  = {}
 root = '.acoustid_cache'
 
