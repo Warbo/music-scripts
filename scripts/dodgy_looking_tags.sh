@@ -18,18 +18,14 @@ function checkTags {
     done
 }
 
-function doMp3 {
+if command -v mid3v2 > /dev/null
+then
+    echo "Found mid3v2, checking MP3s" 1>&2
     find Music/Commercial -iname "*.mp3" | while read -r F
     do
         printf '.' 1>&2
         mid3v2 --list "$F" | checkTags "$F"
     done
-}
-
-if command -v mid3v2 > /dev/null
-then
-    echo "Found mid3v2, checking MP3s" 1>&2
-    doMp3 2>(fold -w 10 1>&2)
 else
     echo "Not checking MP3 tags since mid3v2 not found" 1>&2
 fi
