@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
-function esc {
-    "$BASE/esc.sh"
-}
-
 function same {
     X=$(echo "$1" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]')
     Y=$(echo "$2" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]')
@@ -43,19 +37,20 @@ function processDir {
     while read -r F
     do
         ALBUM=""
-        TAGS=$("$BASE/tags_of.sh" "$F")
+        TAGS=$(tags_of "$F")
         if echo "$TAGS" | grep "^  Album  " > /dev/null
         then
-            ALBUM=$("$BASE/tags_of.sh" "$F" | grep '^  Album  '  |
-                                              sed -e 's/  */ /g' |
-                                              cut -d ' ' -f3-    | head -n1)
+            ALBUM=$(tags_of "$F" | grep '^  Album  '  |
+                                   sed -e 's/  */ /g' |
+                                   cut -d ' ' -f3-    |
+                                   head -n1)
         fi
         [[ -n "$ALBUM" ]] || continue
 
         D=$(dirname "$(readlink -f "$F")")
         same "$D" "$TOP/$INIT/$ARTIST/$ALBUM" || {
-            EF=$(echo "$F"                        | esc)
-            EP=$(echo "$TOP/$INIT/$ARTIST/$ALBUM" | esc)
+            EF=$(echo "$F"                        | esc.sh)
+            EP=$(echo "$TOP/$INIT/$ARTIST/$ALBUM" | esc.sh)
 
             echo "File '$F' has album '$ALBUM'; move with command:"
             echo "mkdir -p '$EP'"

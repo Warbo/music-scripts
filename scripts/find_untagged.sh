@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-BASE=$(dirname "$(readlink -f "$0")")
 
 function hasSuffix() {
     if echo "$2" | grep -i "\\.$1"'$' > /dev/null
@@ -19,12 +18,12 @@ do
        hasSuffix "wma"  "$FILE" ||
        hasSuffix "m4a"  "$FILE"
     then
-        TAGS=$("$BASE/tags_of.sh" "$FILE")
+        TAGS=$(tags_of "$FILE")
         if echo "$TAGS" | grep -i 'title' > /dev/null
         then
             continue
         fi
-        printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | "$BASE/esc.sh")"
+        printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | esc.sh)"
         echo "$TAGS" 1>&2
     else
         echo "Don't know format of '$FILE'" 1>&2
