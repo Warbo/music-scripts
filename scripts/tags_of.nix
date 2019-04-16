@@ -3,6 +3,7 @@
 wrap {
   name   = "tags_of";
   paths  = [ bash nixpkgs1709.kid3 ];
+  vars   = { DISPLAY = ":0"; };
   script = ''
     #!/usr/bin/env bash
 
