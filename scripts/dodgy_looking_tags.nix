@@ -1,7 +1,8 @@
-{ wrap }:
+{ bash, pythonPackages, wrap }:
 
 wrap {
   name   = "dodgy_looking_tags";
+  paths  = [ bash pythonPackages.mutagen ];
   script = ''
     #!/usr/bin/env bash
 
@@ -23,16 +24,10 @@ wrap {
       done
     }
 
-    if command -v mid3v2 > /dev/null
-    then
-      echo "Found mid3v2, checking MP3s" 1>&2
-      find Music/Commercial -iname "*.mp3" | while read -r F
-      do
-        printf '.' 1>&2
-        mid3v2 --list "$F" | checkTags "$F"
-      done
-    else
-      echo "Not checking MP3 tags since mid3v2 not found" 1>&2
-    fi
+    find Music/Commercial -iname "*.mp3" | while read -r F
+    do
+      printf '.' 1>&2
+      mid3v2 --list "$F" | checkTags "$F"
+    done
   '';
 }
