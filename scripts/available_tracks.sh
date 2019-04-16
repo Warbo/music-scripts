@@ -35,17 +35,18 @@ function process_artist() {
                 RAW_NUM=$(echo "$NUM_TRACK" | cut -f1 | tr -dc '[:digit:]')
                 NUM=$(printf "%02d" "$RAW_NUM")
                 TRACK=$(echo "$NUM_TRACK" | cut -f2)
+                TRACK_LOWER=$(strip_name.sh "$TRACK")
 
                 FOUND=0
                 FILES=""
                 for F in "$ALBUM_DIR"/*
                 do
-                    F_BASE=$(basename "$F")
-                    if echo "$F_BASE" | grep -F "$TRACK" > /dev/null
+                    F_BASE=$(strip_name "$(basename "$F")")
+                    if echo "$F_BASE" | grep -F -- "$TRACK_LOWER" > /dev/null
                     then
                         FOUND=$(( FOUND + 1 ))
                         FILES=$(echo -e "$FILES\\n$F")
-                    elif echo "$TRACK" | grep -F "$F_BASE" > /dev/null
+                    elif echo "$TRACK_LOWER" | grep -F -- "$F_BASE" > /dev/null
                     then
                         FOUND=$(( FOUND + 1 ))
                         FILES=$(echo -e "$FILES\\n$F")

@@ -15,7 +15,7 @@ do
     # Upper -> lower, remove non-alphabetic
     ALT=$(normalise "$NAME")
 
-    if DUPE=$(echo "$NAMES" | grep "$ALT")
+    if DUPE=$(echo "$NAMES" | grep -- "$ALT")
     then
         echo "$INCOMING looks like:"
         echo "$DUPE" | grep -o "DIR:.*     " |

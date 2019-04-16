@@ -14,7 +14,7 @@ function printDupes {
          ALT=$(normalise "$NAME")
 
         # Print out duplicates
-        echo "$NAMES" | grep "$ALT" | cut -f 1 | while read -r DUPE
+        echo "$NAMES" | grep -- "$ALT" | cut -f 1 | while read -r DUPE
         do
             printf "%s\\t%s\\n" "$INCOMING" "$DUPE"
         done

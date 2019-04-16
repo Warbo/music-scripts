@@ -1,16 +1,15 @@
-{ bash, curl, jq, wrap, xidel }:
+{ bash, curl, fail, jq, wrap, xidel }:
 
 wrap {
   name   = "check_on_metalarchive";
-  paths  = [ bash curl jq xidel ];
+  paths  = [ bash curl fail jq xidel ];
   script = ''
     #!/usr/bin/env bash
+    set -e
 
     function metalArchiveTracks {
-        [[ -f "$1" ]] || {
-            echo "Can't get tracks for '$2' ('$3') since '$1' doesn't exist" 1>&2
-            return 1
-        }
+        [[ -f "$1" ]] ||
+            fail "Can't get tracks for '$2' ('$3') since '$1' doesn't exist"
 
         TRACK_CACHE="$CACHE_DIR/$INIT/$2_$3.tracks"
         mkdir -p "$TRACK_CACHE"
@@ -45,9 +44,35 @@ wrap {
         else
             echo "Getting albums for '$2' ('$3') from metal-archives.com" 1>&2
             sleep 1
-            BAND_URL=$(jq -r '.aaData[0][0]' < "$1" |
-                       grep -o '\".*\"'             |
-                       grep -o '[^"]*')
+
+            # Use country to disambiguate, if given
+            if [[ -n "$3" ]]
+            then
+                # shellcheck disable=SC2016
+                CONDITION='(.[2] == $c)'
+            else
+                CONDITION='true'
+            fi
+
+            # Narrows down to matching band names possibly with matching country
+            # This is needed since searching for 'foo' can return other bands
+            # which have 'foo' somewhere in their name.
+            QUERY=".aaData | map(select(($CONDITION) and
+                                        (.[0] | contains(\">\" + \$n + \"<\"))))
+                           | map(.[0])"
+
+            # We should only have been called if there's an unambiguous result
+            LEN=$(jq --arg n "$2" --arg c "$3" "$QUERY | length"  < "$1")
+            [[ "$LEN" -eq 1 ]] || {
+                echo "Error: Ambiguity ($LEN results) for '$2' from '$3'" 1>&2
+                exit 1
+            }
+
+            BAND_URL=$(jq -r --arg n "$2" --arg c "$3" "$QUERY | .[0]" < "$1")
+
+            BAND_URL=$(echo "$BAND_URL"  |
+                       grep -o '\".*\"'  |
+                       grep -o '[^"]*'   )
             BAND_ID=$(echo "$BAND_URL" | grep -o '[0-9]*$')
 
             DISC_URL="http://www.metal-archives.com/band/discography/id/$BAND_ID/tab/all"
@@ -90,7 +115,20 @@ wrap {
         ARCHIVE=$(metalArchiveFor "$BANDNAME") || return 1
 
         # If we found one match, assume it's exact (for now)
-        MATCHES=$(jq '.iTotalRecords' < "$ARCHIVE")
+        if [[ -n "$CNT" ]]
+        then
+            MATCHES=$(jq --arg n "$BANDNAME" --arg c "$CNT" \
+                         '.aaData | map(select(
+                                        (.[2] == $c) and
+                                        (.[0] | contains(">" + $n + "<"))))
+                                  | length' < "$ARCHIVE")
+        else
+            MATCHES=$(jq --arg n "$BANDNAME" \
+                         '.aaData | map(select(.[0] |
+                                               contains(">" + $n + "<")))
+                                  | length' < "$ARCHIVE")
+        fi
+
         if [[ "$MATCHES" -eq 1 ]]
         then
             metalArchiveAlbums "$ARCHIVE" "$BANDNAME" "$CNT"
@@ -117,6 +155,7 @@ wrap {
         CNTMATCHES=$(echo "$CNTRESULTS" | jq 'length')
         if [[ "$CNTMATCHES" -eq 1 ]]
         then
+            # Possibly redundant, now that we check for country in MATCHES
             metalArchiveAlbums "$ARCHIVE" "$BANDNAME" "$CNT"
             return 0
         fi
@@ -127,7 +166,7 @@ wrap {
             return 1
         fi
 
-        echo "Error: $CNTMATCHES matches for '$BANDNAME' from '$CNT'" 1>&2
+        echo "Error: $CNTMATCHES matches for '$BANDNAME' from '$CNT' (maybe add to .metalarchive_ids?)" 1>&2
         return 1
     }
 
