@@ -2,6 +2,6 @@
 
 wrap {
   name  = "fix-music";
-  file  = ./. + "/fix-music.py";
+  file  = ../raw + "/fix-music.py";
   paths = [ python3 ];
 }

@@ -2,6 +2,6 @@
 
 wrap {
   name  = "compare_crcs";
-  file  = ./compare_crcs.py;
+  file  = ../raw + "/compare_crcs.py";
   paths = [ libav.bin python ];
 }

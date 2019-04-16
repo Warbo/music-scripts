@@ -3,5 +3,5 @@
 wrap {
   name  = "available_albums";
   paths = [ bash xidel ];
-  file  = ./available_albums.sh;
+  file  = ../raw/available_albums.sh;
 }
