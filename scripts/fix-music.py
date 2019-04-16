@@ -35,14 +35,17 @@ msg = stderr.write
 def process_artist(path):
     init = path.split('/')[-2]
     # Simple checks, which don't need any file or Web info
-    run(['delete_crap.sh',      path])
+    run(['delete_crap.sh', path])
+    run(['dodgy_formats' , path])
 
     # Get info from the Web, if available; these should cache themselves
     run(['check_on_metalarchive', path, init])
+    # We avoid check_on_lastfm for now, since we don't really use the results
+    #run(['check_on_lastfm', path, init])
 
     # Run calls to action
-    run(['available_albums.sh', path      ])
-    run(['available_tracks',    path, init])
+    run(['available_albums', path      ])
+    run(['available_tracks', path, init])
 
     # Get info from file contents
     run(['gather_acoustids', path])  # AcoustID is robust against encoding
