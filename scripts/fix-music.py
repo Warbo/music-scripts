@@ -34,9 +34,14 @@ msg = stderr.write
 
 def process_artist(path):
     init = path.split('/')[-2]
+
     # Simple checks, which don't need any file or Web info
-    run(['delete_crap.sh', path])
-    run(['dodgy_formats' , path])
+    run(['delete_crap.sh'        , path])
+    run(['dodgy_formats'         , path])
+    run(['dodgy_looking_paths.sh', path])
+
+    # More expensive checks, which look at file contents
+    run(['dodgy_looking_tags', path])
 
     # Get info from the Web, if available; these should cache themselves
     run(['check_on_metalarchive', path, init])
