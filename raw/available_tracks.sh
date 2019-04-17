@@ -41,7 +41,7 @@ function process_artist() {
                 FILES=""
                 for F in "$ALBUM_DIR"/*
                 do
-                    F_BASE=$(strip_name "$(basename "$F")")
+                    F_BASE=$(strip_name.sh "$(basename "$F")")
                     if echo "$F_BASE" | grep -F -- "$TRACK_LOWER" > /dev/null
                     then
                         FOUND=$(( FOUND + 1 ))
