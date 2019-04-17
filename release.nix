@@ -1,1 +1,1 @@
-{ inherit (import ./.) music-scripts; }
+{ music-scripts = import ./.; }
