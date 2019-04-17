@@ -52,7 +52,7 @@ with {
                    })
                    (readDir ./scripts);
 
-  music-scripts = self.withDeps
+  raw-scripts = self.withDeps
     (attrValues check)
     (self.runCommand "music-scripts"
       {
@@ -71,4 +71,9 @@ with {
           wrapProgram "$out/bin/$N" --prefix PATH : "$out/bin"
         done
       '');
+
+  music-tests = self.callPackage ./tests { scripts = self.raw-scripts; };
+
+  music-scripts = self.withDeps (self.allDrvsIn self.music-tests)
+                                self.raw-scripts;
 }
