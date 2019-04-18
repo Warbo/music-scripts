@@ -13,7 +13,7 @@ function go {
       echo
     fi
 
-    if echo "$TAGS" | grep '=\s' > /dev/null
+    if echo "$TAGS" | cut -d '=' -f2- | grep '^\s' > /dev/null
     then
       echo
       echo "$F has tag beginning with whitespace"
