@@ -1,10 +1,11 @@
 # Apply our overlay (and some helpers) to a pinned nixpkgs revision
 with rec {
-  inherit (import ./helpers.nix {}) nix-helpers warbo-packages;
+  inherit (import ./helpers.nix {}) nix-helpers warbo-packages warbo-utilities;
 
   overlays = [
-    (import    "${nix-helpers}/overlay.nix")
-    (import "${warbo-packages}/overlay.nix")
+    (import "${nix-helpers    }/overlay.nix")
+    (import "${warbo-packages }/overlay.nix")
+    (import "${warbo-utilities}/overlay.nix")
     (import                  ./overlay.nix )
   ];
 

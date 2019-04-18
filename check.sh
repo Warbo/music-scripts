@@ -9,7 +9,7 @@ do
 done
 
 # Allow failure to get HEAD (e.g. in case we're offline)
-REPO="warbo-packages"
+REPO="warbo-utilities"
 
 echo "Checking $REPO version" 1>&2
 if REV=$(git ls-remote "http://chriswarbo.net/git/$REPO.git" |
