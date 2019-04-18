@@ -1,8 +1,9 @@
 From: Chris Warburton
 Date: Thu, 03 Aug 2017 10:40:12 +0100
-State: new
+State: resolved
 Subject: Investigate replacing git2html with stagit
 Message-Id: <c34ae5bb8290653c-0-artemis@nixos>
+resolution: fixed
 
 Output looks prettier, can make an index page (rather than using the
 directory listing for /git like we do at the moment), seems faster

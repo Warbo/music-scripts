@@ -1,7 +1,8 @@
 From: Chris Warburton
 Date: Mon, 09 Apr 2018 14:03:40 +0100
-State: new
+State: resolved
 Subject: Check for fallback editor in artemis emacsclient
 Message-Id: <ad2e52b80cec2f98-0-artemis@nixos>
+resolution: fixed
 
 If emacs is broke, we should be able to override the choice of editor
