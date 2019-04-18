@@ -1,0 +1,9 @@
+From: Chris Warburton
+Date: Thu, 18 Apr 2019 15:33:04 +0100
+State: new
+Subject: Use xvfb-run-safe for kid3
+Message-Id: <c4cf80fe3d25ad00-0-artemis@nixos>
+
+kid3-cli needs an X server. We should use xvfb-run-safe from
+warbo-utilities-scripts to provide this, since we shouldn't rely on the
+ambient presence of Xorg, and xvfb_run is hopelessly fragile.
