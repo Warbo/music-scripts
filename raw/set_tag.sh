@@ -7,9 +7,10 @@ function setTag() {
     NAME=$(basename "$1" | sed -e 's/"/\"/g')
     DIR=$(dirname  "$1")
 
-    kid3-cli -c 'select "'"$NAME"'"'        \
-             -c 'set "'"$TAG"'" "'"$VAL"'"' \
-             -c 'save' "$DIR"
+    # shellcheck disable=SC2154
+    "$xvfb" kid3-cli -c 'select "'"$NAME"'"'        \
+                     -c 'set "'"$TAG"'" "'"$VAL"'"' \
+                     -c 'save' "$DIR"
 }
 
 shift
