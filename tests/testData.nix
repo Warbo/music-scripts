@@ -1,4 +1,5 @@
-{ attrsToDirs', die, lib, nothing, sanitiseName, writeScript }:
+{ attrsToDirs', die, ffmpeg, lib, nothing, runCommand, sanitiseName,
+  writeScript }:
 
 with builtins;
 with lib;
@@ -171,6 +172,7 @@ rec {
     };
     dir;
 
+  # Creates 'foo.albums' cache files, used by commands which look up albums
   albumCache =
     with {
       flattenArtistName = artist: entries:
@@ -199,6 +201,17 @@ rec {
                                       testArtists;
     };
 
+  # A recreation of the relevant directories in Shared, containing caches and
+  # Music/Commercial.
   testData = attrsToDirs' "music-script-test-data"
                           (testMusicFiles // albumCache);
+
+  # Silent audio files of various formats. We usually want to add tags to these,
+  # rather than keeping them completely raw.
+  emptyAudio = {
+    mp3 = runCommand "empty.mp3" { buildInputs = [ ffmpeg ]; } ''
+      ffmpeg -ar 48000 -t 60 -f s16le -acodec pcm_s16le -ac 2 -i /dev/zero \
+             -acodec libmp3lame -aq 4 "$out"
+    '';
+  };
 }
