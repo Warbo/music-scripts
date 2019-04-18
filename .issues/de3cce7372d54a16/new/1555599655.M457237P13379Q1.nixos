@@ -1,0 +1,14 @@
+From: Chris Warburton
+Date: Thu, 18 Apr 2019 15:58:15 +0100
+State: new
+Subject: Put all examples in testData
+Message-Id: <de3cce7372d54a16-0-artemis@nixos>
+
+The testData derivation contains dummy audio, arranged in dummy artist
+dirs, etc. along with dummy cache data.
+
+We should try to move all of our test inputs into this one place; for
+example, if we want to test that a script warns us about AVI files, we
+shouldn't just create an AVI file in that test. Instead, we should stick
+some AVIs in the testData directory, since that will show us how well
+all of our other scripts deal with these things.

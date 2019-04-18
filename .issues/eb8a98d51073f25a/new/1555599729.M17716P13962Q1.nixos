@@ -1,0 +1,11 @@
+From: Chris Warburton
+Date: Thu, 18 Apr 2019 16:01:00 +0100
+State: new
+Subject: Split tests up into separate files
+Message-Id: <eb8a98d51073f25a-0-artemis@nixos>
+
+We should make files like tests/foo.nix and have tests/default.nix load
+them all.
+
+We can do this with the nixFilesIn from nix-helpers. We can also use
+removeAttrs or filter to prevent loading default.nix or testData.nix.

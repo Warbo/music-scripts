@@ -1,0 +1,7 @@
+From: Chris Warburton
+Date: Thu, 18 Apr 2019 15:57:57 +0100
+State: new
+Subject: Add more tests
+Message-Id: <9044fee847641708-0-artemis@nixos>
+
+Ideally each script should have at least one test
