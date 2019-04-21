@@ -1,4 +1,4 @@
-{ attrsToDirs', die, ffmpeg, lib, nothing, runCommand, sanitiseName,
+{ attrsToDirs', die, ffmpeg, lib, nothing, runCommand, sanitiseName, scripts,
   writeScript }:
 
 with builtins;
@@ -9,7 +9,7 @@ rec {
          z
          (attrNames attrs));
 
-  renderAlbum = artist: { id, name, year }:
+  renderAlbum = artist: { id, name, year, ... }:
     with { url = "https://example.com/albums/${artist}/${name}/${id}"; };
     ''
       <tr>
@@ -75,9 +75,12 @@ rec {
         Nor = {
           albums  = [
             {
-              id   = "111";
-              name = "From Norway One";
-              year = "1981";
+              id         = "111";
+              name       = "From Norway One";
+              year       = "1981";
+              audioFiles = {
+                "01 A Song.mp3" = { format = "mp3"; tags = {}; };
+              };
             }
             {
               id   = "112";
@@ -89,9 +92,12 @@ rec {
         Swe = {
           albums  = [
             {
-              id   = "121";
-              name = "From Sweden One";
-              year = "1991";
+              id         = "121";
+              name       = "From Sweden One";
+              year       = "1991";
+              audioFiles = {
+                "01 A Song.mp3" = { format = "mp3"; tags = {}; };
+              };
             }
             {
               id   = "112";
@@ -102,14 +108,35 @@ rec {
         };
       };
     };
+    H = {
+      "Has Discs" = {
+        nowhere = {
+          albums = [
+            {
+              id   = "123";
+              name = "An Album (Disc 1)";
+              year = "2001";
+            }
+            {
+              id   = "124";
+              name = "An Album (Disc 2)";
+              year = "2011";
+            }
+          ];
+        };
+      };
+    };
     P = {
       "Performer 3" = {
         nowhere = {
           albums  = [
             {
-              id   = "31";
-              name = "First Album";
-              year = "2011";
+              id         = "31";
+              name       = "First Album";
+              year       = "2011";
+              audioFiles = {
+                "01 A Song.mp3" = { format = "mp3"; tags = {}; };
+              };
             }
             {
               id   = "32";
@@ -146,7 +173,13 @@ rec {
 
   testMusicFiles =
     with rec {
-      entryToFiles = data: { "dummy.mp3" = nothing; };
+      entryToFiles = data: fold (album: result: result // {
+                                  "${album.name}" = mapAttrs (_: mkAudioFile)
+                                                             (album.audioFiles
+                                                              or {});
+                                })
+                                (data.otherFiles or {})
+                                data.albums;
 
       entriesToDirs = artist: foldAttrs' (country: data: result: result // {
                                            "${addCountry artist country}" =
@@ -214,4 +247,31 @@ rec {
              -acodec libmp3lame -aq 4 "$out"
     '';
   };
+
+  tsvString = data: concatStringsSep "\n" (map (concatStringsSep "\t") data);
+
+  tsvFile = name: data: writeScript "${name}.tsv" (tsvString data);
+
+  attrsToTsv = foldAttrs' (name: val: result: result ++ [ name val ]) [];
+
+  mkAudioFile = { format, tags }: runCommand "audio-file.${format}"
+    {
+      buildInputs = [ scripts ];
+      untagged    = if hasAttr format emptyAudio
+                       then getAttr format emptyAudio
+                       else die {
+                         inherit format;
+                         error     = "Format not supported";
+                         supported = attrNames emptyAudio;
+                       };
+    }
+    ''
+      cp "$untagged" "$out"
+      while read -r LINE
+      do
+        TAG=$(echo "$LINE" | cut -f1)
+        VAL=$(echo "$LINE" | cut -f2-)
+        set_tag "$TAG" "$VAL" "$out"
+      done < "${tsvFile "tags" (attrsToTsv tags)}"
+    '';
 }
