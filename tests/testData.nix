@@ -231,8 +231,14 @@ rec {
 
   # A recreation of the relevant directories in Shared, containing caches and
   # Music/Commercial.
-  testData = attrsToDirs' "music-script-test-data"
-                          (testMusicFiles // albumCache);
+  testData = runCommand "music-script-test-data"
+    {
+      symlinked = attrsToDirs' "music-script-test-data"
+                               (testMusicFiles // albumCache);
+    }
+    ''
+      cp -rL "$symlinked" "$out"
+    '';
 
   # Silent audio files of various formats. We usually want to add tags to these,
   # rather than keeping them completely raw.
