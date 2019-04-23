@@ -261,12 +261,15 @@ rec {
                        };
     }
     ''
-      cp "$untagged" "$out"
+      F=file."${format}"
+      cp "$untagged" ./"$F"
+      chmod +w ./"$F"
       while read -r LINE
       do
         TAG=$(echo "$LINE" | cut -f1)
         VAL=$(echo "$LINE" | cut -f2-)
-        set_tag "$TAG" "$VAL" "$out"
+        set_tag "$TAG" "$VAL" ./"$F"
       done < "${tsvFile "tags" (attrsToTsv tags)}"
+      mv ./"$F" "$out"
     '';
 }
