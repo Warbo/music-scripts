@@ -249,7 +249,7 @@ rec {
 
   attrsToTsv = foldAttrs' (name: val: result: result ++ [ name val ]) [];
 
-  mkAudioFile = { format, tags }: runCommand "audio-file.${format}"
+  mkAudioFile = { format, tags, post ? "" }: runCommand "audio-file.${format}"
     {
       buildInputs = [ scripts ];
       untagged    = if hasAttr format emptyAudio
@@ -270,6 +270,9 @@ rec {
         VAL=$(echo "$LINE" | cut -f2-)
         set_tag "$TAG" "$VAL" ./"$F"
       done < "${tsvFile "tags" (attrsToTsv tags)}"
+
+      ${post}
+
       mv ./"$F" "$out"
     '';
 }
