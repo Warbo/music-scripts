@@ -1,14 +1,9 @@
-{ attrsToDirs', die, ffmpeg, lib, nothing, runCommand, sanitiseName, scripts,
-  writeScript }:
+{ attrsToDirs', die, ffmpeg, foldAttrs', lib, nothing, runCommand,
+  sanitiseName, scripts, writeScript }:
 
 with builtins;
 with lib;
 rec {
-  foldAttrs' = trace "FIXME: Move to nix-helpers" (f: z: attrs:
-    fold (name: f name (getAttr name attrs))
-         z
-         (attrNames attrs));
-
   renderAlbum = artist: { id, name, year, ... }:
     with { url = "https://example.com/albums/${artist}/${name}/${id}"; };
     ''
