@@ -253,7 +253,7 @@ rec {
 
   tsvFile = name: data: writeScript "${name}.tsv" (tsvString data);
 
-  attrsToTsv = foldAttrs' (name: val: result: result ++ [ name val ]) [];
+  attrsToTsv = foldAttrs' (name: val: result: result ++ [ [ name val ] ]) [];
 
   mkAudioFile = { format, tags, post ? "" }: runCommand "audio-file.${format}"
     {
