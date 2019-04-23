@@ -41,9 +41,39 @@ rec {
         nowhere = {
           albums  = [
             {
-              id     = "11";
-              name   = "Album1";
-              year   = "2001";
+              id         = "11";
+              name       = "Album1";
+              year       = "2001";
+              audioFiles = {
+                "Equals in Title.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = "This Title Contains an = Sign";
+                    artist = "Artist1";
+                    album  = "Album1";
+                  };
+                };
+                "spaceEnd.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = "This Title Ends with a SpaceQ";
+                    artist = "Artist1";
+                    album  = "Album1";
+                  };
+                  post = ''
+                    sed -e 's/SpaceQ/Space /g' < file.mp3 > fixed.mp3
+                    mv fixed.mp3 file.mp3
+                  '';
+                };
+                "spaceStart.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = " This Title Begins with a Space";
+                    artist = "Artist1";
+                    album  = "Album1";
+                  };
+                };
+              };
             }
             {
               id   = "12";
