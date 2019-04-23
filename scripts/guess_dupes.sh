@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
-function normalise {
-    "$BASE/strip_name.sh" "$1"
-}
-
 # \n-separated list of names and their simplified alternatives
 NAMES=""
 while read -r INCOMING
@@ -13,7 +7,7 @@ do
     NAME=$(basename "$INCOMING")
 
     # Upper -> lower, remove non-alphabetic
-    ALT=$(normalise "$NAME")
+    ALT=$(strip_name.sh "$NAME")
 
     if DUPE=$(echo "$NAMES" | grep -- "$ALT")
     then
