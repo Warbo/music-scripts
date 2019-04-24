@@ -1,31 +1,39 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
-# Look for similar filenames inside each artist directory
-for INIT in Music/Commercial/*
-do
-    [[ -d "$INIT" ]] || continue
-    for ARTIST in "$INIT"/*
+function go {
+    echo "Looking for dupes in '$1'" 1>&2
+    DUPES=$(find "$1" -type f | guess_dupes.sh)
+    echo "Possible dupes:"
+    echo "$DUPES"
+    echo "Checking CRCs"   1>&2
+    echo "$DUPES" | grep -n "looks like" | while read -r LINE
     do
-        [[ -d "$ARTIST" ]] || continue
-        echo "Looking for dupes in '$ARTIST'" >> /dev/stderr
-        DUPES=$(find "$ARTIST" -type f | "$BASE/guess_dupes.sh")
-        echo "Possible dupes:" >> /dev/stderr
-        echo "$DUPES"
-        echo "Checking CRCs"   >> /dev/stderr
-        echo "$DUPES" | grep -n "looks like" | while read -r LINE
+          NUM=$(echo "$LINE"  | cut  -d ':' -f1)
+        AFTER=$(echo "$DUPES" | tail -n +"$NUM")
+          END=$(echo "$AFTER" | grep -n "^END$" | cut -d ':' -f1 | head -n1)
+        TRACK=$(echo "$LINE"  | sed  -e 's/ looks like://g' | cut -d ':' -f 2-)
+
+        echo "$AFTER" | head -n "$END" |
+            grep -v "looks like:"      |
+            grep -v "^END$"            | while read -r NAME
         do
-            NUM=$(echo "$LINE" | cut -d ':' -f1)
-            AFTER=$(echo "$DUPES" | tail -n +"$NUM")
-            END=$(echo "$AFTER" | grep -n "^END$" | cut -d ':' -f1 | head -n1)
-            TRACK=$(echo "$LINE" | sed -e 's/ looks like://g' | cut -d ':' -f 2-)
-            echo "$AFTER" | head -n "$END"        |
-                            grep -v "looks like:" |
-                            grep -v "^END$"       | while read -r NAME
-            do
-                echo "COMPARE	$TRACK	$NAME"
-            done
+            echo "COMPARE	$TRACK	$NAME"
+        done
+    done | compare_crcs
+}
+
+# Look for similar filenames inside artist directories
+if [[ "$#" -gt 0 ]]
+then
+    go "$1"
+else
+    for INIT in Music/Commercial/*
+    do
+        [[ -d "$INIT" ]] || continue
+        for ARTIST in "$INIT"/*
+        do
+            [[ -d "$ARTIST" ]] || continue
+            go "$ARTIST"
         done
     done
-done | compare_crcs
+fi
