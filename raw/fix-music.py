@@ -36,19 +36,21 @@ def process_artist(path):
     init = path.split('/')[-2]
 
     # Simple checks, which don't need any file or Web info
-    run(['delete_crap.sh'        , path])
-    run(['dodgy_formats'         , path])
-    run(['dodgy_looking_paths'   , path])
-    run(['find_dupe_dirs.sh'     , path])
-    run(['find_dupe_files.sh'    , path])
-    run(['no_discs'              , path])
-    run(['find_full_albums.sh'   , path])
-    run(['strip_youtube_names.sh', path])
+    run(['delete_crap.sh'         , path])
+    run(['dodgy_formats'          , path])
+    run(['dodgy_looking_paths'    , path])
+    run(['find_dupe_dirs.sh'      , path])
+    run(['find_dupe_files.sh'     , path])
+    run(['no_discs'               , path])
+    run(['find_full_albums.sh'    , path])
+    run(['strip_youtube_names.sh' , path])
+    run(['normalise_whitespace.sh', path])
 
     # More expensive checks, which look at file contents
-    run(['fdupes', '-d', '-r', path])
-    run(['dodgy_looking_tags', path])
-    run(['find_untagged.sh'  , path])
+    run(['fdupes', '-d', '-r'     , path])
+    run(['dodgy_looking_tags'     , path])
+    run(['find_untagged.sh'       , path])
+    run(['move_into_album_dirs.sh', path])
 
     # Get info from the Web, if available; these should cache themselves
     run(['check_on_metalarchive', path, init])
