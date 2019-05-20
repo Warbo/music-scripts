@@ -36,13 +36,16 @@ def process_artist(path):
     init = path.split('/')[-2]
 
     # Simple checks, which don't need any file or Web info
-    run(['delete_crap.sh'     , path])
-    run(['dodgy_formats'      , path])
-    run(['dodgy_looking_paths', path])
-    run(['find_dupe_files.sh' , path])
-    run(['no_discs'           , path])
+    run(['delete_crap.sh'        , path])
+    run(['dodgy_formats'         , path])
+    run(['dodgy_looking_paths'   , path])
+    run(['find_dupe_dirs.sh'     , path])
+    run(['find_dupe_files.sh'    , path])
+    run(['no_discs'              , path])
+    run(['strip_youtube_names.sh', path])
 
     # More expensive checks, which look at file contents
+    run(['fdupes', '-d', '-r', path])
     run(['dodgy_looking_tags', path])
 
     # Get info from the Web, if available; these should cache themselves
@@ -50,12 +53,13 @@ def process_artist(path):
     # We avoid check_on_lastfm for now, since we don't really use the results
     #run(['check_on_lastfm', path, init])
 
-    # Run calls to action
-    run(['available_albums', path      ])
-    run(['available_tracks', path, init])
-
     # Get info from file contents
     run(['gather_acoustids', path])  # AcoustID is robust against encoding
+
+    # Use the info we've gathered
+    run(['find_dupe_acoustids.py', path      ])
+    run(['available_albums'      , path      ])
+    run(['available_tracks'      , path, init])
 
     return
 
