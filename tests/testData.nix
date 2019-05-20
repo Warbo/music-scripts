@@ -1,4 +1,4 @@
-{ attrsToDirs', die, ffmpeg, foldAttrs', lib, nothing, runCommand,
+{ attrsToDirs', die, fail, ffmpeg, foldAttrs', lib, nothing, runCommand,
   sanitiseName, scripts, writeScript }:
 
 with builtins;
@@ -273,9 +273,10 @@ rec {
   # Silent audio files of various formats. We usually want to add tags to these,
   # rather than keeping them completely raw.
   emptyAudio = {
-    mp3 = runCommand "empty.mp3" { buildInputs = [ ffmpeg ]; } ''
-      ffmpeg -ar 48000 -t 60 -f s16le -acodec pcm_s16le -ac 2 -i /dev/zero \
-             -acodec libmp3lame -aq 4 "$out"
+    mp3 = runCommand "empty.mp3" { buildInputs = [ fail ffmpeg ]; } ''
+      GOT=$(ffmpeg -ar 48000 -t 60 -f s16le -acodec pcm_s16le -ac 2 \
+                      -i /dev/zero -acodec libmp3lame -aq 4 "$out" 2>&1) ||
+        fail "Failed to make '$out': $GOT"
     '';
   };
 
