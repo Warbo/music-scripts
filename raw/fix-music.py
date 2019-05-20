@@ -40,6 +40,7 @@ def process_artist(path):
     run(['dodgy_formats'      , path])
     run(['dodgy_looking_paths', path])
     run(['find_dupe_files.sh' , path])
+    run(['no_discs'           , path])
 
     # More expensive checks, which look at file contents
     run(['dodgy_looking_tags', path])
