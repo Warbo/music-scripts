@@ -39,6 +39,10 @@ rec {
     A = {
       Artist1 = {
         nowhere = {
+          fixup   = ''
+            mkdir "Album2 (Disc 1)"
+            mv Album2/*Moved* "Album2 (Disc 1)"/
+          '';
           albums  = [
             {
               id         = "11";
@@ -76,9 +80,35 @@ rec {
               };
             }
             {
-              id   = "12";
-              name = "Album2";
-              year = "2002";
+              id         = "12";
+              name       = "Album2";
+              year       = "2002";
+              audioFiles = {
+                "01 In correct dir.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = "In Correct Dir";
+                    artist = "Artist1";
+                    album  = "Album2";
+                  };
+                };
+                "02 In wrong dir.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = "In Wrong Dir";
+                    artist = "Artist1";
+                    album  = "Album1";
+                  };
+                };
+                "03 Moved Into Disc Dir.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = "Moved Into Disc Dir";
+                    artist = "Artist1";
+                    album  = "Album2";
+                  };
+                };
+              };
             }
           ];
         };
