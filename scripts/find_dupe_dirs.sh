@@ -1,23 +1,35 @@
 #!/usr/bin/env bash
 
-for INIT in Music/Commercial/*
-do
-    [[ -d "$INIT" ]] || {
-        echo "Warning: '$INIT' is not a directory" 1>&2
-        continue
-    }
-    for ARTIST in "$INIT"/*
+function go {
+    while read -r PAIR
     do
-        [[ -d "$ARTIST" ]] || {
-            echo "Warning: '$ARTIST' is not a directory" 1>&2
+         FIRST=$(echo "$PAIR" | cut -f1 | esc.sh)
+        SECOND=$(echo "$PAIR" | cut -f2 | esc.sh)
+
+        echo "mv '$FIRST'/* '$SECOND'/"
+    done < <(find "$1" -type d | list_dupe_guesses.sh)
+}
+
+if [[ "$#" -eq 0 ]]
+then
+    for INIT in Music/Commercial/*
+    do
+        [[ -d "$INIT" ]] || {
+            echo "Warning: '$INIT' is not a directory" 1>&2
             continue
         }
-        while read -r PAIR
+        for ARTIST in "$INIT"/*
         do
-             FIRST=$(echo "$PAIR" | cut -f1 | esc.sh)
-            SECOND=$(echo "$PAIR" | cut -f2 | esc.sh)
-
-            echo "mv '$FIRST'/* '$SECOND'/"
-        done < <(find "$ARTIST" -type d | list_dupe_guesses.sh)
+            [[ -d "$ARTIST" ]] || {
+                echo "Warning: '$ARTIST' is not a directory" 1>&2
+                continue
+            }
+            go "$ARTIST"
+        done
     done
-done
+else
+    for DIR in "$@"
+    do
+        go "$DIR"
+    done
+fi
