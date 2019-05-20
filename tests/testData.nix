@@ -221,8 +221,6 @@ rec {
                      testArtists;
         };
       };
-
-      testDirs = path: namesAt path testMusicFiles;
     };
     assert isAttrs (dir.Music.Commercial.D."DuplicatedArtist (Nor)" or 1) || die {
       error = "Test data doesn't contain country-coded artist directory";
