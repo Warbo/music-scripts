@@ -42,6 +42,7 @@ def process_artist(path):
     run(['find_dupe_dirs.sh'     , path])
     run(['find_dupe_files.sh'    , path])
     run(['no_discs'              , path])
+    run(['find_full_albums.sh'   , path])
     run(['strip_youtube_names.sh', path])
 
     # More expensive checks, which look at file contents
