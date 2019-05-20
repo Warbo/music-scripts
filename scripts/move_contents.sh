@@ -51,7 +51,8 @@ function move_contents {
     for INIT in A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
     do
         echo "$INIT"
-        for COLLECTION in "LozMusic" "LozMusic2" "Jo Tidy Music" "JamesMusic" "Riffs" "ChrisLaptopMusic"
+        for COLLECTION in "LozMusic" "LozMusic2" "Jo Tidy Music" "JamesMusic" \
+                          "Riffs" "ChrisLaptopMusic"
         do
             shopt -s nullglob
             for DIR in "$COLLECTION/$INIT"*
