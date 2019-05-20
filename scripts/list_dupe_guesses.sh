@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-function normalise {
-    strip_name.sh "$1"
-}
-
 function printDupes {
     NAMES=""
     while read -r INCOMING
     do
-        NAME=$(basename  "$INCOMING")
-         ALT=$(normalise "$NAME")
+        NAME=$(basename "$INCOMING")
+         ALT=$(strip_name.sh "$NAME")
 
         # Print out duplicates
         echo "$NAMES" | grep -- "$ALT" | cut -f 1 | while read -r DUPE
