@@ -4,6 +4,13 @@
 # to dupes. Includes 'double  spaces', ' initial spaces' and
 # 'spaces before .extensions'
 
+if [[ "$#" -eq 0 ]]
+then
+    DIR="Music"
+else
+    DIR="$1"
+fi
+
 while read -r NAME
 do
     DIR=$(dirname "$NAME")
@@ -20,7 +27,7 @@ do
     else
         echo "mv -v '$SRC' '$DST'"
     fi
-done < <(find Music -name '*  *')
+done < <(find "$DIR" -name '*  *')
 while read -r NAME
 do
     DIR=$(dirname "$NAME")
@@ -37,7 +44,7 @@ do
     else
         echo "mv -v '$SRC' '$DST'"
     fi
-done < <(find Music -name ' *')
+done < <(find "$DIR" -name ' *')
 while read -r NAME
 do
     DIR=$(dirname "$NAME")
@@ -55,4 +62,4 @@ do
     else
         echo "mv -v '$SRC' '$DST'"
     fi
-done < <(find Music -name '* .*')
+done < <(find "$DIR" -name '* .*')
