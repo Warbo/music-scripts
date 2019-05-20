@@ -11,7 +11,7 @@ function checkArtist {
         NAME=$(basename "$ALBUM")
         if echo "$NAME" | grep -i disc > /dev/null
         then
-            echo "'$ALBUM' may be disc-specific album" 1>&2
+            echo "'$ALBUM' may be disc-specific album"
         fi
 
         # Skip dodgy chars
