@@ -48,6 +48,7 @@ def process_artist(path):
     # More expensive checks, which look at file contents
     run(['fdupes', '-d', '-r', path])
     run(['dodgy_looking_tags', path])
+    run(['find_untagged.sh'  , path])
 
     # Get info from the Web, if available; these should cache themselves
     run(['check_on_metalarchive', path, init])
