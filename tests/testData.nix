@@ -257,15 +257,52 @@ rec {
                                       testArtists;
     };
 
+  fixup =
+    with rec {
+      foldInits = init: entries: result: foldAttrs' (foldNames init)
+                                                    result
+                                                    entries;
+
+      foldNames = init: name: entries: result: foldAttrs' (foldArtists init name)
+                                                          result
+                                                          entries;
+
+      foldArtists = init: name: country: artist: result:
+        if artist ? fixup
+           then ''
+             ${result}
+             pushd "${concatStringsSep "/" ([
+               "Music"
+               "Commercial"
+               init
+               name
+             ] ++ (if country == "nowhere"
+                      then []
+                      else [country]))}" > /dev/null
+               ${artist.fixup}
+             popd > /dev/null
+           ''
+           else result;
+    };
+    writeScript "fixup"
+                (foldAttrs' foldInits "#!/usr/bin/env bash" testArtists);
+
   # A recreation of the relevant directories in Shared, containing caches and
   # Music/Commercial.
   testData = runCommand "music-script-test-data"
     {
+      inherit fixup;
       symlinked = attrsToDirs' "music-script-test-data"
                                (testMusicFiles // albumCache);
     }
     ''
-      cp -rL "$symlinked" "$out"
+      UNFIXED="$PWD/unfixed"
+      cp -rL "$symlinked" "$UNFIXED"
+      chmod -R +w "$UNFIXED"
+      pushd "$UNFIXED" > /dev/null
+        "$fixup"
+      popd
+      mv "$UNFIXED" "$out"
     '';
 
   # Silent audio files of various formats. We usually want to add tags to these,
