@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
 function normalise {
-    "$BASE/strip_name.sh" "$1"
+    strip_name.sh "$1"
 }
 
 function printDupes {
