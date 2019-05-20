@@ -107,12 +107,6 @@ Loop through a bunch of music directories. For each, look for files which don't
 appear in Music/Commercial and move them over. Those files which appear in both
 are output in a format suitable for checking by `compare_crcs.py`.
 
-## move_music.sh
-
-"Top-level" script, invoking a bunch of others. Doesn't invoke anything which
-requires Internet access, or anything which involves guesswork (e.g. duplicate
-finders)
-
 ## no_discs.sh
 
 Look for album directories which appear to have rubbish like "(Disc 1)" in their
