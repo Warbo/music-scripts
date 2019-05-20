@@ -3,13 +3,14 @@
 from __future__ import print_function
 import re
 from shutil     import move
-from subprocess import check_output
+from subprocess import PIPE, Popen
 from os         import listdir, makedirs
 from os.path    import basename, dirname, exists, isfile, isdir
 import sys
 
 def msg(m):
     print(m, file=sys.stderr)
+    sys.stderr.flush()
 
 def do_move(src, dest):
     print("mv " + shellquote(src) + " " + shellquote(dest))
@@ -30,6 +31,13 @@ try:
 except IOError:
     msg("No .crcs cache found")
 
+def get_output(*args, **kwargs):
+    p        = Popen(*args, stderr=PIPE, stdout=PIPE, **kwargs)
+    out, err = p.communicate()
+    if p.returncode != 0:
+        msg(err + '\n')
+    return out
+
 def get_crc(path):
     # Use cached version if available
     if path in crcmap:
@@ -37,7 +45,7 @@ def get_crc(path):
 
     # Calculate CRC
     msg("Calculating CRC of " + path)
-    output = check_output(["avconv", "-i", path, "-f", "crc", "-"])
+    output = get_output(["avconv", "-i", path, "-f", "crc", "-"])
     crc    = filter(lambda l: "CRC" in l, output.splitlines())[0]
 
     # Cache for future reference
