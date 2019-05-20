@@ -44,9 +44,11 @@ def process_artist(path):
     run(['no_discs'               , path])
     run(['find_full_albums.sh'    , path])
     run(['strip_youtube_names.sh' , path])
+    run(['strip_dodgy_words.sh'   , path])
     run(['normalise_whitespace.sh', path])
 
     # More expensive checks, which look at file contents
+    run(['remove_empties.sh'      , path])
     run(['fdupes', '-d', '-r'     , path])
     run(['dodgy_looking_tags'     , path])
     run(['find_untagged.sh'       , path])
