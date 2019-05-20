@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
-echo "Looking for empty directories in Music/"
-find "Music" -type d -empty | while read -r D
+if [[ "$#" -eq 0 ]]
+then
+    DIR="Music"
+else
+    DIR="$1"
+fi
+
+echo "Looking for empty directories in '$DIR'"
+find "$DIR" -type d -empty | while read -r D
 do
     TICK="'"
     # shellcheck disable=SC2001
@@ -8,5 +15,5 @@ do
     echo "rmdir '$ESCAPED'"
 done
 
-echo "Looking for empty files in Music/"
-find "Music" -type f -empty
+echo "Looking for empty files in '$DIR'"
+find "$DIR" -type f -empty
