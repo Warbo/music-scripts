@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
 for INIT in Music/Commercial/*
 do
     [[ -d "$INIT" ]] || {
@@ -20,6 +18,6 @@ do
             SECOND=$(echo "$PAIR" | cut -f2 | esc.sh)
 
             echo "mv '$FIRST'/* '$SECOND'/"
-        done < <(find "$ARTIST" -type d | "$BASE/list_dupe_guesses.sh")
+        done < <(find "$ARTIST" -type d | list_dupe_guesses.sh)
     done
 done
