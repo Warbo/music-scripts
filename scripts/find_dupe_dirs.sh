@@ -3,13 +3,13 @@
 for INIT in Music/Commercial/*
 do
     [[ -d "$INIT" ]] || {
-        echo "Warning: '$INIT' is not a directory" >> /dev/stderr
+        echo "Warning: '$INIT' is not a directory" 1>&2
         continue
     }
     for ARTIST in "$INIT"/*
     do
         [[ -d "$ARTIST" ]] || {
-            echo "Warning: '$ARTIST' is not a directory" >> /dev/stderr
+            echo "Warning: '$ARTIST' is not a directory" 1>&2
             continue
         }
         while read -r PAIR
