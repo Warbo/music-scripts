@@ -15,11 +15,14 @@
       GUESSES=$(echo "$GOT" | grep -A 1000 'Possible dupes:' |
                               grep -v 'is a duplicate of')
 
-      echo "$GUESSES" | grep "$NOR" || fail "Didn't guess Nor dupe: $GOT"
-      echo "$GUESSES" | grep "$SWE" || fail "Didn't guess Swe dupe: $GOT"
+      echo "$GUESSES" | grep "$NOR" > /dev/null ||
+        fail "Didn't guess Nor dupe: $GOT"
+      echo "$GUESSES" | grep "$SWE" > /dev/null ||
+        fail "Didn't guess Swe dupe: $GOT"
 
       # Check that CRCs confirm these guesses
-      echo "$GOT" | grep 'is a duplicate of' | grep "$NOR" | grep "$SWE" ||
+      echo "$GOT" | grep 'is a duplicate of' | grep "$NOR" |
+                                               grep "$SWE" > /dev/null ||
         fail "Didn't verify that $NOR is dupe of $SWE"
 
       mkdir "$out"
