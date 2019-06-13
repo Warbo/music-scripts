@@ -1,8 +1,7 @@
-{ bash, nixpkgs1709, wrap }:
+{ bash, wrap }:
 
 wrap {
   name  = "tag_artist";
-  paths = [ bash nixpkgs1709.kid3 ];
-  vars  = { DISPLAY = ":0"; };
+  paths = [ bash ];
   file  = ../raw/tag_artist.sh;
 }

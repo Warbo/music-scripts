@@ -17,14 +17,8 @@ do
         continue
     fi
 
-    DIR=$(dirname "$FILE")
-
     ARTIST=$(basename "$1")
 
     echo "Setting artist to '$ARTIST' in '$FILE'" 1>&2
-
-    export DISPLAY=:0
-    kid3-cli -c 'select "'"$NAME"'"'       \
-             -c 'set artist "'"$ARTIST"'"' \
-             -c 'save' "$DIR"
+    set_tag "artist" "$ARTIST" "$FILE"
 done < <(find "$1" -type f)

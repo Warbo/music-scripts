@@ -19,13 +19,10 @@ function go {
            hasSuffix "wma"  "$FILE" ||
            hasSuffix "m4a"  "$FILE"
         then
-            TAGS=$(tags_of "$FILE")
-            if echo "$TAGS" | grep -i 'title' > /dev/null
-            then
-                continue
-            fi
-            echo "$TAGS" 1>&2
+            TITLE=$(get_tag title "$FILE") || continue
+            [[ -n "$TITLE" ]] || continue
             printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | esc)"
+            tags_of "$F" 1>&2
         else
             echo "Don't know format of '$FILE'" 1>&2
         fi

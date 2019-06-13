@@ -1,17 +1,10 @@
-{ bash, nixpkgs1709, wrap }:
+{ bash, python, wrap }:
 
 wrap {
   name   = "tags_of";
-  paths  = [ bash nixpkgs1709.kid3 ];
-  vars   = { DISPLAY = ":0"; };
+  paths  = [ bash (python.withPackages (p: [ p.mutagen ])) ];
   script = ''
     #!/usr/bin/env bash
-
-    DIR=$(dirname  "$1")
-      F=$(basename "$1")
-
-    F_ESC="''${F//\"/\\\"}"
-
-    kid3-cli -c 'select "'"$F_ESC"'"' -c 'get all' "$DIR"
+    mutagen-inspect "$@"
   '';
 }

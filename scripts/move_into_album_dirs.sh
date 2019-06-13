@@ -36,15 +36,7 @@ function processDir {
 
     while read -r F
     do
-        ALBUM=""
-        TAGS=$(tags_of "$F")
-        if echo "$TAGS" | grep "^  Album  " > /dev/null
-        then
-            ALBUM=$(tags_of "$F" | grep '^  Album  '  |
-                                   sed -e 's/  */ /g' |
-                                   cut -d ' ' -f3-    |
-                                   head -n1)
-        fi
+        ALBUM=$(get_tag album "$F") || continue
         [[ -n "$ALBUM" ]] || continue
 
         D=$(dirname "$(readlink -f "$F")")
