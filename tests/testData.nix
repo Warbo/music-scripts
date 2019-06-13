@@ -1,4 +1,4 @@
-{ attrsToDirs', die, fail, ffmpeg, foldAttrs', lib, nothing, runCommand,
+{ attrsToDirs', bash, die, fail, ffmpeg, foldAttrs', lib, nothing, runCommand,
   sanitiseName, scripts, writeScript }:
 
 with builtins;
@@ -315,7 +315,7 @@ rec {
            else result;
     };
     writeScript "fixup"
-                (foldAttrs' foldInits "#!/usr/bin/env bash" testArtists);
+                (foldAttrs' foldInits "#!${bash}/bin/bash" testArtists);
 
   # A recreation of the relevant directories in Shared, containing caches and
   # Music/Commercial.
