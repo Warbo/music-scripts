@@ -7,7 +7,7 @@ do
     NAME=$(basename "$INCOMING")
 
     # Upper -> lower, remove non-alphabetic
-    ALT=$(strip_name.sh "$NAME")
+    ALT=$(strip_name "$NAME")
 
     if DUPE=$(echo "$NAMES" | grep -- "$ALT")
     then

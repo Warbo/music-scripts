@@ -59,13 +59,13 @@ to a text file ".allowed_artist_dupes", and will be ignored on subsequent runs.
 
 ## find_dupe_dirs.sh
 
-Run `guess_dupes.sh` on all directories found inside each artist directory. This
+Run `guess_dupes` on all directories found inside each artist directory. This
 is useful for finding duplicate album directories.
 
 ## find_dupe_files.sh
 
 For each artist directory, list the files it contains and send through
-`guess_dupes.sh` to find possible duplicates. Send these through
+`guess_dupes` to find possible duplicates. Send these through
 `compare_crcs.py` to check which are actual duplicates.
 
 ## find_full_albums.sh
@@ -86,14 +86,14 @@ tracks using `youtube-dl`. `tag_album_dir` is invoked afterwards.
 
 Uses TaskSpooler to queue up download and tagging processes, if available.
 
-## guess_dupes.sh
+## guess_dupes
 
 Uses `strip_name` to compare each line of stdin with those which came before,
 looking for possible duplicate filenames.
 
 ## list_dupe_guesses.sh
 
-Like `guess_dupes.sh`, but produces output in a format which is more easily
+Like `guess_dupes`, but produces output in a format which is more easily
 parsed. May run through stdin forwards or backwards, with a 50/50 chance. This
 allows more duplicates to be spotted, without requiring any state, and without
 going through the input twice, which might potentially list both entries as
