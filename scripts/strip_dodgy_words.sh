@@ -44,8 +44,8 @@ do
         # Generate a 'mv' command to rename it (escaping as needed)
         DIR=$(dirname "$LINE")
         REP=$(echo "NAME" | sed -e "s/$DODGY//g")
-        OLD=$(echo "$LINE"     | esc.sh)
-        NEW=$(echo "$DIR/$REP" | esc.sh)
+        OLD=$(echo "$LINE"     | esc)
+        NEW=$(echo "$DIR/$REP" | esc)
         echo "mv '$OLD' '$NEW'"
     fi
 done < <(find "$START" -type f)

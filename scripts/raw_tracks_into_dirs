@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
 for F in Music/Commercial/0-9/*
 do
     [[ -f "$F" ]] || {
@@ -9,7 +7,7 @@ do
         continue
     }
 
-    F_ESC=$(echo "$F" | "$BASE/esc.sh")
+    F_ESC=$(echo "$F" | esc)
 
     echo "Looking for artist tag in '$F'" 1>&2
     ARTIST=$(get_tag artist "$F")
@@ -19,7 +17,7 @@ do
         continue
     }
 
-    ARTIST_ESC=$(echo "$ARTIST" | "$BASE/esc.sh")
+    ARTIST_ESC=$(echo "$ARTIST" | esc)
     INIT=$(echo "$ARTIST" | cut -c1)
 
     [[ -d Music/Commercial/"$INIT" ]] || {
@@ -39,7 +37,7 @@ do
     if [[ -n "$ALBUM" ]]
     then
         echo "Found album tag '$ALBUM'" 1>&2
-        ALBUM_ESC=$(echo "$ALBUM" | "$BASE/esc.sh")
+        ALBUM_ESC=$(echo "$ALBUM" | esc)
 
         if [[ -d Music/Commercial/"$INIT"/"$ARTIST"/"$ALBUM" ]]
         then

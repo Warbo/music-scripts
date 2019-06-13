@@ -59,9 +59,9 @@ function process_artist() {
             continue
         fi
 
-        ALBUM_NAME_ESC=$(echo "$ALBUM" | esc.sh)
+        ALBUM_NAME_ESC=$(echo "$ALBUM" | esc)
         ALBUM_NOSLASH="${ALBUM//\//_}"
-        ALBUM_ESC=$(echo "$ARTIST_DIR/$ALBUM_NOSLASH" | esc.sh)
+        ALBUM_ESC=$(echo "$ARTIST_DIR/$ALBUM_NOSLASH" | esc)
 
         FOUND=0
         while read -r D
@@ -79,7 +79,7 @@ function process_artist() {
                 continue
             fi
 
-            D_ESC=$(echo "$D" | esc.sh)
+            D_ESC=$(echo "$D" | esc)
 
             if echo "$ALBUM_STRIP" | grep -F -- "$D_STRIP" > /dev/null
             then

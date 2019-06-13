@@ -24,8 +24,8 @@ function go {
             then
                 continue
             fi
-            printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | esc.sh)"
             echo "$TAGS" 1>&2
+            printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | esc)"
         else
             echo "Don't know format of '$FILE'" 1>&2
         fi

@@ -12,7 +12,7 @@ function withExtIn() {
 function checkFilesIn {
     while read -r F
     do
-        F_ESC=$(echo "$F" | esc.sh)
+        F_ESC=$(echo "$F" | esc)
         echo "Found dodgy whitespace in filename '$F_ESC'"
     done < <(find "$1" -iname ' *';
              find "$1" -iname '* ';
@@ -20,7 +20,7 @@ function checkFilesIn {
 
     while read -r F
     do
-        F_ESC=$(echo "$F" | esc.sh)
+        F_ESC=$(echo "$F" | esc)
         echo "'$F_ESC' should probably be (losslessly) converted to ogg"
     done < <(find "$1" -iname "*.mka")
 
@@ -31,9 +31,9 @@ function checkFilesIn {
             continue
         }
 
-           F_ESC=$(echo "$F.oga"  | esc.sh)
-        OPUS_ESC=$(echo "$F.opus" | esc.sh)
-         OGG_ESC=$(echo "$F.ogg"  | esc.sh)
+           F_ESC=$(echo "$F.oga"  | esc)
+        OPUS_ESC=$(echo "$F.opus" | esc)
+         OGG_ESC=$(echo "$F.ogg"  | esc)
 
         if file "$F.oga" | grep -i opus > /dev/null
         then
@@ -56,8 +56,8 @@ function checkFilesIn {
             echo "Couldn't find '$F.wav'; rename to lowercase?" 1>&2
             continue
         }
-           F_ESC=$(echo "$F.wav"  | esc.sh)
-        OPUS_ESC=$(echo "$F.opus" | esc.sh)
+           F_ESC=$(echo "$F.wav"  | esc)
+        OPUS_ESC=$(echo "$F.opus" | esc)
 
         if file "$F.wav" | grep "WAVE audio" > /dev/null
         then
@@ -75,7 +75,7 @@ function checkFilesIn {
     do
         while read -r F
         do
-            F_ESC=$(echo "$F.$EXT" | esc.sh)
+            F_ESC=$(echo "$F.$EXT" | esc)
             echo "Found possible video file '$F_ESC'"
         done < <(withExtIn "$EXT" "$1")
     done
@@ -91,7 +91,7 @@ then
 else
     for I in Music/Commercial/*
     do
-        I_ESC=$(echo "$I" | esc.sh)
+        I_ESC=$(echo "$I" | esc)
         [[ -d "$I" ]] || {
             echo "'$I_ESC' isn't a directory"
             continue
@@ -99,7 +99,7 @@ else
 
         for ARTIST in "$I"/*
         do
-            ARTIST_ESC=$(echo "$ARTIST" | esc.sh)
+            ARTIST_ESC=$(echo "$ARTIST" | esc)
             [[ -d "$ARTIST" ]] || {
                 echo "'$ARTIST_ESC' isn't a directory"
                 continue
@@ -107,7 +107,7 @@ else
 
             for ALBUM in "$ARTIST"/*
             do
-                ALBUM_ESC=$(echo "$ALBUM" | esc.sh)
+                ALBUM_ESC=$(echo "$ALBUM" | esc)
                 [[ -d "$ALBUM" ]] || {
                     echo "'$ALBUM_ESC' isn't a directory"
                     continue
@@ -115,7 +115,7 @@ else
 
                 for TRACK in "$ALBUM"/*
                 do
-                    TRACK_ESC=$(echo "$TRACK" | esc.sh)
+                    TRACK_ESC=$(echo "$TRACK" | esc)
                     [[ -f "$TRACK" ]] || {
                         echo "'$TRACK_ESC' isn't a file"
                         continue

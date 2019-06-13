@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
 function move_if_no_conflict {
     # Takes the initial (subdir of Music/Commercial), the directory we might be
     # moving from and a path within that directory. For example:
@@ -40,8 +38,8 @@ function move_if_no_conflict {
             echo "COMPARE	$SOURCE/$THEPATH	Music/Commercial/$INITIAL/$THEPATH"
         fi
     else
-        OUT_S=$(echo "$SOURCE/$THEPATH"                   | "$BASE/esc.sh")
-        OUT_D=$(echo "Music/Commercial/$INITIAL/$THEPATH" | "$BASE/esc.sh")
+        OUT_S=$(echo "$SOURCE/$THEPATH"                   | esc)
+        OUT_D=$(echo "Music/Commercial/$INITIAL/$THEPATH" | esc)
         echo "mv -nv '$OUT_S' '$OUT_D'"
     fi
 }

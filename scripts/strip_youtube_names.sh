@@ -6,8 +6,8 @@ function go {
         # shellcheck disable=SC2001
         STRIPPED=$(echo "$F" | sed -e 's/-[^ ()]*\.\(....*\)/.\1/g')
 
-               F_ESC=$(echo "$F"        | esc.sh)
-        STRIPPED_ESC=$(echo "$STRIPPED" | esc.sh)
+               F_ESC=$(echo "$F"        | esc)
+        STRIPPED_ESC=$(echo "$STRIPPED" | esc)
 
         echo "mv '$F_ESC' '$STRIPPED_ESC'"
     done < <(find "$1" -type f | grep -- '-[^ ]*\....[.]*')

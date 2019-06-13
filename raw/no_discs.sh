@@ -29,8 +29,8 @@ function checkArtist {
                 mkdir -p "$NODISC"
                 for TRACK in "$NAME"/*
                 do
-                     TRACKESC=$(echo "$PWD/$TRACK"   | esc.sh)
-                    NODISCESC=$(echo "$PWD/$NODISC/" | esc.sh)
+                     TRACKESC=$(echo "$PWD/$TRACK"   | esc)
+                    NODISCESC=$(echo "$PWD/$NODISC/" | esc)
                     echo "mv -v '$TRACKESC' '$NODISCESC'"
                 done
                 popd > /dev/null || exit 1

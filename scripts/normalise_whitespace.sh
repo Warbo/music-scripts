@@ -19,8 +19,8 @@ do
     # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/   */ /g')
 
-    SRC=$(echo "$DIR/$FILE"   | esc.sh)
-    DST=$(echo "$DIR/$NORMAL" | esc.sh)
+    SRC=$(echo "$DIR/$FILE"   | esc)
+    DST=$(echo "$DIR/$NORMAL" | esc)
     if [[ -e "$DIR/$NORMAL" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
@@ -36,8 +36,8 @@ do
     # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/^  *//g')
 
-    SRC=$(echo "$DIR/$FILE"   | esc.sh)
-    DST=$(echo "$DIR/$NORMAL" | esc.sh)
+    SRC=$(echo "$DIR/$FILE"   | esc)
+    DST=$(echo "$DIR/$NORMAL" | esc)
     if [[ -e "$DIR/$NORMAL" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
@@ -53,8 +53,8 @@ do
     # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/  *\.\([^\.]*\)$/\.\1/g')
 
-    SRC=$(echo "$DIR/$FILE"   | esc.sh)
-    DST=$(echo "$DIR/$NORMAL" | esc.sh)
+    SRC=$(echo "$DIR/$FILE"   | esc)
+    DST=$(echo "$DIR/$NORMAL" | esc)
     [[ "x$FILE" = "x$NORMAL" ]] && continue
     if [[ -e "$DST" ]]
     then

@@ -11,19 +11,19 @@ do
             PARENT=$(dirname "$NAME")
             for ENTRY in "$DIR"/*
             do
-                 SRC=$(echo "$ENTRY"  | esc.sh)
-                DEST=$(echo "$PARENT" | esc.sh)
+                 SRC=$(echo "$ENTRY"  | esc)
+                DEST=$(echo "$PARENT" | esc)
                 echo "mv '$SRC' '$DEST'"
             done
-            ESCAPED=$(echo "$NAME" | esc.sh)
+            ESCAPED=$(echo "$NAME" | esc)
             echo "rmdir '$ESCAPED'"
             ;;
 
         *magnatune.com*)
-             SRC=$(echo "$NAME" | esc.sh)
+             SRC=$(echo "$NAME" | esc)
             DEST=$(echo "$NAME" |
                    sed -e 's@ (PREVIEW_ buy it at www.magnatune.com)@@g' |
-                   esc.sh)
+                   esc)
             echo "mv -v '$SRC' '$DEST'"
             ;;
 
@@ -32,7 +32,7 @@ do
             echo -e "\\nName '$NAME' looks like a dupe" 1>&2
             OTHER=$(basename "$NAME" | cut -d '_' -f 2-)
               DIR=$(dirname "$NAME")
-              ESC=$(echo "$NAME" | esc.sh)
+              ESC=$(echo "$NAME" | esc)
               if [[ -e "$DIR/$OTHER" ]]
               then
                   echo "rm -v '$ESC'"
