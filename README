@@ -4,7 +4,7 @@
 
 For each artist directory in Music/Commercial/*, see if we have a cached albums
 file. If so, loop through the cached albums and see if anything inside the
-artist directory matches (using `strip_name.sh`). If not, report the album as
+artist directory matches (using `strip_name`). If not, report the album as
 missing.
 
 ## check_artist_names.sh
@@ -88,7 +88,7 @@ Uses TaskSpooler to queue up download and tagging processes, if available.
 
 ## guess_dupes.sh
 
-Uses `strip_name.sh` to compare each line of stdin with those which came before,
+Uses `strip_name` to compare each line of stdin with those which came before,
 looking for possible duplicate filenames.
 
 ## list_dupe_guesses.sh
@@ -127,7 +127,7 @@ commands which will remove such dodgyness.
 
 Report empty files and directories.
 
-## strip_name.sh
+## strip_name
 
 Remove characters from the argument which aren't letters and make the result
 lowercase. This increases the chance of spotting duplicates, e.g. if they have

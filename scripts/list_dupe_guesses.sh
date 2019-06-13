@@ -5,7 +5,7 @@ function printDupes {
     while read -r INCOMING
     do
         NAME=$(basename "$INCOMING")
-         ALT=$(strip_name.sh "$NAME")
+         ALT=$(strip_name "$NAME")
 
         # Print out duplicates
         echo "$NAMES" | grep -- "$ALT" | cut -f 1 | while read -r DUPE

@@ -50,7 +50,7 @@ function process_artist() {
     do
         [[ -n "$ALBUM" ]] || continue
 
-        ALBUM_STRIP=$(strip_name.sh "$ALBUM")
+        ALBUM_STRIP=$(strip_name "$ALBUM")
 
         CHARS=$(echo -n "$ALBUM_STRIP" | wc -c)
         if [[ "$CHARS" -lt 4 ]]
@@ -69,7 +69,7 @@ function process_artist() {
             [[ -n "$D" ]] || continue
 
             D_BASE=$(basename "$D")
-            D_STRIP=$(strip_name.sh "$D_BASE")
+            D_STRIP=$(strip_name "$D_BASE")
 
             CHARS=$(echo -n "$D_STRIP" | wc -c)
 
