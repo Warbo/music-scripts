@@ -1,8 +1,7 @@
-{ bash, nixpkgs1709, wrap }:
+{ python, wrap }:
 
 wrap {
   name  = "get_tag";
-  paths = [ bash nixpkgs1709.kid3 ];
-  vars  = { DISPLAY = ":0"; };
-  file  = ../raw/get_tag.sh;
+  paths = [ (python.withPackages (p: [ p.mutagen ])) ];
+  file  = ../raw/get_tag.py;
 }
