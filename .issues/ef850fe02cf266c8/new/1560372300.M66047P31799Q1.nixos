@@ -1,0 +1,12 @@
+From: Chris Warburton
+Date: Wed, 12 Jun 2019 21:43:11 +0100
+State: new
+Subject: Use discogs as fallback if metal-archives don't work
+Message-Id: <ef850fe02cf266c8-0-artemis@nixos>
+
+metal-archives only work for metal bands; discogs should be more
+general, but will also have more ambiguity. We should try metal-archives
+first, but discogs as a backup.
+
+We should also allow override URLs to be given in a hidden file, so we
+can associate a directory with a known artist URL.
