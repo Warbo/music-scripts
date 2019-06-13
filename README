@@ -62,7 +62,7 @@ to a text file ".allowed_artist_dupes", and will be ignored on subsequent runs.
 Run `guess_dupes` on all directories found inside each artist directory. This
 is useful for finding duplicate album directories.
 
-## find_dupe_files.sh
+## find_dupe_files
 
 For each artist directory, list the files it contains and send through
 `guess_dupes` to find possible duplicates. Send these through

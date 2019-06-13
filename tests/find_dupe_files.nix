@@ -7,7 +7,7 @@
       buildInputs = [ fail scripts ];
     }
     ''
-      GOT=$(find_dupe_files.sh "$testData")
+      GOT=$(find_dupe_files "$testData")
       NOR="From Norway One/01 A Song.mp3"
       SWE="From Sweden One/01 A Song.mp3"
 

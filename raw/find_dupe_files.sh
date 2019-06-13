@@ -2,7 +2,7 @@
 
 function go {
     echo "Looking for dupes in '$1'" 1>&2
-    DUPES=$(find "$1" -type f | guess_dupes.sh)
+    DUPES=$(find "$1" -type f | guess_dupes)
     echo "Possible dupes:"
     echo "$DUPES"
     echo "Checking CRCs"   1>&2
