@@ -107,7 +107,7 @@ Loop through a bunch of music directories. For each, look for files which don't
 appear in Music/Commercial and move them over. Those files which appear in both
 are output in a format suitable for checking by `compare_crcs.py`.
 
-## no_discs.sh
+## no_discs
 
 Look for album directories which appear to have rubbish like "(Disc 1)" in their
 name, and output commands which will clean them up. This can greatly reduce
