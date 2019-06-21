@@ -6,7 +6,7 @@ with rec {
     (import "${nix-helpers    }/overlay.nix")
     (import "${warbo-packages }/overlay.nix")
     (import "${warbo-utilities}/overlay.nix")
-    (import                  ./overlay.nix )
+    (import                   ./overlay.nix )
   ];
 
   # Whichever nixpkgs the system provides
