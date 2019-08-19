@@ -1,0 +1,8 @@
+From: Chris Warburton
+Date: Fri, 21 Jun 2019 17:04:42 +0100
+Subject: Re: Use xvfb-run-safe for kid3
+Message-Id: <c4cf80fe3d25ad00-96ec0186dd53ab1c-artemis@nixos>
+References: <c4cf80fe3d25ad00-0-artemis@nixos>
+In-Reply-To: <c4cf80fe3d25ad00-0-artemis@nixos>
+
+We now use mutagen instead

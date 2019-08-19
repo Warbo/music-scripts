@@ -1,0 +1,18 @@
+From: Chris Warburton
+Date: Mon, 19 Aug 2019 18:09:39 +0100
+Subject: Re: Look for dodgy characters in filenames
+Message-Id: <c48eb1c763b0bd86-cdb94e72e6ece069-artemis@nixos>
+References: <c48eb1c763b0bd86-0-artemis@nixos>
+In-Reply-To: <c48eb1c763b0bd86-0-artemis@nixos>
+
+I've added a check for this in dodgy_looking_paths
+
+We use iconv to translate filenames from UTF-8 to UTF-8, and report if there was
+a problem.
+
+This seems to accept filenames from the Commercial/Other folder, which has
+Russian, Chinese and Japanese characters; yet it complains about umlauts and
+quotation marks for bands like Motorhead.
+
+This seems to be correct, since it's those files it complains about that are
+stopping Picard from working.

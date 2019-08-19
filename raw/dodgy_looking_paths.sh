@@ -13,10 +13,17 @@ function checkFilesIn {
     while read -r F
     do
         F_ESC=$(echo "$F" | esc)
+        echo "$F" | iconv -f UTF-8 -t UTF-8//IGNORE > /dev/null 2>&1 ||
+            echo "Dodgy characters in $F_ESC Rename it to avoid problems" 1>&2
+    done < <(find "$1")
+
+    while read -r F
+    do
+        F_ESC=$(echo "$F" | esc)
         echo "Found dodgy whitespace in filename '$F_ESC'"
     done < <(find "$1" -iname ' *';
              find "$1" -iname '* ';
-             find "$1" -iname ' *.*')
+             find "$1" -iname '* .*')
 
     while read -r F
     do
@@ -71,7 +78,7 @@ function checkFilesIn {
         fi
     done < <(withExtIn "wav" "$1")
 
-    for EXT in mp4 avi
+    for EXT in mp4 avi webm
     do
         while read -r F
         do

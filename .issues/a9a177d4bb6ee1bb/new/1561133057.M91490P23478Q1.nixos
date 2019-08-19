@@ -1,0 +1,10 @@
+From: Chris Warburton
+Date: Fri, 21 Jun 2019 17:03:05 +0100
+Subject: Re: Use kid3 for tag getting/setting
+Message-Id: <a9a177d4bb6ee1bb-ac5cd8220b8a3544-artemis@nixos>
+References: <a9a177d4bb6ee1bb-0-artemis@nixos>
+In-Reply-To: <a9a177d4bb6ee1bb-0-artemis@nixos>
+
+Did this, but it turns out that kid3-cli needs an X server (e.g. xvfb) and a
+dbus connection. This is pretty unreliable, so I undid it to instead use
+mutagen.

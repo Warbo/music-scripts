@@ -1,0 +1,16 @@
+From: Chris Warburton
+Date: Sun, 18 Aug 2019 19:11:08 +0100
+State: resolved
+Subject: Look for dodgy characters in filenames
+Message-Id: <c48eb1c763b0bd86-0-artemis@nixos>
+resolution: fixed
+
+In particular, I came across some dodgy apostrophes (possibly Microsoft
+bollocks?) in some Saxon filenames.
+
+This prevented Picard from loading the directory contents; even worse,
+it didn't even show a warning, it just ignored files which were accessed
+*after* the first dodgy one.
+
+We can be easily misled that we're tagging everything, when in fact an
+arbitrary number of files may be getting skipped entirely by Picard.

@@ -1,0 +1,27 @@
+From: Chris Warburton
+Date: Fri, 21 Jun 2019 17:05:33 +0100
+Subject: Re: Use discogs as fallback if metal-archives don't work
+Message-Id: <ef850fe02cf266c8-8a65319dcedd465b-artemis@nixos>
+References: <ef850fe02cf266c8-0-artemis@nixos>
+In-Reply-To: <ef850fe02cf266c8-0-artemis@nixos>
+
+I've added a check_on_discogs script. This currently:
+
+ - Loops through artist directories
+ - Strips country codes out of the directory names
+ - Searches for the resulting artist name on discogs (with a 3 second delay to
+   keep per-IP accesses below 25 per minute, and a unique user-agent)
+ - Stores the resulting search pages into a cache
+ - Attempts to find a correct discogs artist ID by looking through results for:
+   - An exact match with the artist name (lowercased, alphabetical-only)
+   - Results containing, or contained in, the artist name (lowercased, etc.)
+ - If one exact match is found, or one fuzzy match, that's returned
+ - Otherwise we error-out (and try/catch on to the next artist)
+
+Still left to do:
+
+ - Allow exact artist IDs to be given by an override file
+ - Look up albums for an artist ID (via discogs API)
+ - Look up tracks for an album
+ - Check these discogs caches when checking for missing albums
+ - Check these discogs caches when checking for missing tracks
