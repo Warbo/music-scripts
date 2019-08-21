@@ -17,16 +17,19 @@ function usage {
 }
 
 function esc {
+    # shellcheck disable=SC2001
     echo "'$(echo "$1" | sed -e "s/'/'\\\\''/g")'"
 }
 
 # Converts a ~/Public/Music path to ~/Music
 function home_of {
+    # shellcheck disable=SC2001
     echo "$1" | sed -e 's@/home/chris/Public/@/home/chris/@g'
 }
 
 # Converts a ~/Music path to ~/Public/
 function pub_of {
+    # shellcheck disable=SC2001
     echo "$1" | sed -e 's@/home/chris/Music/@/home/chris/Public/Music/@g'
 }
 
@@ -49,6 +52,7 @@ echo "$PUB_DIR" | grep '^/home/chris/Public/Music/Commercial/' > /dev/null ||
 #    }
 #done
 
+# shellcheck disable=SC2001
  PUB_ESC=$(esc "$(echo "$PUB_DIR" |
                   sed -e 's#/home/chris/Public#pi@dietpi.local:/opt/shared#g')")
 HOME_ESC=$(esc "$HOME_DIR")
