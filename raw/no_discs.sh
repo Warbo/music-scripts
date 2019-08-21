@@ -15,7 +15,7 @@ function checkArtist {
         fi
 
         # Skip dodgy chars
-        echo "$NAME" | rev > /dev/null 2> /dev/null || continue
+        convmv -f utf8 -t utf8 "$NAME" > /dev/null 2> /dev/null || continue
 
          NODISC=$(echo "$NAME"   | rev | cut -c 10- | rev)
           LOWER=$(echo "$NAME"   | tr '[:upper:]' '[:lower:]')

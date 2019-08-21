@@ -13,7 +13,7 @@ function checkFilesIn {
     while read -r F
     do
         F_ESC=$(echo "$F" | esc)
-        echo "$F" | iconv -f UTF-8 -t UTF-8//IGNORE > /dev/null 2>&1 ||
+        convmv -f utf8 -t utf8 "$F" 1> /dev/null 2> /dev/null ||
             echo "Dodgy characters in $F_ESC Rename it to avoid problems" 1>&2
     done < <(find "$1")
 
