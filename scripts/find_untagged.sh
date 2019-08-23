@@ -22,7 +22,7 @@ function go {
             TITLE=$(get_tag title "$FILE") || continue
             [[ -n "$TITLE" ]] && continue
             printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | esc)"
-            tags_of "$F" 1>&2
+            tags_of "$FILE" 1>&2
         else
             echo "Don't know format of '$FILE'" 1>&2
         fi
