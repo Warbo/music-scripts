@@ -43,7 +43,9 @@ do
     then
         # Generate a 'mv' command to rename it (escaping as needed)
         DIR=$(dirname "$LINE")
-        REP=$(echo "NAME" | sed -e "s/$DODGY//g")
+
+        # shellcheck disable=SC2001
+        REP=$(echo "$NAME"     | sed -e "s/$DODGY//g")
         OLD=$(echo "$LINE"     | esc)
         NEW=$(echo "$DIR/$REP" | esc)
         echo "mv '$OLD' '$NEW'"
