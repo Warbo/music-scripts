@@ -20,7 +20,7 @@ function go {
            hasSuffix "m4a"  "$FILE"
         then
             TITLE=$(get_tag title "$FILE") || continue
-            [[ -n "$TITLE" ]] || continue
+            [[ -n "$TITLE" ]] && continue
             printf 'Untagged\t'\''%s'\''\n' "$(echo "$FILE" | esc)"
             tags_of "$F" 1>&2
         else
