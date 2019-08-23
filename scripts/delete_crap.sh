@@ -19,6 +19,7 @@ done < <(find "$DIR"  -name '.DS_Store' \
                  -or -iname "*.gif"     \
                  -or -iname "*.htm"     \
                  -or -iname "*.html"    \
+                 -or -iname "*.ico"     \
                  -or -iname "*.ini"     \
                  -or -iname "*.jpeg"    \
                  -or -iname "*.jpg"     \
