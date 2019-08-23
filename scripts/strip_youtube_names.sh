@@ -6,6 +6,11 @@ function go {
         # shellcheck disable=SC2001
         STRIPPED=$(echo "$F" | sed -e 's/-[^ ()]*\.\(....*\)/.\1/g')
 
+        # Some files have the track number followed by a dash; these should be
+        # left alone
+        REMAINING=$(basename "$STRIPPED" | rev | cut -d '.' -f2- | rev)
+        echo "$REMAINING" | grep '^[0-9]*$' > /dev/null && continue
+
                F_ESC=$(echo "$F"        | esc)
         STRIPPED_ESC=$(echo "$STRIPPED" | esc)
 
