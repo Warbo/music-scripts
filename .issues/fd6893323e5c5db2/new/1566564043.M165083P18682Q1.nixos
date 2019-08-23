@@ -1,0 +1,12 @@
+From: Chris Warburton
+Date: Fri, 23 Aug 2019 13:38:58 +0100
+State: new
+Subject: Only strip youtube crap from basenames
+Message-Id: <fd6893323e5c5db2-0-artemis@nixos>
+
+When we try removing youtube IDs by dropping whatever's after a hyphen, we can
+end up spotting hyphens in directory names. That's nonsense, we should only be
+looking in the basename.
+
+While we're at it, we should see how many characters are in a youtube ID, so
+that we check for that many.
