@@ -18,8 +18,12 @@ function checkFilesIn {
             echo "Dodgy characters in $F_ESC Rename it to avoid problems" 1>&2
     done < <(find "$1")
 
+    # Look for spaces at the start and end of filenames, and around extensions
     while read -r F
     do
+        # Allow spaces if there's a "..." somewhere
+        echo "$F" | grep '\.\.\.' > /dev/null && continue
+
         F_ESC=$(echo "$F" | esc)
         echo "Found dodgy whitespace in filename '$F_ESC'"
     done < <(find "$1" -iname ' *';
