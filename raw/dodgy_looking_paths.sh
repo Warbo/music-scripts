@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+shopt -s nullglob
 
 function withExtIn() {
     # Looks for files in $2 which end in extension $1; returns the paths but
