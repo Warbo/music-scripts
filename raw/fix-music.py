@@ -44,7 +44,7 @@ def process_artist(path):
     run(['no_discs'               , path])
     run(['find_full_albums.sh'    , path])
     run(['strip_youtube_names.sh' , path])
-    run(['strip_dodgy_words.sh'   , path])
+    run(['strip_dodgy_words'      , path])
     run(['normalise_whitespace.sh', path])
 
     # More expensive checks, which look at file contents
