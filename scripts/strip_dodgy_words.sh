@@ -48,6 +48,6 @@ do
         REP=$(echo "$NAME"     | sed -e "s/$DODGY//g")
         OLD=$(echo "$LINE"     | esc)
         NEW=$(echo "$DIR/$REP" | esc)
-        echo "mv '$OLD' '$NEW'"
+        echo -e "mv '$OLD' \n   '$NEW'"
     fi
 done < <(find "$START" -type f)
