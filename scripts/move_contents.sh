@@ -38,9 +38,7 @@ function move_if_no_conflict {
             echo "COMPARE	$SOURCE/$THEPATH	Music/Commercial/$INITIAL/$THEPATH"
         fi
     else
-        OUT_S=$(echo "$SOURCE/$THEPATH"                   | esc)
-        OUT_D=$(echo "Music/Commercial/$INITIAL/$THEPATH" | esc)
-        echo "mv -nv '$OUT_S' '$OUT_D'"
+        move_command "$SOURCE/$THEPATH" "Music/Commercial/$INITIAL/$THEPATH"
     fi
 }
 

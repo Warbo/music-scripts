@@ -24,7 +24,7 @@ function free_out_of_commercial {
     do
         PARENT=$(dirname "$DIR")
         mkdir -p ../Free/"$PARENT"
-        echo "mv -v '$PWD/$DIR' '$PWD/../Free/$DIR'"
+        move_command "$PWD/$DIR" "$PWD/../Free/$DIR"
     done < <(free_dirs)
     popd > /dev/null || return
 }

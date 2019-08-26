@@ -90,8 +90,7 @@ function checkMp3s {
 
             HAS=$(checkTag "$FIELD" "$VAL") || {
                 NAME=$(basename "$F")
-                DST=$(echo "Music/Commercial/$INIT/$ARTIST/$HAS/$NAME" | esc)
-                echo "mv '$F_ESC' '$DST'"
+                move_command "$F" "Music/Commercial/$INIT/$ARTIST/$HAS/$NAME"
                 [[ "x$VAL" = "xNONE" ]] || {
                     echo "$F has '$FIELD' of '$HAS', should be '$VAL'"
                     echo "mid3v2 $FIX '$F_ESC'"

@@ -19,13 +19,13 @@ do
     # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/   */ /g')
 
-    SRC=$(echo "$DIR/$FILE"   | esc)
-    DST=$(echo "$DIR/$NORMAL" | esc)
-    if [[ -e "$DIR/$NORMAL" ]]
+    SRC="$DIR/$FILE"
+    DST="$DIR/$NORMAL"
+    if [[ -e "$DST" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
     else
-        echo "mv -v '$SRC' '$DST'"
+        move_command "$SRC" "$DST"
     fi
 done < <(find "$DIR" -name '*  *')
 while read -r NAME
@@ -36,13 +36,13 @@ do
     # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/^  *//g')
 
-    SRC=$(echo "$DIR/$FILE"   | esc)
-    DST=$(echo "$DIR/$NORMAL" | esc)
+    SRC="$DIR/$FILE"
+    DST="$DIR/$NORMAL"
     if [[ -e "$DIR/$NORMAL" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
     else
-        echo "mv -v '$SRC' '$DST'"
+        move_command "$SRC" "$DST"
     fi
 done < <(find "$DIR" -name ' *')
 while read -r NAME
@@ -53,13 +53,13 @@ do
     # shellcheck disable=SC2001
     NORMAL=$(echo "$FILE" | sed -e 's/  *\.\([^\.]*\)$/\.\1/g')
 
-    SRC=$(echo "$DIR/$FILE"   | esc)
-    DST=$(echo "$DIR/$NORMAL" | esc)
+    SRC="$DIR/$FILE"
+    DST="$DIR/$NORMAL"
     [[ "x$FILE" = "x$NORMAL" ]] && continue
     if [[ -e "$DST" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
     else
-        echo "mv -v '$SRC' '$DST'"
+        move_command "$SRC" "$DST"
     fi
 done < <(find "$DIR" -name '* .*')

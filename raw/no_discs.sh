@@ -29,9 +29,7 @@ function checkArtist {
                 mkdir -p "$NODISC"
                 for TRACK in "$NAME"/*
                 do
-                     TRACKESC=$(echo "$PWD/$TRACK"   | esc)
-                    NODISCESC=$(echo "$PWD/$NODISC/" | esc)
-                    echo "mv -v '$TRACKESC' '$NODISCESC'"
+                    move_command "$PWD/$TRACK" "$PWD/$NODISC/"
                 done
                 popd > /dev/null || exit 1
             fi

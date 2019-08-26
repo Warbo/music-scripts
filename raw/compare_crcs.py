@@ -13,7 +13,7 @@ def msg(m):
     sys.stderr.flush()
 
 def do_move(src, dest):
-    print("mv " + shellquote(src) + " " + shellquote(dest))
+    print("mv -v " + shellquote(src) + " \\\n      " + shellquote(dest))
 
 def shellquote(s):
     return "'" + s.replace("'", "'\\''") + "'"

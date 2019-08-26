@@ -11,20 +11,17 @@ do
             PARENT=$(dirname "$NAME")
             for ENTRY in "$DIR"/*
             do
-                 SRC=$(echo "$ENTRY"  | esc)
-                DEST=$(echo "$PARENT" | esc)
-                echo "mv '$SRC' '$DEST'"
+                move_command "$ENTRY" "$PARENT"
             done
             ESCAPED=$(echo "$NAME" | esc)
             echo "rmdir '$ESCAPED'"
             ;;
 
         *magnatune.com*)
-             SRC=$(echo "$NAME" | esc)
             DEST=$(echo "$NAME" |
                    sed -e 's@ (PREVIEW_ buy it at www.magnatune.com)@@g' |
                    esc)
-            echo "mv -v '$SRC' '$DEST'"
+            move_command "$NAME" "$DEST"
             ;;
 
         *tmp_*)

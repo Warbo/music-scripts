@@ -41,12 +41,12 @@ function processDir {
 
         D=$(dirname "$(readlink -f "$F")")
         same "$D" "$TOP/$INIT/$ARTIST/$ALBUM" || {
-            EF=$(echo "$F"                        | esc)
-            EP=$(echo "$TOP/$INIT/$ARTIST/$ALBUM" | esc)
+            P="$TOP/$INIT/$ARTIST/$ALBUM"
+            EP=$(echo "$P" | esc)
 
             echo "File '$F' has album '$ALBUM'; move with command:"
             echo "mkdir -p '$EP'"
-            echo "mv '$EF' '$EP/'"
+            move_command "$F" "$P/"
         }
     done < <(find "$DIR" -type f)
 }

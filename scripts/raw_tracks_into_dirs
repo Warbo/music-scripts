@@ -7,8 +7,6 @@ do
         continue
     }
 
-    F_ESC=$(echo "$F" | esc)
-
     echo "Looking for artist tag in '$F'" 1>&2
     ARTIST=$(get_tag artist "$F")
 
@@ -42,16 +40,16 @@ do
         if [[ -d Music/Commercial/"$INIT"/"$ARTIST"/"$ALBUM" ]]
         then
             echo "Found album dir '$ALBUM'" 1>&2
-            echo "mv -v '$F_ESC' 'Music/Commercial/$INIT/$ARTIST_ESC/$ALBUM_ESC/'"
+            move_command "$F" "Music/Commercial/$INIT/$ARTIST/$ALBUM/"
         else
             echo "No album dir for '$ALBUM'" 1>&2
             echo "mkdir 'Music/Commercial/$INIT/$ARTIST_ESC/$ALBUM_ESC'"
 
             echo "To ignore the album, just run" 1>&2
-            echo "mv '$F_ESC' 'Music/Commercial/$INIT/$ARTIST_ESC/'"
+            move_command "$F" "Music/Commercial/$INIT/$ARTIST/"
         fi
     else
         echo "No album tag for '$F'" 1>&2
-        echo "mv '$F_ESC' 'Music/Commercial/$INIT/$ARTIST_ESC'"
+        move_command "$F" "Music/Commercial/$INIT/$ARTIST/"
     fi
 done

@@ -61,7 +61,7 @@ function process_artist() {
 
         ALBUM_NAME_ESC=$(echo "$ALBUM" | esc)
         ALBUM_NOSLASH="${ALBUM//\//_}"
-        ALBUM_ESC=$(echo "$ARTIST_DIR/$ALBUM_NOSLASH" | esc)
+        ALBUM_DIR="$ARTIST_DIR/$ALBUM_NOSLASH"
 
         FOUND=0
         while read -r D
@@ -79,21 +79,19 @@ function process_artist() {
                 continue
             fi
 
-            D_ESC=$(echo "$D" | esc)
-
             if echo "$ALBUM_STRIP" | grep -F -- "$D_STRIP" > /dev/null
             then
                 FOUND=1
-                echo "Directory '$D' looks like album '$ALBUM'. To rename, do:" 1>&2
-                echo "mv '$D_ESC' '$ALBUM_ESC'" 1>&2
+                echo "Directory '$D' looks like album '$ALBUM'. To rename, do:"
+                move_command "$D" "$ALBUM_DIR"
                 break
             fi
 
             if echo "$D_STRIP" | grep -F -- "$ALBUM_STRIP" > /dev/null
             then
                 FOUND=1
-                echo "Directory '$D' looks like album '$ALBUM'. To rename, do:" 1>&2
-                echo "mv '$D_ESC' '$ALBUM_ESC'" 1>&2
+                echo "Directory '$D' looks like album '$ALBUM'. To rename, do:"
+                move_command "$D" "$ALBUM_DIR"
                 break
             fi
         done < <(echo "$DIRS")

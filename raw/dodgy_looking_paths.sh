@@ -43,21 +43,17 @@ function checkFilesIn {
             continue
         }
 
-           F_ESC=$(echo "$F.oga"  | esc)
-        OPUS_ESC=$(echo "$F.opus" | esc)
-         OGG_ESC=$(echo "$F.ogg"  | esc)
-
         if file "$F.oga" | grep -i opus > /dev/null
         then
-            echo "'$F_ESC' should be renamed to .opus"
-            echo "mv '$F_ESC' '$OPUS_ESC'"
+            echo "'$F' should be renamed to .opus"
+            move_command "$F.oga" "$F.opus"
         else
             if file "$F.oga" | grep -i vorbis > /dev/null
             then
-                echo "'$F_ESC' should be renamed to .ogg"
-                echo "mv '$F_ESC' '$OGG_ESC'"
+                echo "'$F' should be renamed to .ogg"
+                move_command "$F.oga" "$F.ogg"
             else
-                echo "Unknown codec in '$F_ESC'"
+                echo "Unknown codec in '$F'"
             fi
         fi
     done < <(withExtIn "oga" "$1")

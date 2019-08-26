@@ -48,8 +48,6 @@ do
         REP=$(echo "$NAME"     | replace "$DODGY" "" |
                                  sed -e 's/  */ /g' \
                                      -e 's/ \(\.[^.]*\)$/\1/g')
-        OLD=$(echo "$LINE"     | esc)
-        NEW=$(echo "$DIR/$REP" | esc)
-        echo -e "mv '$OLD' \n   '$NEW'"
+        move_command "$LINE" "$DIR/$REP"
     fi
 done < <(find "$START" -type f)

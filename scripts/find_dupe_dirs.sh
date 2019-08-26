@@ -10,7 +10,7 @@ function go {
         echo "$FIRST"  | grep '/Music/' > /dev/null || continue
         echo "$SECOND" | grep '/Music/' > /dev/null || continue
 
-        echo "mv '$FIRST'/* '$SECOND'/"
+        move_command "$FIRST" "$SECOND/" "/*"
     done < <(find "$1" -type d | list_dupe_guesses.sh)
 }
 

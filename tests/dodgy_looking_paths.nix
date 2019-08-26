@@ -5,16 +5,18 @@
       buildInputs = [ fail scripts ];
     }
     ''
+      NOEXT='Music/Commercial/E/Extended/An Album/foo'
+
       function gotExtension {
-        F="Music/Commercial/E/Extended/An Album/foo.$1"
+        F="$NOEXT.$1"
         D=$(dirname "$F")
 
         mkdir -p "$D"
         touch "$F"
 
         GOT=$(dodgy_looking_paths "$D")
-        echo "$GOT" | grep -- "$F" > /dev/null ||
-          fail "No mention of '$F' in '$GOT'"
+        echo "$GOT" | grep -- "$NOEXT" > /dev/null ||
+          fail "No mention of '$NOEXT' in '$GOT'"
       }
 
       for E in mka oga wav mp4 avi

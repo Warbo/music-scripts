@@ -11,10 +11,7 @@ function go {
         REMAINING=$(basename "$STRIPPED" | rev | cut -d '.' -f2- | rev)
         echo "$REMAINING" | grep '^[0-9]*$' > /dev/null && continue
 
-               F_ESC=$(echo "$F"        | esc)
-        STRIPPED_ESC=$(echo "$STRIPPED" | esc)
-
-        echo "mv '$F_ESC' '$STRIPPED_ESC'"
+        move_command "$F" "$STRIPPED"
     done < <(find "$1" -type f | grep -- '-[^ ]*\....[.]*')
 }
 
