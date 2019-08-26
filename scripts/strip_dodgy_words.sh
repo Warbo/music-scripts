@@ -45,7 +45,9 @@ do
         DIR=$(dirname "$LINE")
 
         # shellcheck disable=SC2001
-        REP=$(echo "$NAME"     | sed -e "s/$DODGY//g")
+        REP=$(echo "$NAME"     | replace "$DODGY" "" |
+                                 sed -e 's/  */ /g' \
+                                     -e 's/ \(\.[^.]*\)$/\1/g')
         OLD=$(echo "$LINE"     | esc)
         NEW=$(echo "$DIR/$REP" | esc)
         echo -e "mv '$OLD' \n   '$NEW'"
