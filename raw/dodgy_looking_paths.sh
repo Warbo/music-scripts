@@ -87,6 +87,19 @@ function checkFilesIn {
         fi
     done < <(withExtIn "wav" "$1")
 
+    while read -r F
+    do
+        [[ -e "$F.flac" ]] || {
+            echo "Couldn't find '$F.flac'; rename to lowercase?" 1>&2
+            continue
+        }
+           F_ESC=$(echo "$F.flac" | esc)
+        OPUS_ESC=$(echo "$F.opus" | esc)
+
+        echo "'$F_ESC' can be encoded to .opus"
+        echo "opusenc --bitrate 128 --comp 10 --max-delay 10 '$F_ESC' '$OPUS_ESC'"
+    done < <(withExtIn "flac" "$1")
+
     for EXT in mp4 avi webm
     do
         while read -r F
