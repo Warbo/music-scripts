@@ -18,6 +18,14 @@ function checkFilesIn {
             echo "Dodgy characters in $F_ESC Rename it to avoid problems" 1>&2
     done < <(find "$1")
 
+    for DODGE in blogspot magnatune download.com jamendo
+    do
+        while read -r F
+        do
+            echo "Path '$F' looks dodgy"
+        done < <(find "$1" -iname "*$DODGE*")
+    done
+
     # Look for spaces at the start and end of filenames, and around extensions
     while read -r F
     do
