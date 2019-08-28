@@ -3,8 +3,8 @@
 function go {
     while read -r PAIR
     do
-         FIRST=$(echo "$PAIR" | cut -f1 | esc.sh)
-        SECOND=$(echo "$PAIR" | cut -f2 | esc.sh)
+         FIRST=$(echo "$PAIR" | cut -f1 | esc)
+        SECOND=$(echo "$PAIR" | cut -f2 | esc)
 
         # Avoid empty or otherwise dodgy paths
         echo "$FIRST"  | grep '/Music/' > /dev/null || continue

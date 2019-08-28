@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-BASE=$(dirname "$(readlink -f "$0")")
-
-function esc {
-    "$BASE/esc.sh"
-}
-
 function initOf {
     I_DIR=$(echo "$1" | grep -o "Music/Commercial/[^/]*")
     basename "$I_DIR"
