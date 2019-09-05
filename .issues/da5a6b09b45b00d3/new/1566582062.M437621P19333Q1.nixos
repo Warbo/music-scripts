@@ -1,7 +1,8 @@
 From: Chris Warburton
 Date: Fri, 23 Aug 2019 18:40:33 +0100
-State: new
+State: resolved
 Subject: Look for hidden files
 Message-Id: <da5a6b09b45b00d3-0-artemis@nixos>
+resolution: fixed
 
 Some filenames are so mangled that they're hidden, e.g. "...foo.mp3"

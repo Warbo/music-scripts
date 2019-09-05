@@ -28,6 +28,11 @@ function checkFilesIn {
 
     while read -r F
     do
+        echo "Found hidden file '$F'"
+    done < <(find "$1" -name '.*')
+
+    while read -r F
+    do
         echo "Found colon in path '$F'; this will cause problems on FAT drives"
 
         # shellcheck disable=SC2001
