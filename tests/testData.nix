@@ -126,6 +126,36 @@ rec {
       };
     };
     D = {
+      DodgyArtist = {
+        nowhere = {
+          albums = [
+            {
+              id         = "234";
+              name       = "Dodgy: The FAT Incompatibility";
+              year       = "1999";
+              audioFiles = {
+                "01 I Am Least Dodgy.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = "I Am Least Dodgy";
+                    artist = "DodgyArtist";
+                    album  = "Dodgy: The FAT Incompatibility";
+                  };
+                };
+
+                "02 I'm Pretty: Dodgy.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    title  = "I'm Pretty: Dodgy";
+                    artist = "DodgyArtist";
+                    album  = "Dodgy: The FAT Incompatibility";
+                  };
+                };
+              };
+            }
+          ];
+        };
+      };
       DuplicatedArtist = {
         Nor = {
           albums  = [

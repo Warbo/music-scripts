@@ -26,4 +26,31 @@
 
       mkdir "$out"
     '';
+
+  colons = runCommand "test-dodgy-colons"
+    {
+      inherit testData;
+      buildInputs = [ fail scripts ];
+    }
+    ''
+      pushd "$testData"
+      GOT=$(dodgy_looking_paths Music)
+
+      function found {
+        # Need to double-up backslashes for grep
+        PAT=$(echo "$1" | sed -e 's/\\/\\\\/g')
+        echo "$GOT" | grep "$PAT" > /dev/null || {
+          echo "Didn't spot '$1' in '$GOT'" 1>&2
+          exit 1
+        }
+      }
+
+      TICK="'"
+        BS="\\"
+
+      found 'Found colon'
+      found '/Dodgy - The FAT Incompatibility'
+      found "/Dodgy: The FAT Incompatibility/02 I$TICK$BS$TICK''${TICK}m Pretty - Dodgy.mp3"
+      mkdir "$out"
+    '';
 }

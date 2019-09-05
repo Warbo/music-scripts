@@ -1,0 +1,10 @@
+From: Chris Warburton
+Date: Tue, 03 Sep 2019 12:46:23 +0100
+State: resolved
+Subject: Replace : with -
+Message-Id: <891cd80feaad249a-0-artemis@nixos>
+resolution: fixed
+
+Names with ':' in them won't work on FAT or NTFS filesystems.
+
+Replace them with ' - '.

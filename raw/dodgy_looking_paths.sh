@@ -26,6 +26,23 @@ function checkFilesIn {
         done < <(find "$1" -iname "*$DODGE*")
     done
 
+    while read -r F
+    do
+        echo "Found colon in path '$F'; this will cause problems on FAT drives"
+
+        # shellcheck disable=SC2001
+        END=$(basename "$F" | sed -e 's/:/ - /g' -e 's/  */ /g')
+        NEW=$(dirname "$F")/"$END"
+
+        if [[ -e "$NEW" ]]
+        then
+            echo "Suggested alternative '$NEW' already exists: merge or dedupe!"
+        else
+            echo "Replace the colon with the following command:"
+            move_command "$F" "$NEW"
+        fi
+    done < <(find . -name '*:*')
+
     # Look for spaces at the start and end of filenames, and around extensions
     while read -r F
     do
