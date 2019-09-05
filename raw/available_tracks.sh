@@ -55,11 +55,12 @@ function process_artist() {
 
                 if [[ "$FOUND" -eq 0 ]]
                 then
-                    echo "Couldn't find track '$ALBUM_DIR/$NUM - $TRACK'" 1>&2
+                    echo "Couldn't find track '$ALBUM_DIR/$NUM - $TRACK'"
                 elif [[ "$FOUND" -gt 1 ]]
                 then
-                    echo "Found multiple matches for '$ALBUM_DIR/$NUM - $TRACK'" 1>&2
-                    echo "$FILES" | grep '^.' 1>&2
+                    echo "Found multiple matches for '$ALBUM_DIR/$NUM - $TRACK'"
+                    echo "$FILES" | grep '^.'
+                    echo "END MULTIPLES"
                 fi
             done < <(tracks_from < "$TRACK_FILE")
         done < <(album_names_from < "$ALBUM_CACHE")
