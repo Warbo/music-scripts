@@ -19,4 +19,4 @@ DST_ESC=$(echo "$DST" | esc)
 # Print across two lines, with alignment, to make changes easier to read
 # We allow extra unescaped, unquoted text via $3 and $4, e.g. for '/*'
 printf 'mv -v '\''%s'\''%s \\\n      '\''%s'\''%s\n' \
-       "$SRC_ESC" "$DST_ESC" "$3" "$4"
+       "$SRC_ESC" "$3" "$DST_ESC" "$4"
