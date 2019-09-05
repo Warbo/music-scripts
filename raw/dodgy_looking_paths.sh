@@ -46,7 +46,7 @@ function checkFilesIn {
             echo "Replace the colon with the following command:"
             move_command "$F" "$NEW"
         fi
-    done < <(find . -name '*:*')
+    done < <(find "$1" -name '*:*')
 
     # Look for spaces at the start and end of filenames, and around extensions
     while read -r F
