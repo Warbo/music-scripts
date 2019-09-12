@@ -60,7 +60,8 @@ function process_artist() {
         fi
 
         ALBUM_NAME_ESC=$(echo "$ALBUM" | esc)
-        ALBUM_NOSLASH="${ALBUM//\//_}"
+        ALBUM_NOSLASH=$(echo "${ALBUM//\//_}" |
+                        sed -e 's/:/ -/g' -e 's/^\.*//g')
         ALBUM_DIR="$ARTIST_DIR/$ALBUM_NOSLASH"
 
         FOUND=0
@@ -79,9 +80,14 @@ function process_artist() {
                 continue
             fi
 
-            if [[ "x$ALBUM_STRIP" = "x$D_STRIP" ]]
+            D_NOSLASH=$(echo "$D_BASE" | sed -e 's/:/ -/g' -e 's/^\.*//g')
+
+            if [[ "x$ALBUM_NOSLASH" = "x$D_NOSLASH" ]]
             then
-                # Skip minor changes like spaces, punctuation and capitalisation
+                # Ignore filesystem-significant punctuation differences, i.e.
+                # we can't use '/' (subdirectory), ':' (FAT compatibility) or
+                # leading '.' (hidden directory)
+                FOUND=1
                 break
             fi
 
