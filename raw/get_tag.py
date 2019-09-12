@@ -7,7 +7,10 @@ tag = sys.argv[1]
 
 for f in sys.argv[2:]:
     try:
-         audio = mutagen.easyid3.EasyID3(f)
+        audio = mutagen.easyid3.EasyID3(f)
     except:
-         audio = mutagen.File(f)
-    print(audio[tag][0])
+        audio = mutagen.File(f)
+    try:
+        print(audio[tag][0])
+    except:
+        sys.exit(1)
