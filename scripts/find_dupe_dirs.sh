@@ -9,8 +9,8 @@ function go {
         SECOND=$(echo "$PAIR" | cut -f2 | esc)
 
         # Avoid empty or otherwise dodgy paths
-        echo "$FIRST"  | grep '/Music/' > /dev/null || continue
-        echo "$SECOND" | grep '/Music/' > /dev/null || continue
+        echo "$FIRST"  | grep 'Music/' > /dev/null || continue
+        echo "$SECOND" | grep 'Music/' > /dev/null || continue
 
         move_command "$FIRST" "$SECOND/" "/*"
     done < <(find "$1" -type d | list_dupe_guesses.sh)
