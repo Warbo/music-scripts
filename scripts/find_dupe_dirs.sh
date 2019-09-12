@@ -5,15 +5,21 @@ function go {
     # punctuation)
     while read -r PAIR
     do
-         FIRST=$(echo "$PAIR" | cut -f1 | esc)
-        SECOND=$(echo "$PAIR" | cut -f2 | esc)
+         FIRST=$(echo "$PAIR" | cut -f1)
+        SECOND=$(echo "$PAIR" | cut -f2)
 
         # Avoid empty or otherwise dodgy paths
         echo "$FIRST"  | grep 'Music/' > /dev/null || continue
         echo "$SECOND" | grep 'Music/' > /dev/null || continue
 
+        echo "Directory '$FIRST' looks like '$SECOND'; move contents with:"
         move_command "$FIRST" "$SECOND/" "/*"
-    done < <(find "$1" -type d | list_dupe_guesses.sh)
+        echo "rmdir '$(echo "$FIRST" | esc)'"
+
+        # We limit ourselves to directories (i.e. albums). We use "tail" to
+        # remove the first line, since that will be the artist name, which would
+        # get flagged as a dupe if they have a self-titled album or something.
+    done < <(find "$1" -type d | tail -n+2 | list_dupe_guesses.sh)
 }
 
 if [[ "$#" -eq 0 ]]
