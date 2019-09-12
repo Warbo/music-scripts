@@ -48,11 +48,11 @@ def process_artist(path):
     run(['normalise_whitespace.sh', path])
 
     # More expensive checks, which look at file contents
-    run(['remove_empties.sh'      , path])
-    run(['list_only_dupes'        , path])
-    run(['dodgy_looking_tags'     , path])
-    run(['find_untagged.sh'       , path])
-    run(['move_into_album_dirs.sh', path])
+    run(['remove_empties.sh'   , path])
+    run(['list_only_dupes'     , path])
+    run(['dodgy_looking_tags'  , path])
+    run(['find_untagged.sh'    , path])
+    run(['move_into_album_dirs', path])
 
     # Get info from the Web, if available; these should cache themselves
     run(['check_on_metalarchive', path, init])

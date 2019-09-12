@@ -125,6 +125,40 @@ rec {
         };
       };
     };
+    C = {
+      Colonic = {
+        nowhere = {
+          fixup   = ''
+            mv 'Colon - Beware'/02* ./
+          '';
+          albums = [
+            {
+              id         = "1234";
+              name       = "Colon - Beware";
+              year       = "2000";
+              audioFiles = {
+                "01 In the Right Place.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    artist = "Colonic";
+                    album  = "Colon: Beware";
+                    title  = "In the Right Place";
+                  };
+                };
+                "02 Needs Moving.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    artist = "Colonic";
+                    album  = "Colon: Beware";
+                    title  = "Needs Moving";
+                  };
+                };
+              };
+            }
+          ];
+        };
+      };
+    };
     D = {
       DodgyArtist = {
         nowhere = {
@@ -188,6 +222,38 @@ rec {
               id   = "112";
               name = "From Sweden Two";
               year = "1992";
+            }
+          ];
+        };
+      };
+      Dotty = {
+        nowhere = {
+          fixup   = ''
+            mv 'Beware the Dots'/02* ./
+          '';
+          albums = [
+            {
+              id         = "1234";
+              name       = "Beware the Dots";
+              year       = "2000";
+              audioFiles = {
+                "01 In the Right Place.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    artist = "Dotty";
+                    album  = "...Beware the Dots";
+                    title  = "In the Right Place";
+                  };
+                };
+                "02 Needs Moving.mp3" = {
+                  format = "mp3";
+                  tags   = {
+                    artist = "Dotty";
+                    album  = "...Beware the Dots";
+                    title  = "Needs Moving";
+                  };
+                };
+              };
             }
           ];
         };
@@ -396,12 +462,15 @@ rec {
       F=file."${format}"
       cp "$untagged" ./"$F"
       chmod +w ./"$F"
-      while read -r LINE
-      do
-        TAG=$(echo "$LINE" | cut -f1)
-        VAL=$(echo "$LINE" | cut -f2-)
-        set_tag "$TAG" "$VAL" ./"$F"
-      done < "${tsvFile "tags" (attrsToTsv tags)}"
+
+      # Run set_tag for each name/value in 'tags', on the file $F
+      ${concatMapStringsSep "\n" (tag: concatStringsSep " " [
+                                   "set_tag"
+                                   (escapeShellArg tag               )
+                                   (escapeShellArg (getAttr tag tags))
+                                   "./\"$F\""
+                                 ])
+                                 (attrNames tags)}
 
       ${post}
 

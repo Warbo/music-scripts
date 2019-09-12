@@ -1,0 +1,9 @@
+From: Chris Warburton
+Date: Tue, 10 Sep 2019 18:19:59 +0100
+State: resolved
+Subject: Allow ' - ' instead of ':' when moving tracks to album dirs
+Message-Id: <ca99077b2c221247-0-artemis@nixos>
+resolution: fixed
+
+When we emit a pair of mkdir/mv commands, we should ensure any ':' is
+replaced by ' - '.

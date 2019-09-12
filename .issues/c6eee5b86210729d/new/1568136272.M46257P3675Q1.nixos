@@ -1,0 +1,13 @@
+From: Chris Warburton
+Date: Tue, 10 Sep 2019 18:22:45 +0100
+State: new
+Subject: Don't suggest leading dots when moving albums
+Message-Id: <c6eee5b86210729d-0-artemis@nixos>
+
+For example, Metallica's "...And Justice for All" should be called
+"And Justice for All", since leading dots would make it hidden.
+
+We should allow non-dotted directory names when matching (i.e. we should
+count the latter as a match when looking for the former)
+
+We should remove leading dots when making suggestions.

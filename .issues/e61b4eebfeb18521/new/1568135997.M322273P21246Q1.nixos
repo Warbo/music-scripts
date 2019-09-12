@@ -1,0 +1,11 @@
+From: Chris Warburton
+Date: Tue, 10 Sep 2019 13:52:36 +0100
+State: new
+Subject: Don't suggest colons in album directory names
+Message-Id: <e61b4eebfeb18521-0-artemis@nixos>
+
+When we suggest that a directory is renamed to match an album, replace any
+colons with " - ".
+
+We should also do this when looking for matches, since " - " should be
+acceptable in place of ':'.

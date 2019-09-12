@@ -37,11 +37,15 @@ function processDir {
     while read -r F
     do
         ALBUM=$(get_tag album "$F") || continue
-        [[ -n "$ALBUM" ]] || continue
+        [[ -n "$ALBUM" ]]           || continue
+
+        # Remove any leading dots, since that would hide the directory
+        # Replace any colons with ' -' to work on FAT/NTFS filesystems
+        ALBUM=$(echo "$ALBUM" | sed -e 's/^\.*//g' -e 's/:/ -/g')
 
         D=$(dirname "$(readlink -f "$F")")
-        same "$D" "$TOP/$INIT/$ARTIST/$ALBUM" || {
-            P="$TOP/$INIT/$ARTIST/$ALBUM"
+        P="$TOP/$INIT/$ARTIST/$ALBUM"
+        same "$D" "$P" || {
             EP=$(echo "$P" | esc)
 
             echo "File '$F' has album '$ALBUM'; move with command:"

@@ -1,0 +1,12 @@
+From: Chris Warburton
+Date: Tue, 10 Sep 2019 18:24:34 +0100
+State: resolved
+Subject: Don't suggest leading dots when moving tracks into albums
+Message-Id: <9ef999b86b5cb9d1-0-artemis@nixos>
+resolution: fixed
+
+If a track's album is "...And Justice for All" we should suggest moving
+it to "And Justice for All/", since leading dots would cause it to be
+hidden.
+
+We should also treat non-dotted folders as matches when checking.
