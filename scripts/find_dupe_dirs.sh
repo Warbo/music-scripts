@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 function go {
+    # Look for directories which appear to be the same (e.g. differing only in
+    # punctuation)
     while read -r PAIR
     do
          FIRST=$(echo "$PAIR" | cut -f1 | esc)
