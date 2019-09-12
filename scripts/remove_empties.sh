@@ -9,9 +9,8 @@ fi
 echo "Looking for empty directories in '$DIR'"
 find "$DIR" -type d -empty | while read -r D
 do
-    TICK="'"
-    # shellcheck disable=SC2001
     ESCAPED=$(echo "$D" | esc)
+    echo "Empty directory found: $ESCAPED"
     echo "rmdir '$ESCAPED'"
 done
 
