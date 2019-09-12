@@ -11,7 +11,7 @@ find "$DIR" -type d -empty | while read -r D
 do
     TICK="'"
     # shellcheck disable=SC2001
-    ESCAPED=$(echo "$D" | sed -e "s@$TICK@$TICK\\$TICK$TICK@g")
+    ESCAPED=$(echo "$D" | esc)
     echo "rmdir '$ESCAPED'"
 done
 
