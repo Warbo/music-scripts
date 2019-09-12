@@ -79,6 +79,12 @@ function process_artist() {
                 continue
             fi
 
+            if [[ "x$ALBUM_STRIP" = "x$D_STRIP" ]]
+            then
+                # Skip minor changes like spaces, punctuation and capitalisation
+                break
+            fi
+
             if echo "$ALBUM_STRIP" | grep -F -- "$D_STRIP" > /dev/null
             then
                 FOUND=1
