@@ -54,6 +54,9 @@ def process_artist(path):
     run(['find_untagged.sh'    , path])
     run(['move_into_album_dirs', path])
 
+    # This should run after move_into_album_dirs (its comments explain why)
+    run(['find_dupe_names.sh', path])
+
     # Get info from the Web, if available; these should cache themselves
     run(['check_on_metalarchive', path, init])
     # We avoid check_on_lastfm for now, since we don't really use the results
