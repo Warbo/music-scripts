@@ -1,16 +1,56 @@
 # Music Management Scripts
 
+This repo contains a bunch of scripts for fetching, tagging and organising a
+music collection. It makes lots of assumptions about the directory structure,
+mount points, etc. so it's probably more useful for copy/paste than for
+download/execute.
 
+Each script might be useful on its own, but a few useful "workflows" have
+emerged.
 
+NOTE: You should never need to run a script directly from this repo. Instead,
+use `nix-build` to create a "bin" directory and run them from there; that will
+ensure their dependencies are wired-in.
 
+## Fixing a Music Collection ##
 
+Most scripts deal with "fixing" one aspect or another of a music collection,
+e.g. finding potential duplicates, moving tracks into album-appropriate
+directories, spotting non-music cruft, etc.
 
+The main entry point for coordinating all of this is `fix-music`. This should be
+run with `~/Public` as the current working directory (i.e. the `/opt/shared`
+directory of the raspberry pi). The only "actions" this script will take are to
+download metadata and cache CRCs and AcoustIDs. Everything else is simply
+printed to stdout; it is up to us whether we want to follow those
+recommendations.
 
+## Getting Music ##
 
+The main script for this is `get_album`, which will download and tag the content
+of a YouTube playlist. This performs a lot of I/O, to download, then extract
+audio, then add artist tags, then add album tags; so it's recommended to do it
+locally, in `~/Downloads/Music`, rather than over SSHFS or such.
 
+Alternatively, to get a single track from YouTube or other site, we can use
+`yt-audio`, which is a simple wrapper around `youtube-dl` with sensible
+defaults.
 
+Once we've got a bunch of music, we should tag it using something like Picard;
+the artist and album tags added by `get_album` are often sufficient to make the
+MusicBrainz lookup work.
 
+Tags should be saved in files (Options -> Save Tags), and files should be
+renamed (Options -> Rename Files) to the following format:
 
+    $if($gt(%totaldiscs%,1),%discnumber%-,)$num(%tracknumber%,2) %title%
 
+For example `1-04 My Favourite Song.opus` where `1-` is the disc number (iff
+there is more than one), `04` is the track number, `My Favourite Song` is the
+track title and `opus` is the audio format.
 
+We do not currently use Picard to move files (i.e. we *do not* use
+Options -> Move Files).
 
+Once we have fixed up these files locally, we can copy them over the the
+raspberry pi using the `move_downloaded_music` script.
