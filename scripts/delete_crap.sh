@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Look for non-music files in the Music directory. For example, image files,
+# text files and rubbish left behind by inferior operating systems.
+
 DIR="$1"
 [[ -n "$DIR" ]] || DIR="Music"
 

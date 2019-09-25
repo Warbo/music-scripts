@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Given an artist directory name, like "Foo (Ger)", echoes the artist name and
+# canonical country name, delimited by tabs, e.g. "Foo\tGermany"
+
 function stripSpace {
     sed -e 's/[[:space:]]*$//g' | sed -e 's/^[[:space:]]*//g'
 }

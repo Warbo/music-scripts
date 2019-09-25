@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Report empty files and directories.
+
 if [[ "$#" -eq 0 ]]
 then
     DIR="Music"

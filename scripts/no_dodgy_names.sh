@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-
 set -e
+
+# Look for cruft in filenames from various music sources, for example
+# magnatune.com and download.com, and output commands which will strip this
+# cruft.
 
 printf 'Checking stdin for files with dodgy names' 1>&2
 while read -r NAME

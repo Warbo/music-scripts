@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-# Check each directory at the artist level against external metadata DBs
+# For each artist directory in Music/Commercial/*, invoke
+# `check_on_metalarchive`. If that fails, invoke `check_on_lastfm.sh`. If both
+# fail, report the artist as not being found.
 
 function assertDir {
     [[ -d "$1" ]] || {

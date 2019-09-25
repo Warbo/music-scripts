@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
+# Search for the given artist on metal-archives.com and cache the results. If no
+# results are found, return an error code. If multiple results are found, and
+# the artist name contains a country code (e.g. "Foo (Ger)"), narrow down the
+# results to that country. If there still isn't a unique result, return an error
+# code.
+
+# If a unique result is found, fetch and cache that artist's discography page
+# from metal-archives, then return a success code.
+
 function metalArchiveTracks {
     [[ -f "$1" ]] ||
         fail "Can't get tracks for '$2' ('$3') since '$1' doesn't exist"

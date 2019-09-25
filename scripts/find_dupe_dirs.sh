@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Run `guess_dupes` on all directories found inside each artist directory. This
+# is useful for finding duplicate album directories.
+
 function go {
     # Look for directories which appear to be the same (e.g. differing only in
     # punctuation)

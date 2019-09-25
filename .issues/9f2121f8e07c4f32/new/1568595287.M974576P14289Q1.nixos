@@ -1,0 +1,13 @@
+From: Chris Warburton
+Date: Mon, 16 Sep 2019 01:50:12 +0100
+State: new
+Subject: Spot numbered dupes
+Message-Id: <9f2121f8e07c4f32-0-artemis@nixos>
+
+If we have '01 Foo.mp3' and '01 Foo (1).mp3' then the latter is a dupe.
+
+We should probably show the lengths of each track (in seconds) as a quick
+way to help us judge if they're really the same.
+
+We should also do it for different extensions. We should prefer opus to
+everything, with wma last.

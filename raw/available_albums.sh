@@ -2,6 +2,11 @@
 
 ## Always call via available_albums.nix to ensure we have dependencies
 
+# For each artist directory in Music/Commercial/*, see if we have a cached
+# albums file. If so, loop through the cached albums and see if anything inside
+# the artist directory matches (using `strip_name`). If not, report the album as
+# missing.
+
 function process_artist() {
     ARTIST_DIR="$1"
 

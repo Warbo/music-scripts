@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Compare the names of artist directories using `list_dupe_guesses.sh`, to try
+# and find duplicates. False positives (e.g. "Master" and "Masterplan") can be
+# written to a text file ".allowed_artist_dupes", and will be ignored on
+# subsequent runs.
+
 BASE=$(dirname "$(readlink -f "$0")")
 
 # For each directory at the artist level, we 'simplify' the name to see if

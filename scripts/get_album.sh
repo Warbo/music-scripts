@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
+# Given an artist name, an album name and a YouTube playlist URL, creates the
+# appropriate directory (if needed) and extracts the audio from the playlist
+# tracks using `youtube-dl`. `tag_album_dir` is invoked afterwards.
+
+# Uses TaskSpooler to queue up download and tagging processes, if available.
+
 [[ -d Music/Commercial ]] || {
     echo "Can't find Music/Commercial; check working directory" 1>&2
     exit 1

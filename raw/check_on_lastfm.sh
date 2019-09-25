@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# Look up the given artist on last.fm, by fetching the URL "last.fm/music/Foo".
+# Cache the result, and if it's a 404 page, return an error code.
+
 function haveLastFm {
     CACHED="$CACHE_DIR/$INIT/$1_$2"
     if [[ -f "$CACHED" ]]

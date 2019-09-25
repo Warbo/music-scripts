@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Try to get rid of things like "(Disc 1)" in directory names, as they just
-# lead to duplicates
+# Look for album directories which appear to have rubbish like "(Disc 1)" in
+# their name, and output commands which will clean them up. This can greatly
+# reduce duplicates.
 
 function checkArtist {
     for ALBUM in "$1"/*

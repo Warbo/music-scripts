@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
+# Given a directory path ending in "FOO/BAR", will use `fmmpeg` to set all of
+# the "Artist" tags of the contents to "FOO" and all of the "Album" tags to
+# "BAR".
+
+# Uses `avconv` to ensure the audio data isn't changed, by comparing the CRC
+# before and after.
+
 [[ -n "$1" ]] ||  {
     echo "Usage: tag_album_dir path/to/ARTIST/ALBUM" 1>&2
     exit 1

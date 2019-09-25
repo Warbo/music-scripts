@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 
+# Python script to find duplicate files. For any stdin lines of the form
+# "COMPARE\tfoo\tbar", check if the filenames "foo" and "bar" have a suffix
+# which appears to be audio ("ogg", "mp3", "aac", etc.); if so, and they both
+# have the same suffix, then invoke `avconv` to get the CRC of their audio data.
+# Cache the CRCs, and if they match, print out a command which can be used to
+# move one into a "DUPES" directory.
+
 from __future__ import print_function
 import re
 from shutil     import move

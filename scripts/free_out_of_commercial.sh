@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Look through the Music/Commercial directory for files which we know should be
+# in Music/Free (e.g. those from OCRemix, Newgrounds, etc.)
+
 function free_dirs {
     # Directories which should be in Free rather than Commercial
     echo "Checking for specific directories" 1>&2

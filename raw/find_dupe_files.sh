@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# For each artist directory, list the files it contains and send through
+# `guess_dupes` to find possible duplicates. Send these through
+# `compare_crcs.py` to check which are actual duplicates.
+
 function go {
     echo "Looking for dupes in '$1'" 1>&2
     DUPES=$(find "$1" -type f | guess_dupes)

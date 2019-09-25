@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Like `guess_dupes`, but produces output in a format which is more easily
+# parsed. May run through stdin forwards or backwards, with a 50/50 chance. This
+# allows more duplicates to be spotted, without requiring any state, and without
+# going through the input twice, which might potentially list both entries as
+# being duplicates (e.g. if "foo1" and "foo2" appear in the input, we only want
+# one to be flagged as a potential duplicate, since removing duplicates should
+# always leave one copy in place)
+
 function printDupes {
     # NAMES will contain everything we've seen so far: it is tab-separated, with
     # the full entry followed by the stripped-down version.
