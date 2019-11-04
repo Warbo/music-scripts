@@ -55,7 +55,10 @@ function processDir {
 
         # Remove any leading dots, since that would hide the directory
         # Replace any colons with ' -' to work on FAT/NTFS filesystems
-        ALBUM=$(echo "$ALBUM" | sed -e 's/^\.*//g' -e 's/:/ -/g')
+        # Replace any / with _ to prevent subdirectories
+        ALBUM=$(echo "$ALBUM" | sed -e 's/^\.*//g' \
+                                    -e 's/:/ -/g'  \
+                                    -e 's@/@_@g')
 
         if skipTop
         then
