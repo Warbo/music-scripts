@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 function same {
     X=$(echo "$1" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]')
@@ -10,29 +11,42 @@ function same {
     return 1
 }
 
-TOP=$(readlink -f "Music/Commercial")
+function skipTop {
+    if [[ "$SKIP_TOP" -eq 1 ]]
+    then
+        return 0
+    else
+        return 1
+    fi
+}
+
+skipTop || {
+  TOP='Music/Commercial'
+  [[ -d "$TOP" ]] || fail "Didn't find '$TOP' (change dir, or set SKIP_TOP=1)"
+  TOP=$(readlink -f "$TOP")
+}
 
 function processDir {
     DIR=$(readlink -f "$1")
-    echo "$DIR" | grep "^$TOP/" > /dev/null || {
-        echo "Given dir '$DIR' doesn't begin with '$TOP'" 1>&2
-        exit 1
-    }
+    if skipTop
+    then
+        # We're skipping the usual hierarchy, e.g. to clean up some external
+        # files like new downloads before they're merged in.
+        # We'll assume that the given dir is ARTIST and we'll ignore INIT.
+        true
+    else
+        # If we're sticking to the usual hierarchy, we can look for the exact
+        # INIT/ARTIST/ALBUM path that we want
+        echo "$DIR" | grep "^$TOP/" > /dev/null ||
+        fail "Given dir '$DIR' doesn't begin with '$TOP'"
 
-      BITS=$(echo "$DIR"  | sed  -e "s@^$TOP/@@g" | tr '/' '\n')
-    ARTIST=$(echo "$BITS" | head -n2 | tail -n1)
+          BITS=$(echo "$DIR"  | sed  -e "s@^$TOP/@@g" | tr '/' '\n')
+        ARTIST=$(echo "$BITS" | head -n2 | tail -n1)
 
-    [[ -n "$INIT" ]] || INIT=$(echo "$ARTIST" | cut -c1)
-
-    [[ -d "$TOP/$INIT" ]] || {
-        echo "No dir '$TOP/$INIT'" 1>&2
-        exit 1
-    }
-
-    [[ -d "$TOP/$INIT/$ARTIST" ]] || {
-        echo "No dir '$TOP/$INIT/$ARTIST'" 1>&2
-        exit 1
-    }
+        [[ -n "$INIT"              ]] || INIT=$(echo "$ARTIST" | cut -c1)
+        [[ -d "$TOP/$INIT"         ]] || fail "No dir '$TOP/$INIT'"
+        [[ -d "$TOP/$INIT/$ARTIST" ]] || fail "No dir '$TOP/$INIT/$ARTIST'"
+    fi
 
     while read -r F
     do
@@ -43,8 +57,14 @@ function processDir {
         # Replace any colons with ' -' to work on FAT/NTFS filesystems
         ALBUM=$(echo "$ALBUM" | sed -e 's/^\.*//g' -e 's/:/ -/g')
 
+        if skipTop
+        then
+            P="$DIR/$ALBUM"
+        else
+            P="$TOP/$INIT/$ARTIST/$ALBUM"
+        fi
+
         D=$(dirname "$(readlink -f "$F")")
-        P="$TOP/$INIT/$ARTIST/$ALBUM"
         same "$D" "$P" || {
             EP=$(echo "$P" | esc)
 
@@ -59,6 +79,7 @@ if [[ -n "$1" ]]
 then
     processDir "$1"
 else
+    skipTop && fail "Need an artist dir when SKIP_TOP is set"
     for I in Music/Commercial/*
     do
         [[ -d "$I" ]] || continue
