@@ -130,6 +130,30 @@ function checkFilesIn {
             echo "Found possible video file '$F_ESC'"
         done < <(withExtIn "$EXT" "$1")
     done
+
+    # Look for entries which differ only in case
+    PAIRED=$(find "$1" | while read -r P;
+    do
+        LOWER=$(echo "$P" | tr '[:upper:]' '[:lower:]')
+        printf '%s\t%s\n' "$LOWER" "$P"
+    done)
+
+    # Loop through duplicates, one entry per group
+    echo "$PAIRED" | cut -f1 | sort | uniq -d | while read -r LOWER
+    do
+        UPPERS=$(echo "$PAIRED" | grep -F "$LOWER	" | while read -r PAIR
+                 do
+                     # Check the entire first field matches; not just at the end
+                     if echo "$PAIR" | cut -f1 | grep -Fx "$LOWER" > /dev/null
+                     then
+                         echo "$PAIR" | cut -f2
+                     fi
+                 done)
+        [[ -z "$UPPERS" ]] && continue
+        echo "# The following paths differ only in case:"
+        echo "$UPPERS"
+        echo "# End case-insensitive matching"
+    done
 }
 
 if [[ "$#" -gt 0 ]]
