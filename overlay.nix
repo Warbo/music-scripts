@@ -11,7 +11,7 @@ with {
     (name: script: self.runCommand "check-${name}"
       {
         inherit script;
-        buildInputs = [ self.fail self.haskellPackages.ShellCheck ];
+        buildInputs = [ self.fail self.shellcheck ];
         LANG        = "en_US.UTF-8";
       }
       ''
