@@ -5,7 +5,6 @@ with rec {
   overlays = [
     (import "${nix-helpers    }/overlay.nix")
     (import "${warbo-packages }/overlay.nix")
-    (import "${warbo-utilities}/overlay.nix")
     (import                   ./overlay.nix )
     (self: super: {
       # Avoids broken YAML package on 18.09+
