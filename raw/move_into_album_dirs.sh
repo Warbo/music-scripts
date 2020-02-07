@@ -71,7 +71,7 @@ function processDir {
         same "$D" "$P" || {
             EP=$(echo "$P" | esc)
 
-            echo "File '$F' has album '$ALBUM'; move with command:"
+            echo "# File '$F' has album '$ALBUM'; move with command:"
             echo "mkdir -p '$EP'"
             move_command "$F" "$P/"
         }
