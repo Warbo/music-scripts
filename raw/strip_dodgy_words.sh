@@ -16,7 +16,8 @@ function check() {
                 'Hi Def'
     do
         # Look for a few variations of these words
-        for PATTERN in "($WORD)" '['"$WORD"']' '{'"$WORD"'}' "$WORD"
+        for PATTERN in "($WORD)" '['"$WORD"']' '{'"$WORD"'}' \
+                                 "［$WORD］" "$WORD"
         do
             if echo "$1" | grep -iF "$PATTERN" > /dev/null
             then
