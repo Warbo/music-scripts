@@ -30,10 +30,11 @@ function check() {
         for PATTERN in "($WORD)" '['"$WORD"']' '{'"$WORD"'}' \
                                  "［$WORD］" "$WORD"
         do
-            if echo "$1" | grep -iF "$PATTERN" > /dev/null
+            # If found, report it and return success. Note that it's better to
+            # let grep spit out the match, rather than echoing $PATTERN, since
+            # the former is in the correct case, making replacement easy.
+            if echo "$1" | grep -ioF "$PATTERN"
             then
-                # If found, report it and return success
-                echo "$PATTERN"
                 return 0
             fi
         done
