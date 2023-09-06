@@ -4,15 +4,26 @@ set -euo pipefail
 function check() {
     # Loop through a load of words which probably don't belong in a filename
     # (e.g. they might come from youtube video titles)
-    for WORD in 'with lyrics'          \
-                'lyrics'               \
-                'official music video' \
-                'music video'          \
-                'video'                \
-                'official'             \
-                'unofficial'           \
-                'high quality'         \
-                'HQ'                   \
+    for WORD in 'official lyric video'       \
+                'lyric video'                \
+                'with lyrics'                \
+                'lyrics'                     \
+                'official music video'       \
+                'official playthrough video' \
+                'music video'                \
+                'official video'             \
+                'official audio'             \
+                'official track stream'      \
+                'official track'             \
+                'official single'            \
+                'video'                      \
+                'official'                   \
+                'unofficial'                 \
+                'high quality'               \
+                'album track'                \
+                'audio hq'                   \
+                'HQ'                         \
+                '(cc)'                       \
                 'Hi Def'
     do
         # Look for a few variations of these words
