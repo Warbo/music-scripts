@@ -42,11 +42,11 @@ pushd "$DIR" > /dev/null
 FORMATS="251/171/bestaudio/best"
 if command -v "ts" > /dev/null 2>/dev/null
 then
-    ts youtube-dl -i -f "$FORMATS" -x "$URL"
+    ts yt-dlp -i -f "$FORMATS" -x "$URL"
     echo "Download is queued" 1>&2
     ts tag_album_dir "$(readlink -f .)"
 else
     echo "ts not found, fetching directly..." 1>&2
-    youtube-dl -i -f "$FORMATS" -x "$URL"
+    yt-dlp -i -f "$FORMATS" -x "$URL"
     tag_album_dir "$(readlink -f .)"
 fi
