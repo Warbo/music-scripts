@@ -1,7 +1,13 @@
-{ callPackage, lib, newScope, nixFilesIn, scripts }:
+{ callPackage, lib, newScope, nix-helpers, nixFilesIn, scripts }:
 
 with builtins;
 with lib;
-with { testData = callPackage ./testData.nix { inherit scripts; }; };
-removeAttrs (mapAttrs (_: f: newScope ({ inherit scripts; } // testData) f { })
-  (nixFilesIn ./.)) [ "default" "testData" ]
+with rec {
+  testData = newScope (nix-helpers // { inherit scripts; }) ./testData.nix { };
+
+  call = newScope (nix-helpers // testData // { inherit scripts; });
+};
+removeAttrs (mapAttrs (_: f: call f { }) (nixFilesIn ./.)) [
+  "default"
+  "testData"
+]
