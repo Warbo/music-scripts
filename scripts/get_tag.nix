@@ -1,7 +1,7 @@
-{ python, wrap }:
+{ python3, wrap }:
 
 wrap {
   name = "get_tag";
-  paths = [ (python.withPackages (p: [ p.mutagen ])) ];
+  paths = [ (python3.withPackages (p: [ p.mutagen ])) ];
   file = ../raw/get_tag.py;
 }

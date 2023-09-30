@@ -1,9 +1,9 @@
-{ bash, cacert, python, wrap, xidel }:
+{ bash, cacert, python3, wrap, xidel }:
 
 wrap {
   name = "check_on_discogs";
   file = ../raw + "/check_on_discogs.py";
-  paths = [ python ];
+  paths = [ python3 ];
   vars = {
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     searchedNames = wrap {
