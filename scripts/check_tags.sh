@@ -19,7 +19,7 @@ function compareToPath {
     # Compare $1 to $2, ignoring path-sensitive characters
     CMP1=$(echo "$1" | tr -d '?:/!')
     CMP2=$(echo "$2" | tr -d '?:/!')
-    [[ "x$CMP1" = "x$CMP2" ]] || return 1
+    [[ "$CMP1" = "$CMP2" ]] || return 1
 }
 
 function tagValue {
@@ -85,7 +85,7 @@ function checkMp3s {
             HAS=$(checkTag "$FIELD" "$VAL") || {
                 NAME=$(basename "$F")
                 move_command "$F" "Music/Commercial/$INIT/$ARTIST/$HAS/$NAME"
-                [[ "x$VAL" = "xNONE" ]] || {
+                [[ "$VAL" = "NONE" ]] || {
                     echo "$F has '$FIELD' of '$HAS', should be '$VAL'"
                     echo "mid3v2 $FIX '$F_ESC'"
                 }

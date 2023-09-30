@@ -87,7 +87,7 @@ function process_artist() {
 
             D_NOSLASH=$(echo "$D_BASE" | sed -e 's/:/ -/g' -e 's/^\.*//g')
 
-            if [[ "x$ALBUM_NOSLASH" = "x$D_NOSLASH" ]]
+            if [[ "$ALBUM_NOSLASH" = "$D_NOSLASH" ]]
             then
                 # Ignore filesystem-significant punctuation differences, i.e.
                 # we can't use '/' (subdirectory), ':' (FAT compatibility) or

@@ -22,7 +22,7 @@ function findBad() {
                       Motorhead           \
                       Motoerhead
     do
-        if [[ "x$NAME" = "x$ARTIST" ]]
+        if [[ "$NAME" = "$ARTIST" ]]
         then
             echo "Found badly named '$NAME' directory"
         fi

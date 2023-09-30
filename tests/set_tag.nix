@@ -13,7 +13,7 @@
     GOT=$(get_tag title ./file.mp3)
 
     echo "WANT: '$WANT', GOT: '$GOT'" 1>&2
-    [[ "x$WANT" = "x$GOT" ]] || fail "Expected '$WANT', got '$GOT'"
+    [[ "$WANT" = "$GOT" ]] || fail "Expected '$WANT', got '$GOT'"
     mkdir "$out"
   '';
 }

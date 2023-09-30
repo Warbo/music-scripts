@@ -4,7 +4,7 @@ set -e
 function same {
     X=$(echo "$1" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]')
     Y=$(echo "$2" | tr -dc '[:alnum:]' | tr '[:upper:]' '[:lower:]')
-    if [[ "x$X" = "x$Y" ]]
+    if [[ "$X" = "$Y" ]]
     then
         return 0
     fi

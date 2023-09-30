@@ -79,7 +79,7 @@ function findMultipleFormats {
         for F2 in "$REST"*
         do
             # If we've found ourselves, skip
-            [[ "x$F" = "x$F2" ]] && continue
+            [[ "$F" = "$F2" ]] && continue
 
             # Turn the file extension into a number and compare
             EXT2=$(formatPriority "$F2")

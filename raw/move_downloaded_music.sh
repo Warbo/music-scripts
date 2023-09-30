@@ -6,7 +6,7 @@ set -e
 # and now need to push to the raspberry pi.
 
 D="/home/chris/Downloads/Music"
-[[ "x$PWD" = "x$D" ]] ||
+[[ "$PWD" = "$D" ]] ||
     fail "Wrong dir; you should cd $D"
 
 cd "Music/Commercial"

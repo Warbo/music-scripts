@@ -23,7 +23,7 @@ function checkArtist {
         NOLOWER=$(echo "$NODISC" | tr '[:upper:]' '[:lower:]')
         for DISC in 1 2 3 4 5
         do
-            if [[ "x${NOLOWER} (disc ${DISC})" = "x$LOWER" ]]
+            if [[ "${NOLOWER} (disc ${DISC})" = "$LOWER" ]]
             then
                 DIR=$(dirname "$ALBUM")
                 pushd "$DIR" > /dev/null || exit 1

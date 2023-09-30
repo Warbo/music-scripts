@@ -20,7 +20,7 @@
 
       WANT="$4"
 
-      [[ "x$SORTED" = "x$WANT" ]] || fail "Expected '$WANT', got '$GOT'"
+      [[ "$SORTED" = "$WANT" ]] || fail "Expected '$WANT', got '$GOT'"
     }
 
     check "D/DuplicatedArtist (Nor)" "DuplicatedArtist" "Nor" \

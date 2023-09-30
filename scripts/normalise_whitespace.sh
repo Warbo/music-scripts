@@ -55,7 +55,7 @@ do
 
     SRC="$DIR/$FILE"
     DST="$DIR/$NORMAL"
-    [[ "x$FILE" = "x$NORMAL" ]] && continue
+    [[ "$FILE" = "$NORMAL" ]] && continue
     if [[ -e "$DST" ]]
     then
         echo "'$SRC' has dodgy whitespace, but '$DST' exists"
