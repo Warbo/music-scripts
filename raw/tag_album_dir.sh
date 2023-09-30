@@ -5,7 +5,7 @@ set -e
 # the "Artist" tags of the contents to "FOO" and all of the "Album" tags to
 # "BAR".
 
-# Uses `avconv` to ensure the audio data isn't changed, by comparing the CRC
+# Uses ffmpeg to ensure the audio data isn't changed, by comparing the CRC
 # before and after.
 
 [[ -n "$1" ]] ||  {

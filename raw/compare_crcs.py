@@ -3,7 +3,7 @@
 # Python script to find duplicate files. For any stdin lines of the form
 # "COMPARE\tfoo\tbar", check if the filenames "foo" and "bar" have a suffix
 # which appears to be audio ("ogg", "mp3", "aac", etc.); if so, and they both
-# have the same suffix, then invoke `avconv` to get the CRC of their audio data.
+# have the same suffix, then invoke ffmpeg to get the CRC of their audio data.
 # Cache the CRCs, and if they match, print out a command which can be used to
 # move one into a "DUPES" directory.
 
@@ -52,7 +52,7 @@ def get_crc(path):
 
     # Calculate CRC
     msg("Calculating CRC of " + path)
-    output = get_output(["avconv", "-i", path, "-f", "crc", "-"])
+    output = get_output(["ffmpeg", "-i", path, "-f", "crc", "-"])
     crc    = filter(lambda l: "CRC" in l, output.splitlines())[0]
 
     # Cache for future reference
