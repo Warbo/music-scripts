@@ -1,14 +1,14 @@
 { bash, cacert, python, wrap, xidel }:
 
 wrap {
-  name  = "check_on_discogs";
-  file  = ../raw + "/check_on_discogs.py";
+  name = "check_on_discogs";
+  file = ../raw + "/check_on_discogs.py";
   paths = [ python ];
-  vars  = {
+  vars = {
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
     searchedNames = wrap {
-      name   = "discogs-artist-name";
-      paths  = [ bash xidel ];
+      name = "discogs-artist-name";
+      paths = [ bash xidel ];
       script = ''
         #!/usr/bin/env bash
         set -e

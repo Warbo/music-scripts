@@ -1,15 +1,18 @@
-{ fetchgit ? (import <nixpkgs> { config = {}; overlays = []; }).fetchgit }:
+{ fetchgit ? (import <nixpkgs> {
+  config = { };
+  overlays = [ ];
+}).fetchgit }:
 
 rec {
   inherit (import "${warbo-utilities}/helpers.nix" { inherit fetchgit; })
     warbo-packages;
 
-  inherit (import "${warbo-packages }/helpers.nix" { inherit fetchgit; })
+  inherit (import "${warbo-packages}/helpers.nix" { inherit fetchgit; })
     nix-helpers;
 
   warbo-utilities = fetchgit {
-    url    = http://chriswarbo.net/git/warbo-utilities.git;
-    rev    = "8d5f71c";
+    url = "http://chriswarbo.net/git/warbo-utilities.git";
+    rev = "8d5f71c";
     sha256 = "06x5z0zi0b2rypvdklkxp0r49ki2rb6jz446lwfvifph19vgrs1w";
   };
 }

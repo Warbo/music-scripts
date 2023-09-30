@@ -1,9 +1,9 @@
 { bash, wrap, xidel }:
 
 wrap {
-  name   = "tracks_from";
-  paths  = [ bash xidel ];
-  vars   = {
+  name = "tracks_from";
+  paths = [ bash xidel ];
+  vars = {
     expr = builtins.concatStringsSep "" [
       ''//div[@id="album_tabs_tracklist"]//tr[@class="odd" or ''
       ''@class="even"]/(td[position() = 1] || ''

@@ -1,7 +1,7 @@
 { bash, wrap }:
 
 wrap {
-  name  = "dodgy_formats";
+  name = "dodgy_formats";
   paths = [ bash ];
-  file  = ../raw/dodgy_formats.sh;
+  file = ../raw/dodgy_formats.sh;
 }

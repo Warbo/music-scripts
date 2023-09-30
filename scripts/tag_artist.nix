@@ -1,7 +1,7 @@
 { bash, wrap }:
 
 wrap {
-  name  = "tag_artist";
+  name = "tag_artist";
   paths = [ bash ];
-  file  = ../raw/tag_artist.sh;
+  file = ../raw/tag_artist.sh;
 }
