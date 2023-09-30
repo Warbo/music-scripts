@@ -1,6 +1,6 @@
-{ attrsToDirs', bash, fetchgit, rsync, wrap }:
+{ attrsToDirs', bash, fetchgit, rsync, warbo-utilities, wrap }:
 
-with { wu = (import ../helpers.nix { inherit fetchgit; }).warbo-utilities; };
+with { wu = warbo-utilities.warbo-utilities-src; };
 wrap {
   name = "album_names_from";
   paths = [
