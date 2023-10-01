@@ -3,5 +3,5 @@
 wrap {
   name = "dodgy_formats";
   paths = [ bash ];
-  file = ../raw/dodgy_formats.sh;
+  file = ./dodgy_formats.sh;
 }

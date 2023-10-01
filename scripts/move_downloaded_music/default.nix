@@ -14,5 +14,5 @@ wrap {
       };
     })
   ];
-  file = ../raw/move_downloaded_music.sh;
+  file = ./move_downloaded_music.sh;
 }

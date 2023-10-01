@@ -2,6 +2,6 @@
 
 wrap {
   name = "gather_acoustids";
-  file = ../raw/gather_acoustids.sh;
+  file = ./gather_acoustids.sh;
   paths = [ bash chromaprint ];
 }

@@ -2,6 +2,6 @@
 
 wrap {
   name = "list_only_dupes";
-  file = ../raw + "/list_only_dupes.sh";
+  file = ./list_only_dupes.sh;
   paths = [ bash fdupes ];
 }

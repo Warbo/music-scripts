@@ -2,5 +2,5 @@
 
 wrap {
   name = "tag_album_dir";
-  file = ../raw/tag_album_dir.sh;
+  file = ./tag_album_dir.sh;
 }

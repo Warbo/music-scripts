@@ -2,5 +2,5 @@
 
 wrap {
   name = "strip_name";
-  file = ../raw/strip_name.sh;
+  file = ./strip_name.sh;
 }

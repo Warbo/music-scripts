@@ -3,5 +3,5 @@
 wrap {
   name = "move_command";
   paths = [ bash fail ];
-  file = ../raw/move_command.sh;
+  file = ./move_command.sh;
 }

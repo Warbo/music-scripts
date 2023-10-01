@@ -2,7 +2,7 @@
 
 wrap {
   name = "check_on_discogs";
-  file = ../raw + "/check_on_discogs.py";
+  file = ./check_on_discogs.py;
   paths = [ python3 ];
   vars = {
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";

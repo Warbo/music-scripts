@@ -3,5 +3,5 @@
 wrap {
   name = "check_on_metalarchive";
   paths = [ bash curl fail jq xidel ];
-  file = ../raw/check_on_metalarchive.sh;
+  file = ./check_on_metalarchive.sh;
 }

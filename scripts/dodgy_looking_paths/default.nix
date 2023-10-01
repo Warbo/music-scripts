@@ -2,6 +2,6 @@
 
 wrap {
   name = "dodgy_looking_paths";
-  file = ../raw/dodgy_looking_paths.sh;
+  file = ./dodgy_looking_paths.sh;
   paths = [ bash convmv file ];
 }

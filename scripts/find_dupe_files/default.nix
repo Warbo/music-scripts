@@ -2,5 +2,5 @@
 
 wrap {
   name = "find_dupe_files";
-  file = ../raw/find_dupe_files.sh;
+  file = ./find_dupe_files.sh;
 }

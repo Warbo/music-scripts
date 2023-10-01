@@ -2,5 +2,5 @@
 
 wrap {
   name = "esc";
-  file = ../raw/esc.sh;
+  file = ./esc.sh;
 }
