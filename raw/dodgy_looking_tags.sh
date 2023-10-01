@@ -20,15 +20,14 @@ function go {
       echo
     fi
 
-    for DODGY in "music.download.com"
-    do
-      if echo "$TAGS" | grep -F "$DODGY"
-      then
-        echo
-        echo "$F has dodgy tags"
-        echo
-      fi
-    done
+    # This can be turned into a for loop if we find more dodgy tags
+    DODGY="music.download.com"
+    if echo "$TAGS" | grep -F "$DODGY"
+    then
+      echo
+      echo "$F has dodgy tags"
+      echo
+    fi
   done
 }
 
