@@ -1,7 +1,6 @@
 { emptyAudio, fail, runCommand, scripts }: {
   canSetTitle = runCommand "can-set-title" {
     inherit (emptyAudio) mp3;
-    __noChroot = true;
     buildInputs = [ fail scripts ];
   } ''
     cp -L "$mp3" ./file.mp3
