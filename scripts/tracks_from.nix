@@ -13,6 +13,6 @@ wrap {
   script = ''
     #!/usr/bin/env bash
     # shellcheck disable=SC2154
-    xidel -q - -e "$expr"
+    xidel -s - -e "$expr"
   '';
 }

@@ -5,6 +5,6 @@ wrap {
   paths = [ bash xidel ];
   script = ''
     #!/usr/bin/env bash
-    xidel -q - -e '//td/a[@class="album"]/(text() || "	" || @href)'
+    xidel -s - -e '//td/a[@class="album"]/(text() || "	" || @href)'
   '';
 }

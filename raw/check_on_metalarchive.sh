@@ -33,7 +33,7 @@ function metalArchiveTracks {
             curl -L "$ALBUM_URL" > "$TRACK_FILE" ||
                 echo "Error fetching '$ALBUM_URL'" 1>&2
         fi
-    done < <(xidel -q - -e '//td/a[@class="album"]/@href' < "$1" | grep '^http')
+    done < <(xidel -s - -e '//td/a[@class="album"]/@href' < "$1" | grep '^http')
 }
 
 function metalArchiveAlbums {

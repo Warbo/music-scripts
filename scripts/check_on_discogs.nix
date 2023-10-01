@@ -12,7 +12,7 @@ wrap {
       script = ''
         #!/usr/bin/env bash
         set -e
-        xidel -q - -e '//a/@href' < "$1" |
+        xidel -s - -e '//a/@href' < "$1" |
           grep '^/artist/'               |
           sed -e 's@^/artist/@@g' -e 's/-/\t/'
       '';
