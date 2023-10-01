@@ -14,10 +14,7 @@ with rec {
   callPackage = nixpkgs.newScope extraArgs;
 
   result = {
-    music-cmds = mapAttrs' (f: _: {
-      name = removeSuffix ".nix" f;
-      value = process f;
-    }) (readDir ./scripts);
+    music-cmds = callPackage ./scripts { };
 
     raw-scripts = extraArgs.withDeps (attrValues check)
       (nixpkgs.runCommand "music-scripts" {
