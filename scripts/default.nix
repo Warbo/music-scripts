@@ -1,8 +1,8 @@
-{ buildEnv, newScope, nix-helpers, nixpkgs-lib, warbo-packages, warbo-utilities
-, withDeps }:
+{ nix-helpers, nixpkgs, nixpkgs-lib, warbo-packages, warbo-utilities }:
 with rec {
   inherit (builtins) attrValues filter;
-  inherit (nix-helpers) nixDirsIn;
+  inherit (nix-helpers) nixDirsIn withDeps;
+  inherit (nixpkgs) buildEnv newScope;
   inherit (nixpkgs-lib) isDerivation mapAttrs;
 
   testData = call null ./testData.nix;
