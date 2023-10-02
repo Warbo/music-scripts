@@ -7,6 +7,8 @@ with rec {
     file = ./set_tag.py;
   };
 
+  # NOTE: We use set_tag in some of our testData, so be careful which parts of
+  # testData we depend on here (to avoid circular definitions!)
   tests = {
     canSetTitle = runCommand "can-set-title" {
       inherit (testData.emptyAudio) mp3;

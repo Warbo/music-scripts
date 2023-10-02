@@ -1,5 +1,5 @@
 { attrsToDirs', bash, die, fail, ffmpeg, foldAttrs', lib, nothing, runCommand
-, sanitiseName, raw-scripts, writeScript }:
+, sanitiseName, music-scripts, writeScript }:
 
 with builtins;
 with lib; rec {
@@ -421,9 +421,11 @@ with lib; rec {
 
   attrsToTsv = foldAttrs' (name: val: result: result ++ [[ name val ]]) [ ];
 
+  # NOTE: This uses our set_tag script, so its tests shouldn't depend on
+  # mkAudioFile (or else we'd get a circular definition)
   mkAudioFile = { format, tags, post ? "" }:
     runCommand "audio-file.${format}" {
-      buildInputs = [ raw-scripts ];
+      buildInputs = [ music-scripts.set_tag ];
       untagged = if hasAttr format emptyAudio then
         getAttr format emptyAudio
       else
