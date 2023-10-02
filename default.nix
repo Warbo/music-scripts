@@ -1,10 +1,12 @@
-{ nix-helpers ? warbo-packages.nix-helpers
+{ nix-helpers ? warbo-packages.nix-helpers, nixpkgs ? nix-helpers.nixpkgs
+, nixpkgs-lib ? nix-helpers.nixpkgs-lib
 , warbo-packages ? warbo-utilities.warbo-packages
-, warbo-utilities ? import ./warbo-utilities.nix, nixpkgs ? nix-helpers.nixpkgs
-}:
+, warbo-utilities ? import ./warbo-utilities.nix }:
 
 with rec {
+  inherit (builtins) attrValues filter;
   inherit (nixpkgs) buildEnv newScope runCommand shellcheck;
+  inherit (nixpkgs-lib) isDerivation;
   inherit (nix-helpers) withDeps;
 
   extraArgs = nix-helpers // warbo-packages // {
@@ -15,7 +17,10 @@ with rec {
 
   music-cmds = callPackage ./scripts { };
 
-  music-scripts = withDeps [ check ] (buildEnv "music-scripts" music-cmds);
+  music-scripts = withDeps [ check ] (buildEnv {
+    name = "music-scripts";
+    paths = filter isDerivation (attrValues music-cmds);
+  });
 
   check = runCommand "check-music-scripts" {
     scripts = ./scripts;
