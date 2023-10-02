@@ -2,7 +2,7 @@
 
 with { wu = warbo-utilities.warbo-utilities-src; };
 mkBin {
-  name = "album_names_from";
+  name = "move_downloaded_music";
   paths = [
     bash
     rsync
