@@ -42,8 +42,8 @@ def get_output(*args, **kwargs):
     p        = Popen(*args, stderr=PIPE, stdout=PIPE, **kwargs)
     out, err = p.communicate()
     if p.returncode != 0:
-        msg(err + '\n')
-    return out
+        msg(err.decode('utf-8') + '\n')
+    return out.decode('utf-8')
 
 def get_crc(path):
     # Use cached version if available
@@ -53,7 +53,7 @@ def get_crc(path):
     # Calculate CRC
     msg("Calculating CRC of " + path)
     output = get_output(["ffmpeg", "-i", path, "-f", "crc", "-"])
-    crc    = filter(lambda l: "CRC" in l, output.splitlines())[0]
+    crc    = [l for l in output.splitlines() if "CRC" in l][0]
 
     # Cache for future reference
     crcmap[path] = crc
@@ -100,8 +100,8 @@ for line in sys.stdin:
         if len(bits) == 3:
             try:
                 compare_files(bits[1], bits[2][:-1]) # Chomp newline
-            except:
-                msg("Exception raised, skipping")
+            except Exception as e:
+                msg("Exception raised, skipping " + repr(e))
         else:
             msg("Dodgy stdin line: " + line)
     else:
