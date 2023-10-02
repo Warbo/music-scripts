@@ -1,23 +1,23 @@
 { nix-helpers ? warbo-packages.nix-helpers, nixpkgs ? nix-helpers.nixpkgs
 , nixpkgs-lib ? nix-helpers.nixpkgs-lib
 , warbo-packages ? warbo-utilities.warbo-packages
-, warbo-utilities ? import ../warbo-utilities.nix }:
+, warbo-utilities ? import ./warbo-utilities.nix }:
 with rec {
   inherit (builtins) attrValues filter;
   inherit (nix-helpers) nixDirsIn withDeps;
   inherit (nixpkgs) buildEnv newScope;
   inherit (nixpkgs-lib) isDerivation mapAttrs;
 
-  testData = call null ./testData.nix;
+  testData = call ./testData.nix;
 
-  check = call null ./check.nix;
+  check = call ./check.nix;
 
-  call = _: f:
+  call = f:
     newScope (nix-helpers // warbo-packages // {
       inherit music-scripts testData warbo-utilities;
     }) f { };
 
-  music-scripts = mapAttrs call (nixDirsIn {
+  music-scripts = mapAttrs (_: call) (nixDirsIn {
     dir = ./.;
     filename = "default.nix";
   });

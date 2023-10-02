@@ -10,7 +10,7 @@ done
 
 # Allow failure to get HEAD (e.g. in case we're offline)
 REPO="warbo-utilities"
-F="$REPO.nix"
+F="scripts/$REPO.nix"
 
 echo "Checking $REPO version in $F" 1>&2
 if REV=$(git ls-remote "http://chriswarbo.net/git/$REPO.git" |
