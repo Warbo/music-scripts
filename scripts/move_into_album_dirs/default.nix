@@ -1,10 +1,10 @@
-{ bash, fail, runCommand, testData, withDeps, mkBin }:
+{ bash, fail, mkBin, music-scripts, runCommand, testData, withDeps }:
 
 with rec {
   move_into_album_dirs = mkBin {
     name = "move_into_album_dirs";
     file = ./move_into_album_dirs.sh;
-    paths = [ bash fail ];
+    paths = [ bash fail music-scripts.get_tag music-scripts.move_command ];
   };
 
   tests = {
