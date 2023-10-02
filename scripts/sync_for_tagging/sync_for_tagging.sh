@@ -16,11 +16,6 @@ function usage {
     fail
 }
 
-function esc {
-    # shellcheck disable=SC2001
-    echo "'$(echo "$1" | sed -e "s/'/'\\\\''/g")'"
-}
-
 # Converts a ~/Public/Music path to ~/Music
 function home_of {
     # shellcheck disable=SC2001
@@ -47,15 +42,16 @@ echo "$PUB_DIR" | grep '^/home/chris/Public/Music/Commercial/' > /dev/null ||
 #do
 #    PUB_FILE=$(pub_of "$HOME_FILE")
 #    [[ -e "$PUB_FILE" ]] || {
-#        ESC=$(esc "$HOME_FILE")
+#        ESC=$(echo "$HOME_FILE" | esc)
 #        echo "WILL DELETE $ESC"
 #    }
 #done
 
 # shellcheck disable=SC2001
- PUB_ESC=$(esc "$(echo "$PUB_DIR" |
-                  sed -e 's#/home/chris/Public#pi@dietpi.local:/opt/shared#g')")
-HOME_ESC=$(esc "$HOME_DIR")
+ PUB_ESC=$(echo "$PUB_DIR" |
+               sed -e 's#/home/chris/Public#pi@dietpi.local:/opt/shared#g' |
+               esc)
+HOME_ESC=$(echo "$HOME_DIR" | esc)
 
 # A note on rsync options:
 # - The "-s" option (AKA --protect-args) means we don't have to escape twice for

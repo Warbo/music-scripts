@@ -1,10 +1,11 @@
-{ bash, convmv, fail, file, runCommand, testData, withDeps, mkBin }:
+{ bash, convmv, fail, file, mkBin, music-scripts, runCommand, testData, withDeps
+}:
 
 with rec {
   dodgy_looking_paths = mkBin {
     name = "dodgy_looking_paths";
     file = ./dodgy_looking_paths.sh;
-    paths = [ bash convmv file ];
+    paths = [ bash convmv file music-scripts.esc ];
   };
 
   tests = {
