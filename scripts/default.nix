@@ -1,7 +1,9 @@
-{ newScope, nix-helpers, nixpkgs-lib, warbo-packages, warbo-utilities }:
+{ buildEnv, newScope, nix-helpers, nixpkgs-lib, warbo-packages, warbo-utilities
+, withDeps }:
 with rec {
+  inherit (builtins) attrValues filter;
   inherit (nix-helpers) nixDirsIn;
-  inherit (nixpkgs-lib) mapAttrs;
+  inherit (nixpkgs-lib) isDerivation mapAttrs;
 
   testData = call null ./testData.nix;
 
@@ -16,5 +18,12 @@ with rec {
     dir = ./.;
     filename = "default.nix";
   });
+
+  combined = withDeps [ check ] (buildEnv {
+    name = "music-scripts";
+    paths = filter isDerivation (attrValues music-scripts);
+  });
 };
-music-scripts
+combined // {
+  inherit music-scripts testData;
+}
