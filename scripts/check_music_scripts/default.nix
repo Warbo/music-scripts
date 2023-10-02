@@ -1,8 +1,8 @@
-{ fail, wrap, writeScript, xidel }:
+{ fail, mkBin, music-scripts, writeScript, wrap, xidel }:
 with {
   canSearchArtist = wrap {
     name = "can-get-discogs-artist";
-    paths = [ fail xidel ];
+    paths = [ fail music-scripts.check_on_discogs xidel ];
     script = ''
       mkdir -p Music/Commercial/M/Meat\ Loaf
       check_on_discogs
@@ -14,8 +14,11 @@ with {
     '';
   };
 };
-writeScript "check_music_scripts" ''
-  #!/usr/bin/env bash
-  set -ex
-  "${canSearchArtist}"
-''
+mkBin {
+  name = "check_music_scripts";
+  script = ''
+    #!/usr/bin/env bash
+    set -ex
+    "${canSearchArtist}"
+  '';
+}
