@@ -1,9 +1,9 @@
-{ bash, fail, runCommand, testData, withDeps, mkBin, xidel }:
+{ bash, fail, mkBin, music-scripts, runCommand, testData, withDeps, xidel }:
 
 with rec {
   albums_of = mkBin {
     name = "albums_of";
-    paths = [ bash fail xidel ];
+    paths = [ bash fail music-scripts.album_names_from xidel ];
     file = ./albums_of.sh;
   };
 
