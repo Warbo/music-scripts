@@ -1,4 +1,7 @@
-{ nix-helpers, nixpkgs, nixpkgs-lib, warbo-packages, warbo-utilities }:
+{ nix-helpers ? warbo-packages.nix-helpers, nixpkgs ? nix-helpers.nixpkgs
+, nixpkgs-lib ? nix-helpers.nixpkgs-lib
+, warbo-packages ? warbo-utilities.warbo-packages
+, warbo-utilities ? import ../warbo-utilities.nix }:
 with rec {
   inherit (builtins) attrValues filter;
   inherit (nix-helpers) nixDirsIn withDeps;
@@ -25,5 +28,5 @@ with rec {
   });
 };
 combined // {
-  inherit music-scripts testData;
+  inherit music-scripts nix-helpers testData warbo-packages warbo-utilities;
 }
