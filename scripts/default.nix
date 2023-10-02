@@ -3,9 +3,11 @@ with rec {
   inherit (nix-helpers) nixDirsIn;
   inherit (nixpkgs-lib) mapAttrs;
 
+  testData = call null ./testData.nix { };
+
   call = _: f:
     newScope (nix-helpers // warbo-packages // {
-      inherit music-scripts warbo-utilities;
+      inherit music-scripts testData warbo-utilities;
     }) f { };
 
   music-scripts = mapAttrs call (nixDirsIn {

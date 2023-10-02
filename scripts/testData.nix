@@ -1,5 +1,5 @@
 { attrsToDirs', bash, die, fail, ffmpeg, foldAttrs', lib, nothing, runCommand
-, sanitiseName, scripts, writeScript }:
+, sanitiseName, raw-scripts, writeScript }:
 
 with builtins;
 with lib; rec {
@@ -423,7 +423,7 @@ with lib; rec {
 
   mkAudioFile = { format, tags, post ? "" }:
     runCommand "audio-file.${format}" {
-      buildInputs = [ scripts ];
+      buildInputs = [ raw-scripts ];
       untagged = if hasAttr format emptyAudio then
         getAttr format emptyAudio
       else
