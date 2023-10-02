@@ -5,51 +5,40 @@
 
 with rec {
   inherit (builtins) attrValues readDir;
+  inherit (nixpkgs) newScope runCommand shellcheck;
   inherit (nixpkgs-lib) hasSuffix mapAttrs mapAttrs' removeSuffix;
+  inherit (nix-helpers) attrsToDirs' fail withDeps;
 
   extraArgs = result // nix-helpers // warbo-packages // {
     inherit warbo-utilities;
   };
 
-  callPackage = nixpkgs.newScope extraArgs;
+  callPackage = newScope extraArgs;
 
   result = {
     music-cmds = callPackage ./scripts { };
 
-    raw-scripts = extraArgs.withDeps (attrValues check)
-      (nixpkgs.runCommand "music-scripts" {
-        bin = extraArgs.attrsToDirs' "commands" extraArgs.music-cmds;
-        buildInputs = [ nixpkgs.makeWrapper ];
-      } ''
-        echo "Tying the knot between scripts" 1>&2
-        mkdir -p "$out/bin"
-        for P in "$bin"/*
-        do
-          F=$(readlink -f "$P")
-          N=$(basename    "$P")
-          cp "$F"  "$out/bin/$N"
-          chmod +x "$out/bin/$N"
-          wrapProgram "$out/bin/$N" --prefix PATH : "$out/bin"
-        done
-      '');
-
-    music-tests = callPackage ./tests { scripts = extraArgs.raw-scripts; };
-
-    music-scripts =
-      extraArgs.withDeps (extraArgs.allDrvsIn extraArgs.music-tests)
-      extraArgs.raw-scripts;
+    music-scripts = withDeps (attrValues check) (runCommand "music-scripts" {
+      bin = attrsToDirs' "commands" result.music-cmds;
+      buildInputs = [ nixpkgs.makeWrapper ];
+    } ''
+      echo "Tying the knot between scripts" 1>&2
+      mkdir -p "$out/bin"
+      for P in "$bin"/*
+      do
+        F=$(readlink -f "$P")
+        N=$(basename    "$P")
+        cp "$F"  "$out/bin/$N"
+        chmod +x "$out/bin/$N"
+        wrapProgram "$out/bin/$N" --prefix PATH : "$out/bin"
+      done
+    '');
   };
 
-  process = f:
-    if hasSuffix ".nix" f then
-      callPackage (./scripts + "/${f}") { }
-    else
-      "${./scripts}/${f}";
-
   check = mapAttrs (name: script:
-    nixpkgs.runCommand "check-${name}" {
+    runCommand "check-${name}" {
       inherit script;
-      buildInputs = [ extraArgs.fail nixpkgs.shellcheck ];
+      buildInputs = [ fail shellcheck ];
       LANG = "en_US.UTF-8";
     } ''
       set -e
@@ -81,7 +70,7 @@ with rec {
     '') extraArgs.music-cmds;
 };
 result.music-scripts // {
-  inherit (result) music-tests music-cmds raw-scripts;
+  inherit (result) music-cmds;
   helpers = { inherit nix-helpers warbo-packages warbo-utilities; };
   recurseForDerivations = true;
 }
