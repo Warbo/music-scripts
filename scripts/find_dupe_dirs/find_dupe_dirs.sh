@@ -22,7 +22,7 @@ function go {
         # We limit ourselves to directories (i.e. albums). We use "tail" to
         # remove the first line, since that will be the artist name, which would
         # get flagged as a dupe if they have a self-titled album or something.
-    done < <(find "$1" -type d | tail -n+2 | list_dupe_guesses.sh)
+    done < <(find "$1" -type d | tail -n+2 | list_dupe_guesses)
 }
 
 if [[ "$#" -eq 0 ]]

@@ -5,7 +5,7 @@ function process_artist() {
     INIT="$2"
     [[ -d "$ARTIST_DIR" ]] || return
     DIR_NAME=$(basename "$ARTIST_DIR")
-    NAME_COUNTRY=$(dir_to_artist_country.sh "$DIR_NAME")
+    NAME_COUNTRY=$(dir_to_artist_country "$DIR_NAME")
     unset DIR_NAME
 
     NAME=$(echo "$NAME_COUNTRY" | cut -f1)

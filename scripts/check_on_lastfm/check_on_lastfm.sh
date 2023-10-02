@@ -37,7 +37,7 @@ CACHE_DIR="$PWD/.lastfm_artist_cache"
 mkdir -p "$CACHE_DIR/$INIT"
 
     NAME=$(basename "$1")
-NAME_CNT=$(dir_to_artist_country.sh "$NAME")
+NAME_CNT=$(dir_to_artist_country "$NAME")
 BANDNAME=$(echo "$NAME_CNT" | cut -f1)
      CNT=$(echo "$NAME_CNT" | cut -f2)
 

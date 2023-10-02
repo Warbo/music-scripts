@@ -2,7 +2,7 @@
 set -e
 
 # For each artist directory in Music/Commercial/*, invoke
-# `check_on_metalarchive`. If that fails, invoke `check_on_lastfm.sh`. If both
+# `check_on_metalarchive`. If that fails, invoke `check_on_lastfm`. If both
 # fail, report the artist as not being found.
 
 function assertDir {
@@ -19,7 +19,7 @@ function checkArtistDir {
     then
         return 0
     fi
-    check_on_lastfm.sh "$ARTIST"
+    check_on_lastfm "$ARTIST"
 }
 
 for D1 in Music/Commercial/*

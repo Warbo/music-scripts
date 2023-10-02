@@ -15,7 +15,7 @@ set -e
 for A in "$1" "$2" "$3"
 do
     [[ -n "$A" ]] || {
-        echo "Usage: get_album.sh ARTIST ALBUM URL" 1>&2
+        echo "Usage: get_album ARTIST ALBUM URL" 1>&2
         exit 1
     }
 done

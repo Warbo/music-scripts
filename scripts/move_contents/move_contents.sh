@@ -2,7 +2,7 @@
 
 # Loop through a bunch of music directories. For each, look for files which
 # don't appear in Music/Commercial and move them over. Those files which appear
-# in both are output in a format suitable for checking by `compare_crcs.py`.
+# in both are output in a format suitable for checking by `compare_crcs`.
 
 function move_if_no_conflict {
     # Takes the initial (subdir of Music/Commercial), the directory we might be
