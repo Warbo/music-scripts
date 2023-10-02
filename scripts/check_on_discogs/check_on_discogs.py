@@ -78,20 +78,38 @@ def fuzzy_match(s1, s2):
     return s1.count(s2) > 0 or s2.count(s1) > 0
 
 def get_artist_id(initial, dirname):
+    # Look up search results
     potentials = potential_artist_ids(initial, dirname)
+
+    # Find "exact" matches (ignoring case and non-alphabetical characters)
     exacts     = [urlname for urlname in potentials.keys() \
                            if stub_string(urlname) == \
                               stub_string(strip_country(dirname))]
+
+    # Like 'exacts' but discards those which have extra characters (e.g. digits)
+    no_fluff   = [urlname for urlname in exacts \
+                           if set([c for c in urlname if c not in ' -']) == \
+                              set([c for c in dirname if c not in ' -'])]
+
+    # Fuzzy matches, e.g. where one name is included inside another
     matches    = [urlname for urlname in potentials.keys() \
                            if plausible_artist_name(dirname, urlname)]
+
+    # Unique exact matches are the best we can hope for; use them if found
     if len(exacts) == 1:
         return potentials[exacts[0]]
 
+    # We may have multiple exact matches, in which case narrow-down to no_fluff
+    if len(no_fluff) == 1:
+        return potentials[no_fluff[0]]
+
+    # We can't rely on exact matches; fall back to a unique fuzzy match
     if len(matches) == 0:
         raise Exception(repr({
             'error'      : 'No plausible discogs matches',
             'dirname'    : dirname,
             'initial'    : initial,
+            'exacts'     : exacts,
             'potentials' : potentials,
         }))
     if len(matches) > 1:
@@ -99,6 +117,7 @@ def get_artist_id(initial, dirname):
             'error'      : 'Multiple plausible discogs matches',
             'dirname'    : dirname,
             'initial'    : initial,
+            'exacts'     : exacts,
             'matches'    : matches,
             'potentials' : potentials,
         }))
