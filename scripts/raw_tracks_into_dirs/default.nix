@@ -3,5 +3,5 @@
 mkBin {
   name = "raw_tracks_into_dirs";
   file = ./raw_tracks_into_dirs.sh;
-  paths = [ music-scripts.esc ];
+  paths = [ music-scripts.esc music-scripts.move_command ];
 }

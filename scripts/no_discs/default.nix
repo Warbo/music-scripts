@@ -1,10 +1,10 @@
-{ bash, convmv, fail, runCommand, testData, withDeps, mkBin }:
+{ bash, convmv, fail, mkBin, music-scripts, runCommand, testData, withDeps }:
 
 with rec {
   no_discs = mkBin {
     name = "no_discs";
     file = ./no_discs.sh;
-    paths = [ bash convmv ];
+    paths = [ bash convmv music-scripts.move_command ];
   };
 
   tests = {

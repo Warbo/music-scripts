@@ -3,5 +3,5 @@
 mkBin {
   name = "check_tags";
   file = ./check_tags.sh;
-  paths = [ music-scripts.esc ];
+  paths = [ music-scripts.esc music-scripts.move_command ];
 }
