@@ -9,17 +9,15 @@ with rec {
   inherit (nixpkgs-lib) isDerivation;
   inherit (nix-helpers) withDeps;
 
-  extraArgs = nix-helpers // warbo-packages // {
-    inherit warbo-utilities music-cmds;
-  };
+  extraArgs = nix-helpers // warbo-packages // { inherit warbo-utilities; };
 
   callPackage = newScope extraArgs;
 
-  music-cmds = callPackage ./scripts { };
+  music-scripts = callPackage ./scripts { };
 
-  music-scripts = withDeps [ check ] (buildEnv {
+  combined = withDeps [ check ] (buildEnv {
     name = "music-scripts";
-    paths = filter isDerivation (attrValues music-cmds);
+    paths = filter isDerivation (attrValues music-scripts);
   });
 
   check = runCommand "check-music-scripts" {
@@ -51,7 +49,6 @@ with rec {
     [[ "$CODE" -eq 0 ]] && mkdir "$out"
   '';
 };
-music-scripts // {
-  inherit music-cmds;
-  helpers = { inherit nix-helpers warbo-packages warbo-utilities; };
+combined // {
+  inherit music-scripts nix-helpers warbo-packages warbo-utilities;
 }

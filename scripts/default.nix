@@ -3,7 +3,7 @@ with rec {
   inherit (nix-helpers) nixDirsIn;
   inherit (nixpkgs-lib) mapAttrs;
 
-  testData = call null ./testData.nix { };
+  testData = call null ./testData.nix;
 
   call = _: f:
     newScope (nix-helpers // warbo-packages // {
