@@ -61,4 +61,4 @@ with rec {
     '';
   };
 };
-withDeps (builtins.attrValues tests)
+withDeps (builtins.attrValues tests) dodgy_looking_paths
