@@ -8,7 +8,7 @@ with rec {
 
   tests = {
     alphabeticalDupes = runCommand "alphabetical-dupes" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail find_dupe_files ];
     } ''
       GOT=$(find_dupe_files "$testData")

@@ -9,7 +9,7 @@ with rec {
 
   tests = {
     findAll = runCommand "find-discs" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail no_discs ];
     } ''
       cd "$testData"

@@ -9,7 +9,7 @@ with rec {
 
   tests = {
     findAlbums = runCommand "find-albums-of" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail albums_of ];
       dupNor = ''
         From Norway One

@@ -9,7 +9,7 @@ with rec {
 
   tests = {
     equalsInValue = runCommand "test-equals-in-tag" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail dodgy_looking_tags ];
     } ''
       cd "$testData"
@@ -20,7 +20,7 @@ with rec {
     '';
 
     spaceStart = runCommand "test-whitespace-at-start" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail dodgy_looking_tags ];
     } ''
       cd "$testData"
@@ -33,7 +33,7 @@ with rec {
     '';
 
     spaceEnd = runCommand "test-whitespace-at-beginning" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail dodgy_looking_tags ];
     } ''
       cd "$testData"

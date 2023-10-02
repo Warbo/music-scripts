@@ -1,4 +1,4 @@
-{ emptyAudio, fail, python3, runCommand, withDeps, mkBin }:
+{ testData, fail, python3, runCommand, withDeps, mkBin }:
 
 with rec {
   set_tag = mkBin {
@@ -9,7 +9,7 @@ with rec {
 
   tests = {
     canSetTitle = runCommand "can-set-title" {
-      inherit (emptyAudio) mp3;
+      inherit (testData.emptyAudio) mp3;
       buildInputs = [ fail set_tag ];
     } ''
       cp -L "$mp3" ./file.mp3

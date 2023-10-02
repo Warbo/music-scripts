@@ -9,7 +9,7 @@ with rec {
 
   tests = {
     dodgyExtensions = runCommand "test-dodgy-extensions" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail dodgy_looking_paths ];
     } ''
       NOEXT='Music/Commercial/E/Extended/An Album/foo'
@@ -35,7 +35,7 @@ with rec {
     '';
 
     colons = runCommand "test-dodgy-colons" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail dodgy_looking_paths ];
     } ''
       pushd "$testData"

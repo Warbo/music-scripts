@@ -9,7 +9,7 @@ with rec {
 
   tests = {
     suggestAlbumDir = runCommand "test-suggest-album-dir" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail move_into_album_dirs ];
     } ''
       cd "$testData"
@@ -32,7 +32,7 @@ with rec {
     '';
 
     suggestWithoutDots = runCommand "test-suggest-without-dots" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail move_into_album_dirs ];
     } ''
       cd "$testData"
@@ -51,7 +51,7 @@ with rec {
     '';
 
     suggestWithoutColon = runCommand "test-suggest-without-colon" {
-      inherit testData;
+      inherit (testData) testData;
       buildInputs = [ fail move_into_album_dirs ];
     } ''
       cd "$testData"
