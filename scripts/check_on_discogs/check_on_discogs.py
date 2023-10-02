@@ -4,8 +4,8 @@ import os
 import subprocess
 import sys
 import time
-import urllib
-import urllib2
+from urllib.parse import quote
+from urllib.request import Request, urlopen
 
 user_agent = 'WarboTagFixer/1.0'
 
@@ -13,9 +13,9 @@ msg = lambda x: (sys.stderr.write(repr(x)), sys.stderr.flush(), None)[-1]
 
 def get(url):
     time.sleep(3)  # Ensures we never make more than 25 requests per minute
-    req = urllib2.build_opener()
-    req.addheaders = [('User-Agent', user_agent)]
-    return req.open(url).read()
+    request = Request(url, headers={'User-Agent': user_agent})
+    response = urlopen(request)
+    return response.read()
 
 def artist_file_name(initial, name):
     '''Get file path to a particular artist's cache. Creates dir if it doesn't
@@ -32,12 +32,12 @@ def artist_file_name(initial, name):
 
 def download_artist_search(initial, name):
     url     = ''.join(['https://www.discogs.com/search/?q=',
-                       urllib.quote(strip_country(name))   ,
+                       quote(strip_country(name))   ,
                        '&type=artist'                      ])
     content = get(url)
 
     with open(artist_file_name(initial, name), 'w') as f:
-        f.write(content)
+        f.write(content.decode('utf-8'))
 
 def get_artist_search(initial, name, download=True):
     '''Get the content of an artist search. If download is True (default), we
@@ -57,7 +57,7 @@ def potential_artist_ids(initial, name):
     output  = subprocess.check_output([os.getenv('searchedNames'),
                                        artist_file_name(initial, name)])
     result  = {}
-    for line in output.split('\n'):
+    for line in output.decode('utf-8').split('\n'):
         if len(line.strip()) == 0: continue
         artistid, name = line.split('\t')
         result[name]   = artistid
@@ -114,4 +114,4 @@ for initial in os.listdir('Music/Commercial'):
         try:
             get_artist_id(initial, artist)
         except Exception as e:
-            msg({'error': e.message})
+            msg({'error': e})

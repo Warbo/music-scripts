@@ -10,7 +10,6 @@ with {
       [[ -f "$F" ]] || fail "Didn't make '$F'"
       xidel -s - -e '//img/@alt' < "$F" | grep 'Meat Loaf' > /dev/null ||
         fail "Didn't spot 'Meat Loaf' img alt: $(cat "$F")"
-      mkdir "$out"
     '';
   };
 };
