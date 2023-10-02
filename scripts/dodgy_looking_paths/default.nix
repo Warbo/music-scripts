@@ -5,7 +5,7 @@ with rec {
   dodgy_looking_paths = mkBin {
     name = "dodgy_looking_paths";
     file = ./dodgy_looking_paths.sh;
-    paths = [ bash convmv file music-scripts.esc ];
+    paths = [ bash convmv file music-scripts.esc music-scripts.move_command ];
   };
 
   tests = {
