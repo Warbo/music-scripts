@@ -1,9 +1,10 @@
-{ fail, runCommand, testData, withDeps, mkBin }:
+{ fail, mkBin, music-scripts, runCommand, testData, withDeps }:
 
 with rec {
   find_dupe_files = mkBin {
     name = "find_dupe_files";
     file = ./find_dupe_files.sh;
+    paths = [ music-scripts.compare_crcs music-scripts.guess_dupes ];
   };
 
   tests = {
