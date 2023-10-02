@@ -1,7 +1,7 @@
-{ bash, convmv, fail, runCommand, testData, withDeps, wrap }:
+{ bash, convmv, fail, runCommand, testData, withDeps, mkBin }:
 
 with rec {
-  no_discs = wrap {
+  no_discs = mkBin {
     name = "no_discs";
     file = ./no_discs.sh;
     paths = [ bash convmv ];

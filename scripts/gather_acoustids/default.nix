@@ -1,6 +1,6 @@
-{ bash, chromaprint, wrap }:
+{ bash, chromaprint, mkBin }:
 
-wrap {
+mkBin {
   name = "gather_acoustids";
   file = ./gather_acoustids.sh;
   paths = [ bash chromaprint ];

@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "find_untagged";
   file = ./find_untagged.sh;
 }

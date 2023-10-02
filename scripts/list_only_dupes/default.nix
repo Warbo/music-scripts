@@ -1,6 +1,6 @@
-{ bash, fdupes, wrap }:
+{ bash, fdupes, mkBin }:
 
-wrap {
+mkBin {
   name = "list_only_dupes";
   file = ./list_only_dupes.sh;
   paths = [ bash fdupes ];

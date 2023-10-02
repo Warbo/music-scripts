@@ -1,7 +1,7 @@
-{ bash, convmv, fail, file, runCommand, testData, withDeps, wrap }:
+{ bash, convmv, fail, file, runCommand, testData, withDeps, mkBin }:
 
 with rec {
-  dodgy_looking_paths = wrap {
+  dodgy_looking_paths = mkBin {
     name = "dodgy_looking_paths";
     file = ./dodgy_looking_paths.sh;
     paths = [ bash convmv file ];

@@ -1,7 +1,7 @@
-{ bash, fail, python3, runCommand, testData, withDeps, wrap }:
+{ bash, fail, python3, runCommand, testData, withDeps, mkBin }:
 
 with rec {
-  dodgy_looking_tags = wrap {
+  dodgy_looking_tags = mkBin {
     name = "dodgy_looking_tags";
     paths = [ bash fail (python3.withPackages (p: [ p.mutagen ])) ];
     file = ./dodgy_looking_tags.sh;

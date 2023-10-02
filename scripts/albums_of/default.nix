@@ -1,7 +1,7 @@
-{ bash, fail, runCommand, testData, withDeps, wrap, xidel }:
+{ bash, fail, runCommand, testData, withDeps, mkBin, xidel }:
 
 with rec {
-  albums_of = wrap {
+  albums_of = mkBin {
     name = "albums_of";
     paths = [ bash fail xidel ];
     file = ./albums_of.sh;

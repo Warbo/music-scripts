@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "remove_empties";
   file = ./remove_empties.sh;
 }

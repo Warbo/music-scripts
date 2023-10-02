@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "no_dodgy_names";
   file = ./no_dodgy_names.sh;
 }

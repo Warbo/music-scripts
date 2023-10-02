@@ -1,7 +1,7 @@
-{ bash, fail, runCommand, testData, withDeps, wrap }:
+{ bash, fail, runCommand, testData, withDeps, mkBin }:
 
 with rec {
-  move_into_album_dirs = wrap {
+  move_into_album_dirs = mkBin {
     name = "move_into_album_dirs";
     file = ./move_into_album_dirs.sh;
     paths = [ bash fail ];

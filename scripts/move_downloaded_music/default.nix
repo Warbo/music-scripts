@@ -1,7 +1,7 @@
-{ attrsToDirs', bash, fetchgit, rsync, warbo-utilities, wrap }:
+{ attrsToDirs', bash, fetchgit, rsync, warbo-utilities, mkBin }:
 
 with { wu = warbo-utilities.warbo-utilities-src; };
-wrap {
+mkBin {
   name = "album_names_from";
   paths = [
     bash

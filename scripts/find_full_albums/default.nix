@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "find_full_albums";
   file = ./find_full_albums.sh;
 }

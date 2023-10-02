@@ -1,6 +1,6 @@
-{ bash, wrap, xidel }:
+{ bash, mkBin, xidel }:
 
-wrap {
+mkBin {
   name = "tracks_from";
   paths = [ bash xidel ];
   vars = {

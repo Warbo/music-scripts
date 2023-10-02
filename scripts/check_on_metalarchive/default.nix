@@ -1,6 +1,6 @@
-{ bash, curl, fail, jq, wrap, xidel }:
+{ bash, curl, fail, jq, mkBin, xidel }:
 
-wrap {
+mkBin {
   name = "check_on_metalarchive";
   paths = [ bash curl fail jq xidel ];
   file = ./check_on_metalarchive.sh;

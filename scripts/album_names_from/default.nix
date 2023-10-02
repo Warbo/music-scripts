@@ -1,6 +1,6 @@
-{ bash, wrap, xidel }:
+{ bash, mkBin, xidel }:
 
-wrap {
+mkBin {
   name = "album_names_from";
   paths = [ bash xidel ];
   script = ''

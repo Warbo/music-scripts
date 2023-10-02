@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "free_out_of_commercial";
   file = ./free_out_of_commercial.sh;
 }

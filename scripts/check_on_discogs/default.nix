@@ -1,6 +1,6 @@
-{ bash, cacert, python3, wrap, xidel }:
+{ bash, cacert, python3, mkBin, wrap, xidel }:
 
-wrap {
+mkBin {
   name = "check_on_discogs";
   file = ./check_on_discogs.py;
   paths = [ python3 ];

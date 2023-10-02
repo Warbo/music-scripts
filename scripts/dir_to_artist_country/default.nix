@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "dir_to_artist_country";
   file = ./dir_to_artist_country.sh;
 }

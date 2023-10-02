@@ -1,6 +1,6 @@
-{ bash, fail, wrap }:
+{ bash, fail, mkBin }:
 
-wrap {
+mkBin {
   name = "move_command";
   paths = [ bash fail ];
   file = ./move_command.sh;

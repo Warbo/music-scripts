@@ -1,6 +1,6 @@
-{ python3, wrap }:
+{ python3, mkBin }:
 
-wrap {
+mkBin {
   name = "fix-music";
   file = ./fix-music.py;
   paths = [ python3 ];

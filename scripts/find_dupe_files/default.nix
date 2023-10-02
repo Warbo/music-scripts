@@ -1,7 +1,7 @@
-{ fail, runCommand, testData, withDeps, wrap }:
+{ fail, runCommand, testData, withDeps, mkBin }:
 
 with rec {
-  find_dupe_files = wrap {
+  find_dupe_files = mkBin {
     name = "find_dupe_files";
     file = ./find_dupe_files.sh;
   };

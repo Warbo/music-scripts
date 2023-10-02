@@ -1,7 +1,7 @@
-{ emptyAudio, fail, python3, runCommand, withDeps, wrap }:
+{ emptyAudio, fail, python3, runCommand, withDeps, mkBin }:
 
 with rec {
-  set_tag = wrap {
+  set_tag = mkBin {
     name = "set_tag";
     paths = [ (python3.withPackages (p: [ p.mutagen ])) ];
     file = ./set_tag.py;

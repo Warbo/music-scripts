@@ -1,6 +1,6 @@
-{ bash, python3, wrap }:
+{ bash, python3, mkBin }:
 
-wrap {
+mkBin {
   name = "tags_of";
   paths = [ bash (python3.withPackages (p: [ p.mutagen ])) ];
   script = ''

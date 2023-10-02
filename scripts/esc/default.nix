@@ -1,6 +1,6 @@
-{ wrap }:
+{ mkBin }:
 
-wrap {
+mkBin {
   name = "esc";
   file = ./esc.sh;
 }

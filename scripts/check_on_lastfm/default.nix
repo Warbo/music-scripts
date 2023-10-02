@@ -1,6 +1,6 @@
-{ bash, curl, fail, wrap }:
+{ bash, curl, fail, mkBin }:
 
-wrap {
+mkBin {
   name = "check_on_lastfm";
   paths = [ bash curl fail ];
   file = ./check_on_lastfm.sh;

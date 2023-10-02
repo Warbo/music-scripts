@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "sync_for_tagging";
   file = ./sync_for_tagging.sh;
 }

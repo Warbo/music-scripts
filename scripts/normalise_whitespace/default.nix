@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "normalise_whitespace";
   file = ./normalise_whitespace.sh;
 }

@@ -1,6 +1,6 @@
-{ bash, wrap }:
+{ bash, mkBin }:
 
-wrap {
+mkBin {
   name = "find_dupe_artists";
   file = ./find_dupe_artists.sh;
 }

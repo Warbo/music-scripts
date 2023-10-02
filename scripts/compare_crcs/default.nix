@@ -1,6 +1,6 @@
-{ ffmpeg, python3, wrap }:
+{ ffmpeg, python3, mkBin }:
 
-wrap {
+mkBin {
   name = "compare_crcs";
   file = ./compare_crcs.py;
   paths = [ ffmpeg.bin python3 ];
