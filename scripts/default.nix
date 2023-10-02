@@ -5,6 +5,8 @@ with rec {
 
   testData = call null ./testData.nix;
 
+  check = call null ./check.nix;
+
   call = _: f:
     newScope (nix-helpers // warbo-packages // {
       inherit music-scripts testData warbo-utilities;
