@@ -36,26 +36,26 @@ def process_artist(path):
     init = path.split('/')[-2]
 
     # Simple checks, which don't need any file or Web info
-    run(['delete_crap.sh'         , path])
-    run(['dodgy_formats'          , path])
-    run(['dodgy_looking_paths'    , path])
-    run(['find_dupe_dirs.sh'      , path])
-    run(['find_dupe_files'        , path])
-    run(['no_discs'               , path])
-    run(['find_full_albums.sh'    , path])
-    run(['strip_youtube_names.sh' , path])
-    run(['strip_dodgy_words'      , path])
-    run(['normalise_whitespace.sh', path])
+    run(['delete_crap'         , path])
+    run(['dodgy_formats'       , path])
+    run(['dodgy_looking_paths' , path])
+    run(['find_dupe_dirs'      , path])
+    run(['find_dupe_files'     , path])
+    run(['no_discs'            , path])
+    run(['find_full_albums'    , path])
+    run(['strip_youtube_names' , path])
+    run(['strip_dodgy_words'   , path])
+    run(['normalise_whitespace', path])
 
     # More expensive checks, which look at file contents
-    run(['remove_empties.sh'   , path])
+    run(['remove_empties'      , path])
     run(['list_only_dupes'     , path])
     run(['dodgy_looking_tags'  , path])
-    run(['find_untagged.sh'    , path])
+    run(['find_untagged'       , path])
     run(['move_into_album_dirs', path])
 
     # This should run after move_into_album_dirs (its comments explain why)
-    run(['find_dupe_names.sh', path])
+    run(['find_dupe_names', path])
 
     # Get info from the Web, if available; these should cache themselves
     run(['check_on_metalarchive', path, init])
@@ -66,9 +66,9 @@ def process_artist(path):
     run(['gather_acoustids', path])  # AcoustID is robust against encoding
 
     # Use the info we've gathered
-    run(['find_dupe_acoustids.py', path      ])
-    run(['available_albums'      , path      ])
-    run(['available_tracks'      , path, init])
+    run(['find_dupe_acoustids', path      ])
+    run(['available_albums'   , path      ])
+    run(['available_tracks'   , path, init])
 
     return
 
@@ -99,6 +99,6 @@ if not process_stdin():
     msg('Empty stdin, working through artists randomly\n')
     for initial in scramble(listdir(root)):
         init = root + '/' + initial
-        run(['dodgy_artist_paths.sh', init])
+        run(['dodgy_artist_paths', init])
         for artist in scramble(listdir(init)):
             process_artist(init + '/' + artist)
