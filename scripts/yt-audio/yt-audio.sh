@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 set -e
-youtube-dl -x -f bestaudio "$@"
+yt-dlp -x -f bestaudio "$@"
